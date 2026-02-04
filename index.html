@@ -2175,22 +2175,31 @@
         const floatingCta = document.getElementById('floatingCta');
         const heroSection = document.querySelector('.hero');
         const diagnosisSection = document.querySelector('.diagnosis');
+        const packagesSection = document.querySelector('.packages');
         const footerSection = document.querySelector('.footer');
 
         function handleScroll() {
             const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
             const diagnosisTop = diagnosisSection.offsetTop;
             const diagnosisBottom = diagnosisTop + diagnosisSection.offsetHeight;
+            const packagesTop = packagesSection.offsetTop;
+            const packagesBottom = packagesTop + packagesSection.offsetHeight;
             const footerTop = footerSection.offsetTop;
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
 
-            // 설문지 영역에 "확실하게" 들어갔을 때만 숨기기
-            // 조건: 스크롤 위치가 설문지 시작점 + 200px 이상이고, 설문지 끝나기 전
+            // 각 영역 판단
+            const isInHeroArea = scrollY < heroBottom;
             const isInDiagnosisArea = scrollY > diagnosisTop + 200 && scrollY < diagnosisBottom - 300;
+            const isInPackagesArea = scrollY >= diagnosisBottom && scrollY + windowHeight < footerTop + 100;
+            const isInFooterArea = scrollY + windowHeight >= footerTop + 100;
 
-            // 히어로 섹션을 지나고, 설문지 영역이 아니고, 푸터에 도달하기 전에만 표시
-            if (scrollY > heroBottom - 100 && !isInDiagnosisArea && scrollY + windowHeight < footerTop + 100) {
+            // 1. 히어로 영역: 표시
+            // 2. 히어로 ~ 설문지 사이: 숨김
+            // 3. 설문지 영역: 숨김
+            // 4. 패키지 섹션: 표시
+            // 5. 푸터: 숨김
+            if (isInHeroArea || isInPackagesArea) {
                 floatingCta.classList.add('visible');
             } else {
                 floatingCta.classList.remove('visible');
