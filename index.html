@@ -2174,16 +2174,21 @@
         // 플로팅 CTA 스크롤 이벤트
         const floatingCta = document.getElementById('floatingCta');
         const heroSection = document.querySelector('.hero');
+        const diagnosisSection = document.querySelector('.diagnosis');
         const footerSection = document.querySelector('.footer');
 
         function handleScroll() {
             const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const diagnosisTop = diagnosisSection.offsetTop;
+            const diagnosisBottom = diagnosisTop + diagnosisSection.offsetHeight;
             const footerTop = footerSection.offsetTop;
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
 
-            // 히어로 섹션을 지나고, 푸터에 도달하기 전에만 표시
-            if (scrollY > heroBottom - 100 && scrollY + windowHeight < footerTop + 100) {
+            // 히어로 섹션을 지나고, 설문지 영역이 아니고, 푸터에 도달하기 전에만 표시
+            const isInDiagnosisArea = scrollY + windowHeight > diagnosisTop && scrollY < diagnosisBottom;
+
+            if (scrollY > heroBottom - 100 && !isInDiagnosisArea && scrollY + windowHeight < footerTop + 100) {
                 floatingCta.classList.add('visible');
             } else {
                 floatingCta.classList.remove('visible');
