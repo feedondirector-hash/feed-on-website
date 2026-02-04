@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEED-ON | 비즈니스의 가치를 바꾸는 시각적 전략</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1e1e1e;
+            --accent-orange: #F58529;
+            --accent-orange-dark: #d9741f;
+            --text-primary: #ffffff;
+            --text-secondary: #d0d0d0;
+            --text-muted: #888888;
+            --border-subtle: rgba(255, 255, 255, 0.12);
+            --border-orange: rgba(245, 133, 41, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* 노이즈 오버레이 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* ===== 헤더 ===== */
+        .header {
+            position: relative;
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(245, 133, 41, 0.08) 0%, transparent 100%);
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: var(--accent-orange);
+            filter: blur(150px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            letter-spacing: 12px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .logo span {
+            color: var(--accent-orange);
+        }
+
+        .slogan {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        /* ===== 히어로 섹션 ===== */
+        .hero {
+            position: relative;
+            padding: 80px 20px 100px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            background: var(--accent-orange);
+            filter: blur(120px);
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(245, 133, 41, 0.15);
+            border: 1px solid var(--border-orange);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--accent-orange);
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .hero-title span {
+            color: var(--accent-orange);
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .hero-subtitle strong {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--accent-orange);
+            margin: 40px auto;
+        }
+
+        .hero-slot {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 40px;
+            padding: 12px 24px;
+            background: rgba(245, 133, 41, 0.1);
+            border: 1px solid var(--border-orange);
+        }
+
+        .hero-slot-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .hero-slot-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: var(--accent-orange);
+            letter-spacing: 2px;
+        }
+
+        /* ===== 진단 섹션 ===== */
+        .diagnosis {
+            position: relative;
+            padding: 60px 20px 80px;
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .diagnosis-note {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: -8px;
+            margin-bottom: 32px;
+        }
+
+        .diagnosis-note strong {
+            color: var(--accent-orange);
+        }
+
+        .diagnosis::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -200px;
+            width: 400px;
+            height: 600px;
+            background: #8B4513;
+            filter: blur(150px);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .section-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 6px;
+            color: var(--accent-orange);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        .section-title span {
+            color: var(--accent-orange);
+        }
+
+        /* 멀티스텝 폼 */
+        .form-container {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 32px 24px;
+        }
+
+        /* 프로그레스 바 */
+        .progress-container {
+            margin-bottom: 32px;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-orange);
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-message {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(245, 133, 41, 0.1);
+            border-left: 3px solid var(--accent-orange);
+            font-size: 13px;
+            color: var(--accent-orange);
+            display: none;
+        }
+
+        .progress-message.show {
+            display: block;
+        }
+
+        .step-indicator {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: var(--accent-orange);
+        }
+
+        .step-title {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* 폼 스텝 */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-header {
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .step-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+        }
+
+        .step-name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .step-desc {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .question-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(245, 133, 41, 0.15);
+            color: var(--accent-orange);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        /* 폼 필드 */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .form-label small {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 2px rgba(245, 133, 41, 0.15);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23888888' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .form-select option {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* 라디오/체크박스 그룹 */
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option:hover,
+        .checkbox-option:hover {
+            border-color: var(--accent-orange);
+        }
+
+        .radio-option input,
+        .checkbox-option input {
+            display: none;
+        }
+
+        .radio-option input:checked + .radio-custom,
+        .checkbox-option input:checked + .checkbox-custom {
+            border-color: var(--accent-orange);
+            background: var(--accent-orange);
+        }
+
+        .radio-option input:checked ~ .option-text,
+        .checkbox-option input:checked ~ .option-text {
+            color: var(--text-primary);
+        }
+
+        .radio-custom,
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-muted);
+            margin-right: 12px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .radio-custom {
+            border-radius: 50%;
+        }
+
+        .radio-custom::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .radio-option input:checked + .radio-custom::after {
+            opacity: 1;
+        }
+
+        .checkbox-custom::after {
+            content: '✓';
+            color: var(--bg-primary);
+            font-size: 12px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .checkbox-option input:checked + .checkbox-custom::after {
+            opacity: 1;
+        }
+
+        .option-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .option-text strong {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        .option-text em {
+            color: var(--text-muted);
+            font-style: normal;
+            font-size: 12px;
+        }
+
+        /* 제출 안내문 */
+        .submit-notice {
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .submit-notice strong {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        /* 버튼 */
+        .btn-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-prev {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+        }
+
+        .btn-prev:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+
+        .btn-next,
+        .btn-submit {
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+        }
+
+        .btn-next:hover,
+        .btn-submit:hover {
+            background: var(--accent-orange-dark);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 에러 메시지 */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .form-group.error .form-input,
+        .form-group.error .form-textarea,
+        .form-group.error .form-select {
+            border-color: #ff6b6b;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* ===== 패키지 섹션 ===== */
+        .packages {
+            position: relative;
+            padding: 80px 20px;
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+
+        .packages::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: var(--accent-orange);
+            filter: blur(150px);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .packages-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .package-intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .package-intro-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .package-intro-text strong {
+            color: var(--accent-orange);
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .package-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 32px 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            border-color: var(--border-orange);
+            transform: translateY(-4px);
+        }
+
+        .package-card.featured {
+            border-color: var(--accent-orange);
+        }
+
+        .package-card.featured::before {
+            content: 'BEST';
+            position: absolute;
+            top: -1px;
+            right: 24px;
+            padding: 6px 16px;
+            background: var(--accent-orange);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--bg-primary);
+        }
+
+        .package-name {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .package-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .package-price {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .package-price-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent-orange);
+        }
+
+        .package-price-unit {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .package-features {
+            list-style: none;
+        }
+
+        .package-features li {
+            position: relative;
+            padding-left: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .package-features li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        .package-features li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .package-target {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(245, 133, 41, 0.08);
+            border-left: 3px solid var(--accent-orange);
+        }
+
+        .package-target-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--accent-orange);
+            margin-bottom: 6px;
+        }
+
+        .package-target-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            position: relative;
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(0deg, rgba(245, 133, 41, 0.08) 0%, transparent 100%);
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 400px;
+            background: var(--accent-orange);
+            filter: blur(150px);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .footer-question {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .footer-question span {
+            color: var(--accent-orange);
+        }
+
+        .footer-subtext {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .footer-cta {
+            display: inline-block;
+            padding: 18px 48px;
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .footer-cta:hover {
+            background: var(--accent-orange-dark);
+            transform: translateY(-2px);
+        }
+
+        .footer-copyright {
+            margin-top: 60px;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* ===== 모달 ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-orange);
+            padding: 48px 32px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            background: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .modal-text strong {
+            color: var(--accent-orange);
+        }
+
+        .modal-close {
+            padding: 14px 36px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        /* ===== 긴급성 배너 ===== */
+        .urgency-banner {
+            background: linear-gradient(135deg, rgba(245, 133, 41, 0.15) 0%, rgba(139, 69, 19, 0.1) 100%);
+            border-top: 1px solid var(--border-orange);
+            border-bottom: 1px solid var(--border-orange);
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        .urgency-slot {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent-orange);
+            margin-bottom: 20px;
+        }
+
+        .slot-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .slot-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--accent-orange);
+            letter-spacing: 2px;
+        }
+
+        .slot-status {
+            padding: 4px 10px;
+            background: #ff4444;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .urgency-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .urgency-text strong {
+            color: var(--accent-orange);
+        }
+
+        .urgency-notice {
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== 감사 프로세스 섹션 ===== */
+        .audit-process {
+            position: relative;
+            padding: 80px 20px;
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+
+        .audit-process::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: var(--accent-orange);
+            filter: blur(150px);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .audit-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .audit-intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .audit-intro-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-top: 16px;
+        }
+
+        .audit-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .audit-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 28px 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .audit-step:hover {
+            border-color: var(--border-orange);
+            transform: translateX(4px);
+        }
+
+        .audit-step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .audit-step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            color: var(--bg-primary);
+        }
+
+        .audit-step-title {
+            flex: 1;
+        }
+
+        .audit-step-en {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--accent-orange);
+            margin-bottom: 4px;
+        }
+
+        .audit-step-kr {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .audit-step-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .audit-step-desc strong {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        .audit-intro-text strong {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        .audit-step-point {
+            display: inline-block;
+            padding: 8px 14px;
+            background: rgba(245, 133, 41, 0.1);
+            font-size: 12px;
+            color: var(--accent-orange);
+        }
+
+        .audit-step-point::before {
+            content: '핵심 →';
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        /* ===== 선정주의 섹션 ===== */
+        .selectivity {
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .selectivity-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .selectivity-title {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .selectivity-title span {
+            color: var(--accent-orange);
+        }
+
+        .selectivity-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .selectivity-text strong {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        /* ===== 플로팅 CTA ===== */
+        .floating-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(0deg, var(--bg-primary) 80%, transparent 100%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .floating-cta.visible {
+            transform: translateY(0);
+        }
+
+        .floating-cta-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .floating-cta-text strong {
+            color: var(--accent-orange);
+        }
+
+        .floating-cta-btn {
+            width: 100%;
+            max-width: 360px;
+            padding: 16px 32px;
+            background: var(--accent-orange);
+            color: var(--bg-primary);
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cta-btn:hover {
+            background: var(--accent-orange-dark);
+        }
+
+        /* ===== 반응형 - 태블릿 이상 ===== */
+        @media (min-width: 768px) {
+            .header {
+                padding: 80px 40px;
+            }
+
+            .logo {
+                font-size: 72px;
+                letter-spacing: 16px;
+            }
+
+            .slogan {
+                font-size: 18px;
+            }
+
+            .hero {
+                padding: 100px 40px 120px;
+            }
+
+            .hero-title {
+                font-size: 42px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .urgency-banner {
+                padding: 40px;
+            }
+
+            .urgency-slot {
+                padding: 16px 36px;
+            }
+
+            .slot-count {
+                font-size: 32px;
+            }
+
+            .audit-process {
+                padding: 100px 40px;
+            }
+
+            .audit-step {
+                padding: 32px;
+            }
+
+            .audit-step-kr {
+                font-size: 18px;
+            }
+
+            .selectivity {
+                padding: 80px 40px;
+            }
+
+            .selectivity-title {
+                font-size: 24px;
+            }
+
+            .floating-cta {
+                flex-direction: row;
+                justify-content: center;
+                padding: 20px 40px;
+            }
+
+            .floating-cta-text {
+                font-size: 14px;
+            }
+
+            .floating-cta-btn {
+                width: auto;
+                max-width: none;
+            }
+
+            .diagnosis {
+                padding: 80px 40px 100px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .form-container {
+                padding: 48px 40px;
+            }
+
+            .package-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .package-card {
+                padding: 36px 28px;
+            }
+
+            .footer-question {
+                font-size: 28px;
+            }
+        }
+
+        /* ===== 반응형 - 데스크탑 ===== */
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .diagnosis {
+                max-width: 700px;
+            }
+
+            .form-container {
+                padding: 56px 48px;
+            }
+
+            .package-card {
+                padding: 40px 32px;
+            }
+
+            .footer {
+                padding: 100px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <h1 class="logo">FEED<span>-</span>ON</h1>
+        <p class="slogan">비즈니스의 가치를 바꾸는 시각적 전략</p>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-badge">BRAND DIAGNOSIS</div>
+        <h2 class="hero-title">
+            열심히 하는 사장님일수록<br>
+            <span>왜 안 팔릴까요?</span>
+        </h2>
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">
+            방향 없는 노력은 <strong>'성실한 삽질'</strong>입니다.<br>
+            지금 사장님의 피드가 노력을 갉아먹고 있지는 않은지,<br>
+            전문 디렉터가 정밀 진단해 드립니다.
+        </p>
+        <div class="hero-slot">
+            <span class="hero-slot-label">2월 진단 가능</span>
+            <span class="hero-slot-count">1/5</span>
+        </div>
+    </section>
+
+    <!-- 진단 섹션 -->
+    <section class="diagnosis" id="diagnosis">
+        <div class="section-label">THE DIAGNOSIS</div>
+        <h3 class="section-title">
+            <span>브랜드 정밀 진단</span> 설문지
+        </h3>
+        <p class="diagnosis-note">
+            디렉터가 직접 분석하고 설계하기 때문에, 매달 <strong>5개 브랜드</strong>만 진단합니다.
+        </p>
+
+        <div class="form-container">
+            <!-- 프로그레스 바 -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+                </div>
+                <div class="progress-text">
+                    <span class="step-indicator" id="stepIndicator">STEP 01 / 04</span>
+                    <span class="step-title" id="stepTitle">비즈니스 기본 정보</span>
+                </div>
+                <div class="progress-message" id="progressMessage"></div>
+            </div>
+
+            <!-- Google Apps Script 연동 폼 -->
+            <form id="diagnosisForm">
+                
+                <!-- Step 1: 비즈니스 기본 정보 -->
+                <div class="form-step active" data-step="1">
+                    <div class="step-header">
+                        <div class="step-number">STEP 01</div>
+                        <h4 class="step-name">비즈니스 기본 정보</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            성함
+                        </label>
+                        <input type="text" name="name" class="form-input" placeholder="홍길동" required>
+                        <div class="error-message">성함을 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            연락처
+                        </label>
+                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                        <div class="error-message">연락처를 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            인스타그램 계정 주소
+                            <small>현재 운영 중인 비즈니스 계정 (분석용)</small>
+                        </label>
+                        <input type="text" name="instagram" class="form-input" placeholder="@yourstore 또는 instagram.com/yourstore" required>
+                        <div class="error-message">인스타그램 계정을 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            비즈니스 카테고리
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="business_category" value="F&B" required>
+                                <span class="radio-custom"></span>
+                                <span class="option-text"><strong>[F&B]</strong> 음식점, 카페, 주점</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="business_category" value="Beauty/Care">
+                                <span class="radio-custom"></span>
+                                <span class="option-text"><strong>[Beauty/Care]</strong> 뷰티샵, 네일샵, 피부관리, 헤어샵</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="business_category" value="Fitness">
+                                <span class="radio-custom"></span>
+                                <span class="option-text"><strong>[Fitness]</strong> PT샵, 헬스장, 필라테스, 요가</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="business_category" value="Service/Other">
+                                <span class="radio-custom"></span>
+                                <span class="option-text"><strong>[Service/Other]</strong> 교육, 상담, 전문직, 커머스 등</span>
+                            </label>
+                        </div>
+                        <div class="error-message">비즈니스 카테고리를 선택해주세요.</div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: 현재 상태 진단 -->
+                <div class="form-step" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">STEP 02</div>
+                        <h4 class="step-name">현재 상태 진단</h4>
+                        <p class="step-desc">사장님의 인스타그램이 겪고 있는 문제를 정확히 진단합니다.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            방문자의 이탈 이유
+                            <small>가장 해당되는 항목 1개 선택</small>
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="bounce_reason" value="3초 이탈 문제" required>
+                                <span class="radio-custom"></span>
+                                <span class="option-text">프로필 접속은 하는데 팔로우나 문의로 안 이어짐 <em>(3초 이탈 문제)</em></span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="bounce_reason" value="브랜드 위계 문제">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">피드 톤앤매너가 중구난방이라 전문성이 안 느껴짐 <em>(브랜드 위계 문제)</em></span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="bounce_reason" value="수익화 슬롯 부재">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">게시물은 꾸준히 올리는데 매출과 상관없는 내용뿐임 <em>(수익화 슬롯 부재)</em></span>
+                            </label>
+                        </div>
+                        <div class="error-message">이탈 이유를 선택해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            현재 가장 큰 고민은 무엇입니까?
+                            <small>복수 선택 가능</small>
+                        </label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="concerns" value="신규 고객 유입 부족">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text">신규 고객 유입 부족</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="concerns" value="예약 문의 저조">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text">예약 문의 저조</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="concerns" value="브랜드 이미지 고급화 필요">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text">브랜드 이미지 고급화 필요</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="concerns" value="광고 효율 저하">
+                                <span class="checkbox-custom"></span>
+                                <span class="option-text">광고 효율 저하</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
+                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: 업종별 맞춤형 핵심 질문 -->
+                <div class="form-step" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">STEP 03</div>
+                        <h4 class="step-name">업종별 핵심 진단</h4>
+                        <p class="step-desc">선택하신 업종에 맞는 핵심 질문입니다.</p>
+                    </div>
+
+                    <!-- F&B 질문 -->
+                    <div class="form-group category-question" id="question-fnb" style="display: none;">
+                        <label class="form-label">
+                            <span class="question-category">[F&B 전용 진단]</span>
+                            고객이 사진 한 장으로 음식의 '질감'과 매장의 '분위기'를 즉각 체감하고 있습니까?
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="예, 확실히 전달되고 있음">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">예, 확실히 전달되고 있음</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="보통, 잘 모르겠음">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">보통, 잘 모르겠음</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="아니오, 개선이 필요함">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">아니오, 개선이 필요함</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Beauty/Care & Fitness 질문 -->
+                    <div class="form-group category-question" id="question-beauty-fitness" style="display: none;">
+                        <label class="form-label">
+                            <span class="question-category">[Beauty/Fitness 전용 진단]</span>
+                            원장님(트레이너)의 전문성을 입증할 '비포애프터'나 '지식 정보'가 수익화 슬롯에 전략적으로 배치되어 있습니까?
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="예, 전략적으로 배치됨">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">예, 전략적으로 배치됨</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="올리고는 있지만 배치가 랜덤임">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">올리고는 있지만 배치가 랜덤임</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="아니오, 거의 없음">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">아니오, 거의 없음</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Service/Other 질문 -->
+                    <div class="form-group category-question" id="question-service" style="display: none;">
+                        <label class="form-label">
+                            <span class="question-category">[Service/Other 전용 진단]</span>
+                            고객이 귀하의 서비스를 선택해야만 하는 '단 하나의 압도적 이유'가 피드 상단 9구에 명확히 보입니까?
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="예, 명확히 보임">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">예, 명확히 보임</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="있긴 하지만 묻혀있음">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">있긴 하지만 묻혀있음</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="category_answer" value="아니오, 차별점이 안 보임">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">아니오, 차별점이 안 보임</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="error-message" id="categoryError" style="display: none;">질문에 답변해주세요.</div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
+                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: 목표 및 예산 확인 -->
+                <div class="form-step" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">STEP 04</div>
+                        <h4 class="step-name">목표 및 예산 확인</h4>
+                        <p class="step-desc">맞춤 전략 수립을 위한 마지막 단계입니다.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            희망하는 브랜드 이미지
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="brand_image" value="압도적 전문성" required>
+                                <span class="radio-custom"></span>
+                                <span class="option-text">압도적 전문성</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="brand_image" value="정갈한 미니멀리즘">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">정갈한 미니멀리즘</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="brand_image" value="에너제틱">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">에너제틱</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="brand_image" value="친근함">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">친근함</span>
+                            </label>
+                        </div>
+                        <div class="error-message">희망하는 브랜드 이미지를 선택해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            투자 가능한 월 예산
+                            <small>디렉팅 서비스 및 광고비 포함</small>
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="monthly_budget" value="50만원 미만" required>
+                                <span class="radio-custom"></span>
+                                <span class="option-text">50만원 미만</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="monthly_budget" value="50~100만원">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">50~100만원</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="monthly_budget" value="100만원 이상">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">100만원 이상</span>
+                            </label>
+                        </div>
+                        <div class="error-message">월 예산을 선택해주세요.</div>
+                    </div>
+
+                    <div class="submit-notice">
+                        <strong>사장님의 소중한 시간과 비용을 낭비하게 하고 싶지 않습니다.</strong>
+                        설문 검토 후, 피드온이 실제로 도움이 될 수 있다고 판단되는 경우에만 분석 리포트를 보내드립니다.
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
+                        <button type="submit" class="btn btn-submit">진단 신청하기</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- 진단 프로세스 섹션 -->
+    <section class="audit-process">
+        <div class="audit-container">
+            <div class="audit-intro">
+                <div class="section-label">DIAGNOSIS PROCESS</div>
+                <h3 class="section-title">
+                    피드온은 <span>이렇게 진단</span>합니다
+                </h3>
+                <p class="audit-intro-text">
+                    단순히 '예쁘게' 만드는 게 아닙니다.<br>
+                    사장님의 인스타그램이 <strong>왜 안 팔리는지</strong> 원인을 찾아드립니다.
+                </p>
+            </div>
+
+            <div class="audit-steps">
+                <!-- Step 01 -->
+                <div class="audit-step">
+                    <div class="audit-step-header">
+                        <div class="audit-step-number">01</div>
+                        <div class="audit-step-title">
+                            <div class="audit-step-en">CONTENT EFFICIENCY</div>
+                            <div class="audit-step-kr">콘텐츠 효율 분석</div>
+                        </div>
+                    </div>
+                    <p class="audit-step-desc">
+                        사장님이 올린 게시물이 실제로 <strong>고객 유입과 문의</strong>로 이어지고 있는지,
+                        아니면 올릴 때만 반짝하고 묻히는지 확인합니다.
+                    </p>
+                    <span class="audit-step-point">게시물당 유입률 및 프로필 전환율 체크</span>
+                </div>
+
+                <!-- Step 02 -->
+                <div class="audit-step">
+                    <div class="audit-step-header">
+                        <div class="audit-step-number">02</div>
+                        <div class="audit-step-title">
+                            <div class="audit-step-en">VISUAL AUTHORITY</div>
+                            <div class="audit-step-kr">비주얼 신뢰도 점검</div>
+                        </div>
+                    </div>
+                    <p class="audit-step-desc">
+                        고객이 피드를 3초만 봐도 <strong>"여긴 좀 다르네"</strong>라고 느낄 만큼
+                        전문성이 시각적으로 드러나고 있는지 점검합니다.
+                    </p>
+                    <span class="audit-step-point">9가지 디자인 기준으로 브랜드 인상 체크</span>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="audit-step">
+                    <div class="audit-step-header">
+                        <div class="audit-step-number">03</div>
+                        <div class="audit-step-title">
+                            <div class="audit-step-en">CONVERSION PATH</div>
+                            <div class="audit-step-kr">구매 전환 경로 분석</div>
+                        </div>
+                    </div>
+                    <p class="audit-step-desc">
+                        고객이 피드를 보고 "여기 가볼까?"에서 <strong>실제 예약/문의</strong>까지 
+                        이어지는 과정에서 어디서 이탈하는지 찾아냅니다.
+                    </p>
+                    <span class="audit-step-point">프로필 → 하이라이트 → DM 흐름 점검</span>
+                </div>
+
+                <!-- Step 04 -->
+                <div class="audit-step">
+                    <div class="audit-step-header">
+                        <div class="audit-step-number">04</div>
+                        <div class="audit-step-title">
+                            <div class="audit-step-en">ACTION PLAN</div>
+                            <div class="audit-step-kr">맞춤 개선안 제안</div>
+                        </div>
+                    </div>
+                    <p class="audit-step-desc">
+                        진단 결과를 바탕으로, <strong>"이렇게 바꾸면 됩니다"</strong>라는 
+                        구체적인 피드 구성안과 콘텐츠 방향을 제안드립니다.
+                    </p>
+                    <span class="audit-step-point">12칸 그리드 기반 피드 재배치 전략</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 패키지 섹션 -->
+    <section class="packages">
+        <div class="packages-container">
+            <div class="section-label">RECOMMENDED PACKAGE</div>
+            <h3 class="section-title">
+                진단 결과에 따른<br><span>맞춤 패키지</span>
+            </h3>
+
+            <div class="package-intro">
+                <p class="package-intro-text">
+                    디자인이라는 노동력을 사는 것이 아닙니다.<br>
+                    매출 확률을 높이는 <strong>전문가의 '판단력'</strong>을 사십시오.
+                </p>
+            </div>
+
+            <div class="package-grid">
+                <!-- 브랜드 설계 패키지 -->
+                <div class="package-card">
+                    <h4 class="package-name">브랜드 설계</h4>
+                    <p class="package-subtitle">피드 세팅 패키지</p>
+                    <div class="package-price">
+                        <span class="package-price-value">55</span>
+                        <span class="package-price-unit">만원</span>
+                    </div>
+                    <ul class="package-features">
+                        <li>7단계 브랜드 진단 리포트</li>
+                        <li>마스터 그리드 설계</li>
+                        <li>컬러 팔레트 & 폰트 가이드</li>
+                        <li>프로필 최적화</li>
+                        <li>하이라이트 커버 제작</li>
+                        <li>기초 콘텐츠 템플릿 5종</li>
+                    </ul>
+                    <div class="package-target">
+                        <div class="package-target-label">RECOMMENDED FOR</div>
+                        <p class="package-target-text">피드 톤앤매너가 뒤죽박죽이라 전문성이 안 보이는 사장님</p>
+                    </div>
+                </div>
+
+                <!-- 매출 성장 패키지 -->
+                <div class="package-card featured">
+                    <h4 class="package-name">매출 성장</h4>
+                    <p class="package-subtitle">월간 전략 관리 패키지</p>
+                    <div class="package-price">
+                        <span class="package-price-value">45</span>
+                        <span class="package-price-unit">만원/월</span>
+                    </div>
+                    <ul class="package-features">
+                        <li><strong>월 8회 고감도 피드 콘텐츠 제작</strong></li>
+                        <li>수익화 슬롯(Revenue Slot) 배치 전략</li>
+                        <li>고객 이탈 방지 스토리 가이드 제공</li>
+                        <li>해시태그 & 캡션 최적화</li>
+                        <li>월간 성과 분석 및 전략 제언</li>
+                        <li>카카오톡 실시간 소통</li>
+                    </ul>
+                    <div class="package-target">
+                        <div class="package-target-label">RECOMMENDED FOR</div>
+                        <p class="package-target-text">단순 업로드를 넘어 실질적인 예약과 매출 전환이 절실한 사장님</p>
+                    </div>
+                </div>
+
+                <!-- 전담 디렉팅 패키지 -->
+                <div class="package-card">
+                    <h4 class="package-name">전담 디렉팅</h4>
+                    <p class="package-subtitle">프리미엄 풀케어 패키지</p>
+                    <div class="package-price">
+                        <span class="package-price-value">90</span>
+                        <span class="package-price-unit">만원/월</span>
+                    </div>
+                    <ul class="package-features">
+                        <li>Blueprint + Revenue 전 항목</li>
+                        <li>전담 디렉터 1:1 배정</li>
+                        <li>주 1회 전략 미팅</li>
+                        <li>광고 캠페인 기획 & 집행</li>
+                        <li>경쟁 매장 모니터링</li>
+                        <li>긴급 콘텐츠 즉시 대응</li>
+                    </ul>
+                    <div class="package-target">
+                        <div class="package-target-label">RECOMMENDED FOR</div>
+                        <p class="package-target-text">장사는 잘되지만 인스타 운영까지 신경 쓸 여력이 없는 대표님</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <p class="footer-question">
+            사장님의 인스타는<br>
+            <span>'비용'</span>인가요, <span>'자산'</span>인가요?
+        </p>
+        <p class="footer-subtext">
+            지금 바로 전문 디렉터의 무료 진단을 받아보세요.
+        </p>
+        <a href="#diagnosis" class="footer-cta">브랜드 진단 받기</a>
+        <p class="footer-copyright">© 2024 FEED-ON. All rights reserved.</p>
+    </footer>
+
+    <!-- 성공 모달 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-icon">✓</div>
+            <h4 class="modal-title">진단 신청이 완료되었습니다</h4>
+            <p class="modal-text">
+                설문 내용을 꼼꼼히 검토한 후,<br>
+                <strong>영업일 기준 24시간 이내</strong>에<br>
+                연락드리겠습니다.
+            </p>
+            <button class="modal-close" onclick="closeModal()">확인</button>
+        </div>
+    </div>
+
+    <!-- 플로팅 CTA -->
+    <div class="floating-cta" id="floatingCta">
+        <span class="floating-cta-text">2월 진단 가능: <strong>1/5</strong></span>
+        <a href="#diagnosis" class="floating-cta-btn">내 피드 진단받기 →</a>
+    </div>
+
+    <script>
+        // 현재 스텝 관리
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // 스텝 타이틀
+        const stepTitles = {
+            1: '비즈니스 기본 정보',
+            2: '현재 상태 진단',
+            3: '업종별 핵심 진단',
+            4: '목표 및 예산 확인'
+        };
+
+        // 프로그레스 메시지
+        const progressMessages = {
+            2: '',
+            3: '거의 다 왔습니다. 1분만 더 투자하면 매출 지도가 바뀝니다.',
+            4: '마지막 단계입니다. 맞춤 전략 수립을 위해 정확히 입력해주세요.'
+        };
+
+        // 프로그레스 바 업데이트
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('stepIndicator').textContent = 
+                `STEP 0${currentStep} / 0${totalSteps}`;
+            document.getElementById('stepTitle').textContent = stepTitles[currentStep];
+
+            // 프로그레스 메시지 업데이트
+            const messageEl = document.getElementById('progressMessage');
+            if (progressMessages[currentStep]) {
+                messageEl.textContent = progressMessages[currentStep];
+                messageEl.classList.add('show');
+            } else {
+                messageEl.classList.remove('show');
+            }
+        }
+
+        // 업종별 질문 표시
+        function showCategoryQuestion() {
+            const category = document.querySelector('input[name="business_category"]:checked');
+            if (!category) return;
+
+            // 모든 카테고리 질문 숨기기
+            document.querySelectorAll('.category-question').forEach(q => {
+                q.style.display = 'none';
+                q.querySelectorAll('input[type="radio"]').forEach(r => r.required = false);
+            });
+
+            // 선택된 카테고리에 맞는 질문 표시
+            let questionId = '';
+            switch(category.value) {
+                case 'F&B':
+                    questionId = 'question-fnb';
+                    break;
+                case 'Beauty/Care':
+                case 'Fitness':
+                    questionId = 'question-beauty-fitness';
+                    break;
+                case 'Service/Other':
+                    questionId = 'question-service';
+                    break;
+            }
+
+            if (questionId) {
+                const questionEl = document.getElementById(questionId);
+                questionEl.style.display = 'block';
+                questionEl.querySelectorAll('input[type="radio"]').forEach(r => r.required = true);
+            }
+        }
+
+        // Step 3 진입 시 업종별 질문 표시
+        function onStep3Enter() {
+            showCategoryQuestion();
+        }
+
+        // 현재 스텝 유효성 검사
+        function validateCurrentStep() {
+            const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const formGroup = field.closest('.form-group');
+                if (!formGroup) return;
+                
+                // 숨겨진 요소는 검사하지 않음
+                if (formGroup.style.display === 'none') return;
+                
+                // 라디오 버튼 그룹 체크
+                if (field.type === 'radio') {
+                    const radioGroup = currentStepElement.querySelectorAll(`input[name="${field.name}"]`);
+                    const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+                    if (!isChecked) {
+                        formGroup.classList.add('error');
+                        isValid = false;
+                    } else {
+                        formGroup.classList.remove('error');
+                    }
+                }
+                // 일반 필드 체크
+                else if (!field.value.trim()) {
+                    formGroup.classList.add('error');
+                    isValid = false;
+                } else {
+                    formGroup.classList.remove('error');
+                }
+            });
+
+            // Step 3 특별 처리: 카테고리 질문 유효성 검사
+            if (currentStep === 3) {
+                const visibleQuestion = document.querySelector('.category-question[style*="block"]');
+                if (visibleQuestion) {
+                    const radios = visibleQuestion.querySelectorAll('input[type="radio"]');
+                    const isAnswered = Array.from(radios).some(r => r.checked);
+                    if (!isAnswered) {
+                        document.getElementById('categoryError').style.display = 'block';
+                        isValid = false;
+                    } else {
+                        document.getElementById('categoryError').style.display = 'none';
+                    }
+                }
+            }
+
+            return isValid;
+        }
+
+        // 다음 스텝으로
+        function nextStep() {
+            if (!validateCurrentStep()) {
+                return;
+            }
+
+            if (currentStep < totalSteps) {
+                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep++;
+                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+
+                // Step 3 진입 시 업종별 질문 표시
+                if (currentStep === 3) {
+                    onStep3Enter();
+                }
+                
+                // 스크롤을 폼 상단으로
+                document.querySelector('.form-container').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }
+
+        // 이전 스텝으로
+        function prevStep() {
+            if (currentStep > 1) {
+                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep--;
+                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        // 폼 제출 처리
+        document.getElementById('diagnosisForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!validateCurrentStep()) {
+                return;
+            }
+
+            // 중복 제출 방지: 버튼 비활성화 및 텍스트 변경
+            const submitBtn = document.querySelector('.btn-submit');
+            if (submitBtn.disabled) {
+                return; // 이미 제출 중이면 무시
+            }
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '전송 중...';
+            submitBtn.style.opacity = '0.6';
+            submitBtn.style.cursor = 'not-allowed';
+
+            // Google Apps Script URL
+            const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
+
+            // 폼 데이터 수집 및 GAS 키 이름으로 매핑
+            const formData = new FormData(this);
+
+            // 체크박스 데이터 수집 (복수 선택 가능)
+            const concerns = [];
+            formData.getAll('concerns').forEach(value => {
+                concerns.push(value);
+            });
+
+            // 숨겨진 iframe 생성 (CORS 우회)
+            let iframe = document.getElementById('hidden-iframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'hidden-iframe';
+                iframe.name = 'hidden-iframe';
+                iframe.style.display = 'none';
+                // 403 에러 메시지 숨기기 (데이터는 정상 전송됨)
+                iframe.onerror = function() { return true; };
+                document.body.appendChild(iframe);
+            }
+
+            // 임시 폼 생성
+            const tempForm = document.createElement('form');
+            tempForm.action = GAS_URL;
+            tempForm.method = 'POST';
+            tempForm.target = 'hidden-iframe';
+            tempForm.style.display = 'none';
+
+            // 폼 데이터 추가
+            const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                instagram: formData.get('instagram'),
+                category: formData.get('business_category'),
+                exit_reason: formData.get('bounce_reason'),
+                main_concern: concerns.join(', '),
+                visual_check: formData.get('category_answer'),
+                brand_image: formData.get('brand_image'),
+                budget: formData.get('monthly_budget')
+            };
+
+            // 각 데이터를 hidden input으로 추가
+            for (const [key, value] of Object.entries(data)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value || '';
+                tempForm.appendChild(input);
+            }
+
+            // 폼 제출
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+            document.body.removeChild(tempForm);
+
+            // 제출 후 성공 모달 표시 (iframe 사용 시 응답을 받을 수 없으므로 바로 성공으로 처리)
+            setTimeout(() => {
+                document.getElementById('successModal').classList.add('active');
+                // 폼 초기화
+                this.reset();
+                currentStep = 1;
+                document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+                document.querySelector('.form-step[data-step="1"]').classList.add('active');
+                document.querySelectorAll('.category-question').forEach(q => q.style.display = 'none');
+                updateProgress();
+
+                // 버튼 다시 활성화
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            }, 500);
+        });
+
+        // 모달 닫기
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+        }
+
+        // 모달 바깥 클릭 시 닫기
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // 입력 시 에러 제거
+        document.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(field => {
+            field.addEventListener('input', function() {
+                this.closest('.form-group').classList.remove('error');
+            });
+        });
+
+        document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(field => {
+            field.addEventListener('change', function() {
+                const formGroup = this.closest('.form-group');
+                if (formGroup) {
+                    formGroup.classList.remove('error');
+                }
+                // 카테고리 에러 메시지 숨기기
+                document.getElementById('categoryError').style.display = 'none';
+            });
+        });
+
+        // 플로팅 CTA 스크롤 이벤트
+        const floatingCta = document.getElementById('floatingCta');
+        const heroSection = document.querySelector('.hero');
+        const footerSection = document.querySelector('.footer');
+
+        function handleScroll() {
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            const footerTop = footerSection.offsetTop;
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            // 히어로 섹션을 지나고, 푸터에 도달하기 전에만 표시
+            if (scrollY > heroBottom - 100 && scrollY + windowHeight < footerTop + 100) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // 초기 실행
+    </script>
+</body>
+</html>
