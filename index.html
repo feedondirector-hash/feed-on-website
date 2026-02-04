@@ -2185,9 +2185,11 @@
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
 
-            // 히어로 섹션을 지나고, 설문지 영역이 아니고, 푸터에 도달하기 전에만 표시
-            const isInDiagnosisArea = scrollY + windowHeight > diagnosisTop && scrollY < diagnosisBottom;
+            // 설문지 영역에 "확실하게" 들어갔을 때만 숨기기
+            // 조건: 스크롤 위치가 설문지 시작점 + 200px 이상이고, 설문지 끝나기 전
+            const isInDiagnosisArea = scrollY > diagnosisTop + 200 && scrollY < diagnosisBottom - 300;
 
+            // 히어로 섹션을 지나고, 설문지 영역이 아니고, 푸터에 도달하기 전에만 표시
             if (scrollY > heroBottom - 100 && !isInDiagnosisArea && scrollY + windowHeight < footerTop + 100) {
                 floatingCta.classList.add('visible');
             } else {
