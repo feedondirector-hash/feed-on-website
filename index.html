@@ -1382,36 +1382,12 @@
             <!-- Google Apps Script 연동 폼 -->
             <form id="diagnosisForm">
                 
-                <!-- Step 1: 비즈니스 기본 정보 -->
+                <!-- Step 1: 문제 인식 -->
                 <div class="form-step active" data-step="1">
                     <div class="step-header">
                         <div class="step-number">STEP 01</div>
-                        <h4 class="step-name">비즈니스 기본 정보</h4>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            성함
-                        </label>
-                        <input type="text" name="name" class="form-input" placeholder="홍길동" required>
-                        <div class="error-message">성함을 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            연락처
-                        </label>
-                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                        <div class="error-message">연락처를 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            인스타그램 계정 주소
-                            <small>현재 운영 중인 비즈니스 계정 (분석용)</small>
-                        </label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@yourstore 또는 instagram.com/yourstore" required>
-                        <div class="error-message">인스타그램 계정을 입력해주세요.</div>
+                        <h4 class="step-name">현재 상황 체크</h4>
+                        <p class="step-desc">사장님의 비즈니스와 현재 고민을 알려주세요.</p>
                     </div>
 
                     <div class="form-group">
@@ -1443,19 +1419,6 @@
                         <div class="error-message">비즈니스 카테고리를 선택해주세요.</div>
                     </div>
 
-                    <div class="btn-container">
-                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
-                    </div>
-                </div>
-
-                <!-- Step 2: 현재 상태 진단 -->
-                <div class="form-step" data-step="2">
-                    <div class="step-header">
-                        <div class="step-number">STEP 02</div>
-                        <h4 class="step-name">현재 상태 진단</h4>
-                        <p class="step-desc">사장님의 인스타그램이 겪고 있는 문제를 정확히 진단합니다.</p>
-                    </div>
-
                     <div class="form-group">
                         <label class="form-label">
                             방문자의 이탈 이유
@@ -1476,6 +1439,11 @@
                                 <input type="radio" name="bounce_reason" value="수익화 슬롯 부재">
                                 <span class="radio-custom"></span>
                                 <span class="option-text">게시물은 꾸준히 올리는데 매출과 상관없는 내용뿐임 <em>(수익화 슬롯 부재)</em></span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="bounce_reason" value="잘 모르겠음">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">잘 모르겠음</span>
                             </label>
                         </div>
                         <div class="error-message">이탈 이유를 선택해주세요.</div>
@@ -1511,15 +1479,14 @@
                     </div>
 
                     <div class="btn-container">
-                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
                         <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
                     </div>
                 </div>
 
-                <!-- Step 3: 업종별 맞춤형 핵심 질문 -->
-                <div class="form-step" data-step="3">
+                <!-- Step 2: 업종별 핵심 진단 -->
+                <div class="form-step" data-step="2">
                     <div class="step-header">
-                        <div class="step-number">STEP 03</div>
+                        <div class="step-number">STEP 02</div>
                         <h4 class="step-name">업종별 핵심 진단</h4>
                         <p class="step-desc">선택하신 업종에 맞는 핵심 질문입니다.</p>
                     </div>
@@ -1607,12 +1574,12 @@
                     </div>
                 </div>
 
-                <!-- Step 4: 목표 및 예산 확인 -->
-                <div class="form-step" data-step="4">
+                <!-- Step 3: 목표 및 예산 -->
+                <div class="form-step" data-step="3">
                     <div class="step-header">
-                        <div class="step-number">STEP 04</div>
-                        <h4 class="step-name">목표 및 예산 확인</h4>
-                        <p class="step-desc">맞춤 전략 수립을 위한 마지막 단계입니다.</p>
+                        <div class="step-number">STEP 03</div>
+                        <h4 class="step-name">목표 및 예산</h4>
+                        <p class="step-desc">원하시는 방향과 투자 가능 범위를 알려주세요.</p>
                     </div>
 
                     <div class="form-group">
@@ -1667,6 +1634,45 @@
                             </label>
                         </div>
                         <div class="error-message">월 예산을 선택해주세요.</div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
+                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: 연락처 정보 -->
+                <div class="form-step" data-step="4">
+                    <div class="step-header">
+                        <div class="step-number">STEP 04</div>
+                        <h4 class="step-name">연락처 정보</h4>
+                        <p class="step-desc">분석 리포트를 받으실 정보를 입력해주세요.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            성함
+                        </label>
+                        <input type="text" name="name" class="form-input" placeholder="홍길동" required>
+                        <div class="error-message">성함을 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            연락처
+                        </label>
+                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                        <div class="error-message">연락처를 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            인스타그램 계정 주소
+                            <small>현재 운영 중인 비즈니스 계정 (분석용)</small>
+                        </label>
+                        <input type="text" name="instagram" class="form-input" placeholder="@yourstore 또는 instagram.com/yourstore" required>
+                        <div class="error-message">인스타그램 계정을 입력해주세요.</div>
                     </div>
 
                     <div class="submit-notice">
@@ -1890,17 +1896,17 @@
 
         // 스텝 타이틀
         const stepTitles = {
-            1: '비즈니스 기본 정보',
-            2: '현재 상태 진단',
-            3: '업종별 핵심 진단',
-            4: '목표 및 예산 확인'
+            1: '현재 상황 체크',
+            2: '업종별 핵심 진단',
+            3: '목표 및 예산',
+            4: '연락처 정보'
         };
 
         // 프로그레스 메시지
         const progressMessages = {
             2: '',
             3: '거의 다 왔습니다. 1분만 더 투자하면 매출 지도가 바뀝니다.',
-            4: '마지막 단계입니다. 맞춤 전략 수립을 위해 정확히 입력해주세요.'
+            4: '마지막 단계입니다. 리포트 받으실 연락처만 남겨주세요.'
         };
 
         // 프로그레스 바 업데이트
@@ -1954,8 +1960,8 @@
             }
         }
 
-        // Step 3 진입 시 업종별 질문 표시
-        function onStep3Enter() {
+        // Step 2 진입 시 업종별 질문 표시
+        function onStep2Enter() {
             showCategoryQuestion();
         }
 
@@ -1992,8 +1998,8 @@
                 }
             });
 
-            // Step 3 특별 처리: 카테고리 질문 유효성 검사
-            if (currentStep === 3) {
+            // Step 2 특별 처리: 카테고리 질문 유효성 검사
+            if (currentStep === 2) {
                 const visibleQuestion = document.querySelector('.category-question[style*="block"]');
                 if (visibleQuestion) {
                     const radios = visibleQuestion.querySelectorAll('input[type="radio"]');
@@ -2022,9 +2028,9 @@
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
                 updateProgress();
 
-                // Step 3 진입 시 업종별 질문 표시
-                if (currentStep === 3) {
-                    onStep3Enter();
+                // Step 2 진입 시 업종별 질문 표시
+                if (currentStep === 2) {
+                    onStep2Enter();
                 }
                 
                 // 스크롤을 폼 상단으로
