@@ -20,16 +20,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #121212;
-            --bg-secondary: #1a1a1a;
-            --bg-card: #1e1e1e;
+            /* 라이트 테마 메인 */
+            --bg-primary: #faf9f7;
+            --bg-secondary: #f5f3f0;
+            --bg-card: #ffffff;
             --accent-orange: #F58529;
-            --accent-orange-dark: #d9741f;
-            --text-primary: #ffffff;
-            --text-secondary: #d0d0d0;
+            --accent-orange-dark: #e07520;
+            --accent-orange-light: rgba(245, 133, 41, 0.08);
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
             --text-muted: #888888;
-            --border-subtle: rgba(255, 255, 255, 0.12);
-            --border-orange: rgba(245, 133, 41, 0.3);
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --border-orange: rgba(245, 133, 41, 0.25);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -53,19 +58,7 @@
             max-width: 100%;
         }
 
-        /* 노이즈 오버레이 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 1000;
-        }
+        /* 노이즈 오버레이 제거 (라이트에서는 불필요) */
 
         /* ===== 헤더 ===== */
         .header {
@@ -113,7 +106,7 @@
         /* ===== 히어로 섹션 ===== */
         .hero {
             position: relative;
-            padding: 80px 20px 100px;
+            padding: 60px 20px 80px;
             text-align: center;
             overflow: hidden;
         }
@@ -126,16 +119,17 @@
             width: 400px;
             height: 400px;
             background: var(--accent-orange);
-            filter: blur(120px);
-            opacity: 0.12;
+            filter: blur(150px);
+            opacity: 0.08;
             pointer-events: none;
         }
 
         .hero-badge {
             display: inline-block;
             padding: 10px 24px;
-            background: rgba(245, 133, 41, 0.15);
+            background: var(--accent-orange-light);
             border: 1px solid var(--border-orange);
+            border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 3px;
@@ -180,8 +174,9 @@
             gap: 12px;
             margin-top: 40px;
             padding: 12px 24px;
-            background: rgba(245, 133, 41, 0.1);
+            background: var(--accent-orange-light);
             border: 1px solid var(--border-orange);
+            border-radius: 8px;
         }
 
         .hero-slot-label {
@@ -202,32 +197,7 @@
             padding: 60px 20px 80px;
             max-width: 600px;
             margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .diagnosis-note {
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: -8px;
-            margin-bottom: 32px;
-        }
-
-        .diagnosis-note strong {
-            color: var(--accent-orange);
-        }
-
-        .diagnosis::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -200px;
-            width: 400px;
-            height: 600px;
-            background: #8B4513;
-            filter: blur(150px);
-            opacity: 0.08;
-            pointer-events: none;
+            overflow: visible;
         }
 
         .section-label {
@@ -251,22 +221,25 @@
             color: var(--accent-orange);
         }
 
-        /* 멀티스텝 폼 */
+        /* 멀티스텝 폼 (라이트) */
         .form-container {
             position: relative;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
+            border-radius: 16px;
             padding: 32px 24px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
 
-        /* 프로그레스 바 */
+        /* 프로그레스 바 (라이트) */
         .progress-container {
             margin-bottom: 32px;
         }
 
         .progress-bar {
             height: 3px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 2px;
             margin-bottom: 16px;
             overflow: hidden;
         }
@@ -289,7 +262,7 @@
             background: rgba(245, 133, 41, 0.1);
             border-left: 3px solid var(--accent-orange);
             font-size: 13px;
-            color: var(--accent-orange);
+            color: var(--accent-orange-dark);
             display: none;
         }
 
@@ -347,6 +320,7 @@
         .step-name {
             font-size: 20px;
             font-weight: 700;
+            color: var(--text-primary);
         }
 
         .step-desc {
@@ -359,15 +333,16 @@
         .question-category {
             display: inline-block;
             padding: 4px 10px;
-            background: rgba(245, 133, 41, 0.15);
-            color: var(--accent-orange);
+            background: rgba(245, 133, 41, 0.12);
+            color: var(--accent-orange-dark);
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 1px;
             margin-bottom: 10px;
+            border-radius: 4px;
         }
 
-        /* 폼 필드 */
+        /* 폼 필드 (라이트) */
         .form-group {
             margin-bottom: 24px;
         }
@@ -395,6 +370,7 @@
             padding: 14px 16px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-subtle);
+            border-radius: 8px;
             color: var(--text-primary);
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 15px;
@@ -406,7 +382,8 @@
         .form-select:focus {
             outline: none;
             border-color: var(--accent-orange);
-            box-shadow: 0 0 0 2px rgba(245, 133, 41, 0.15);
+            box-shadow: 0 0 0 3px rgba(245, 133, 41, 0.12);
+            background: #ffffff;
         }
 
         .form-input::placeholder,
@@ -428,11 +405,11 @@
         }
 
         .form-select option {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             color: var(--text-primary);
         }
 
-        /* 라디오/체크박스 그룹 */
+        /* 라디오/체크박스 그룹 (라이트) */
         .radio-group,
         .checkbox-group {
             display: flex;
@@ -444,16 +421,19 @@
         .checkbox-option {
             display: flex;
             align-items: center;
-            padding: 14px 16px;
+            padding: 16px 18px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-subtle);
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         .radio-option:hover,
         .checkbox-option:hover {
             border-color: var(--accent-orange);
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(245, 133, 41, 0.1);
         }
 
         .radio-option input,
@@ -470,33 +450,45 @@
         .radio-option input:checked ~ .option-text,
         .checkbox-option input:checked ~ .option-text {
             color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* 선택된 옵션 스타일 */
+        .radio-option:has(input:checked),
+        .checkbox-option:has(input:checked) {
+            border-color: var(--accent-orange);
+            background: rgba(245, 133, 41, 0.06);
         }
 
         .radio-custom,
         .checkbox-custom {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--text-muted);
+            border: 2px solid #ccc;
             margin-right: 12px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         .radio-custom {
             border-radius: 50%;
         }
 
+        .checkbox-custom {
+            border-radius: 4px;
+        }
+
         .radio-custom::after {
             content: '';
             width: 8px;
             height: 8px;
-            background: var(--bg-primary);
+            background: #ffffff;
             border-radius: 50%;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .radio-option input:checked + .radio-custom::after {
@@ -505,11 +497,11 @@
 
         .checkbox-custom::after {
             content: '✓';
-            color: var(--bg-primary);
+            color: #ffffff;
             font-size: 12px;
             font-weight: 700;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .checkbox-option input:checked + .checkbox-custom::after {
@@ -519,11 +511,11 @@
         .option-text {
             font-size: 14px;
             color: var(--text-secondary);
-            transition: color 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         .option-text strong {
-            color: var(--accent-orange);
+            color: var(--accent-orange-dark);
             font-weight: 600;
         }
 
@@ -533,12 +525,13 @@
             font-size: 12px;
         }
 
-        /* 제출 안내문 */
+        /* 제출 안내문 (라이트) */
         .submit-notice {
             margin-top: 24px;
             padding: 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
+            background: rgba(245, 133, 41, 0.06);
+            border: 1px solid rgba(245, 133, 41, 0.15);
+            border-radius: 8px;
             font-size: 13px;
             color: var(--text-muted);
             line-height: 1.7;
@@ -551,7 +544,7 @@
             margin-bottom: 0;
         }
 
-        /* 버튼 */
+        /* 버튼 (라이트) */
         .btn-container {
             display: flex;
             gap: 12px;
@@ -567,6 +560,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
+            border-radius: 10px;
         }
 
         .btn-prev {
@@ -578,17 +572,21 @@
         .btn-prev:hover {
             border-color: var(--text-secondary);
             color: var(--text-secondary);
+            background: var(--bg-secondary);
         }
 
         .btn-next,
         .btn-submit {
             background: var(--accent-orange);
-            color: var(--bg-primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(245, 133, 41, 0.3);
         }
 
         .btn-next:hover,
         .btn-submit:hover {
             background: var(--accent-orange-dark);
+            box-shadow: 0 6px 16px rgba(245, 133, 41, 0.4);
+            transform: translateY(-1px);
         }
 
         .btn:disabled {
@@ -598,7 +596,7 @@
 
         /* 에러 메시지 */
         .error-message {
-            color: #ff6b6b;
+            color: #dc3545;
             font-size: 12px;
             margin-top: 6px;
             display: none;
@@ -607,7 +605,7 @@
         .form-group.error .form-input,
         .form-group.error .form-textarea,
         .form-group.error .form-select {
-            border-color: #ff6b6b;
+            border-color: #dc3545;
         }
 
         .form-group.error .error-message {
@@ -631,7 +629,7 @@
             height: 400px;
             background: var(--accent-orange);
             filter: blur(150px);
-            opacity: 0.08;
+            opacity: 0.06;
             pointer-events: none;
         }
 
@@ -664,18 +662,22 @@
         .package-card {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
+            border-radius: 16px;
             padding: 32px 24px;
             position: relative;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .package-card:hover {
             border-color: var(--border-orange);
             transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
         .package-card.featured {
             border-color: var(--accent-orange);
+            box-shadow: 0 4px 20px rgba(245, 133, 41, 0.15);
         }
 
         .package-card.featured::before {
@@ -685,10 +687,11 @@
             right: 24px;
             padding: 6px 16px;
             background: var(--accent-orange);
+            border-radius: 0 0 8px 8px;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 12px;
             letter-spacing: 2px;
-            color: var(--bg-primary);
+            color: #ffffff;
         }
 
         .package-name {
@@ -815,7 +818,7 @@
             display: inline-block;
             padding: 18px 48px;
             background: var(--accent-orange);
-            color: var(--bg-primary);
+            color: #ffffff;
             font-size: 16px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -823,11 +826,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(245, 133, 41, 0.3);
         }
 
         .footer-cta:hover {
             background: var(--accent-orange-dark);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 133, 41, 0.4);
         }
 
         .footer-copyright {
@@ -844,7 +850,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.5);
             display: none;
             align-items: center;
             justify-content: center;
@@ -859,12 +865,14 @@
         .modal {
             background: var(--bg-card);
             border: 1px solid var(--border-orange);
+            border-radius: 20px;
             padding: 48px 32px;
             max-width: 420px;
             width: 100%;
             text-align: center;
             position: relative;
             animation: modalIn 0.3s ease;
+            box-shadow: var(--shadow-lg);
         }
 
         @keyframes modalIn {
@@ -883,10 +891,12 @@
             height: 64px;
             margin: 0 auto 24px;
             background: var(--accent-orange);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 32px;
+            color: #ffffff;
         }
 
         .modal-title {
@@ -911,6 +921,7 @@
             padding: 14px 36px;
             background: transparent;
             border: 1px solid var(--border-subtle);
+            border-radius: 8px;
             color: var(--text-secondary);
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 14px;
@@ -1002,7 +1013,7 @@
             height: 400px;
             background: var(--accent-orange);
             filter: blur(150px);
-            opacity: 0.08;
+            opacity: 0.06;
             pointer-events: none;
         }
 
@@ -1033,14 +1044,17 @@
         .audit-step {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
+            border-radius: 12px;
             padding: 28px 24px;
             position: relative;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .audit-step:hover {
             border-color: var(--border-orange);
             transform: translateX(4px);
+            box-shadow: var(--shadow-md);
         }
 
         .audit-step-header {
@@ -1055,12 +1069,13 @@
             width: 40px;
             height: 40px;
             background: var(--accent-orange);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 18px;
-            color: var(--bg-primary);
+            color: #ffffff;
         }
 
         .audit-step-title {
@@ -1164,7 +1179,7 @@
             right: 0;
             width: 100%;
             padding: 16px 20px;
-            background: linear-gradient(0deg, var(--bg-primary) 80%, transparent 100%);
+            background: linear-gradient(0deg, var(--bg-primary) 70%, transparent 100%);
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -1192,18 +1207,21 @@
             max-width: 360px;
             padding: 16px 32px;
             background: var(--accent-orange);
-            color: var(--bg-primary);
+            color: #ffffff;
             font-size: 15px;
             font-weight: 700;
             text-align: center;
             text-decoration: none;
             border: none;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(245, 133, 41, 0.35);
         }
 
         .floating-cta-btn:hover {
             background: var(--accent-orange-dark);
+            box-shadow: 0 6px 20px rgba(245, 133, 41, 0.45);
         }
 
         /* ===== 반응형 - 태블릿 이상 ===== */
