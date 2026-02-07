@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6PYDED7XNV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-6PYDED7XNV');
-    </script>
-
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "vcz7mka7s8");
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FEED-ON | 비즈니스의 가치를 바꾸는 시각적 전략</title>
@@ -1350,24 +1331,17 @@
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
-    <header class="header">
-        <h1 class="logo">FEED<span>-</span>ON</h1>
-        <p class="slogan">비즈니스의 가치를 바꾸는 시각적 전략</p>
-    </header>
-
     <!-- 히어로 섹션 -->
     <section class="hero">
-        <div class="hero-badge">BRAND DIAGNOSIS</div>
+        <div class="hero-badge">무료 피드 진단</div>
         <h2 class="hero-title">
-            열심히 하는 사장님일수록<br>
-            <span>왜 안 팔릴까요?</span>
+            인스타 열심히 하는데<br>
+            <span>매출이 안 나오시나요?</span>
         </h2>
         <div class="hero-divider"></div>
         <p class="hero-subtitle">
-            방향 없는 노력은 <strong>'성실한 삽질'</strong>입니다.<br>
-            지금 사장님의 피드가 노력을 갉아먹고 있지는 않은지,<br>
-            전문 디렉터가 정밀 진단해 드립니다.
+            같은 실력인데 누군 300 벌고, 누군 1,000 법니다.<br>
+            차이는 <strong>피드 구조</strong>입니다.
         </p>
         <div class="hero-slot">
             <span class="hero-slot-label">2월 진단 가능</span>
@@ -1377,87 +1351,84 @@
 
     <!-- 진단 섹션 -->
     <section class="diagnosis" id="diagnosis">
-        <div class="section-label">THE DIAGNOSIS</div>
         <h3 class="section-title">
-            <span>브랜드 정밀 진단</span> 설문지
+            <span>내 피드</span> 문제 찾기
         </h3>
-        <p class="diagnosis-note">
-            디렉터가 직접 분석하고 설계하기 때문에, 매달 <strong>5개 브랜드</strong>만 진단합니다.
-        </p>
 
         <div class="form-container">
             <!-- 프로그레스 바 -->
             <div class="progress-container">
                 <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+                    <div class="progress-fill" id="progressFill" style="width: 16.6%;"></div>
                 </div>
                 <div class="progress-text">
-                    <span class="step-indicator" id="stepIndicator">STEP 01 / 04</span>
-                    <span class="step-title" id="stepTitle">비즈니스 기본 정보</span>
+                    <span class="step-indicator" id="stepIndicator">STEP 01 / 06</span>
+                    <span class="step-title" id="stepTitle">업종 선택</span>
                 </div>
-                <div class="progress-message" id="progressMessage"></div>
             </div>
 
             <!-- Google Apps Script 연동 폼 -->
             <form id="diagnosisForm">
                 
-                <!-- Step 1: 문제 인식 -->
+                <!-- Step 1: 업종 -->
                 <div class="form-step active" data-step="1">
                     <div class="step-header">
                         <div class="step-number">STEP 01</div>
-                        <h4 class="step-name">현재 상황 체크</h4>
-                        <p class="step-desc">사장님의 비즈니스와 현재 고민을 알려주세요.</p>
+                        <h4 class="step-name">업종 선택</h4>
+                        <p class="step-desc">어떤 비즈니스를 운영하고 계신가요?</p>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            비즈니스 카테고리
-                        </label>
-                        <div class="radio-group">
+                        <div class="radio-group auto-next">
                             <label class="radio-option">
                                 <input type="radio" name="business_category" value="F&B" required>
                                 <span class="radio-custom"></span>
-                                <span class="option-text"><strong>[F&B]</strong> 음식점, 카페, 주점</span>
+                                <span class="option-text">음식점 / 카페 / 주점</span>
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="business_category" value="Beauty/Care">
                                 <span class="radio-custom"></span>
-                                <span class="option-text"><strong>[Beauty/Care]</strong> 뷰티샵, 네일샵, 피부관리, 헤어샵</span>
+                                <span class="option-text">뷰티 / 네일 / 피부 / 헤어</span>
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="business_category" value="Fitness">
                                 <span class="radio-custom"></span>
-                                <span class="option-text"><strong>[Fitness]</strong> PT샵, 헬스장, 필라테스, 요가</span>
+                                <span class="option-text">PT / 헬스 / 필라테스 / 요가</span>
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="business_category" value="Service/Other">
                                 <span class="radio-custom"></span>
-                                <span class="option-text"><strong>[Service/Other]</strong> 교육, 상담, 전문직, 커머스 등</span>
+                                <span class="option-text">기타 (교육, 상담, 커머스 등)</span>
                             </label>
                         </div>
-                        <div class="error-message">비즈니스 카테고리를 선택해주세요.</div>
+                        <div class="error-message">업종을 선택해주세요.</div>
+                    </div>
+                </div>
+
+                <!-- Step 2: 현재 상황 -->
+                <div class="form-step" data-step="2">
+                    <div class="step-header">
+                        <div class="step-number">STEP 02</div>
+                        <h4 class="step-name">현재 상황</h4>
+                        <p class="step-desc">지금 피드에서 가장 문제라고 느끼는 건 뭔가요?</p>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            방문자의 이탈 이유
-                            <small>가장 해당되는 항목 1개 선택</small>
-                        </label>
-                        <div class="radio-group">
+                        <div class="radio-group auto-next">
                             <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="3초 이탈 문제" required>
+                                <input type="radio" name="bounce_reason" value="구경만 하고 연락 안 함" required>
                                 <span class="radio-custom"></span>
-                                <span class="option-text">프로필 접속은 하는데 팔로우나 문의로 안 이어짐 <em>(3초 이탈 문제)</em></span>
+                                <span class="option-text">구경만 하고 연락 안 함</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="브랜드 위계 문제">
+                                <input type="radio" name="bounce_reason" value="피드가 어수선함">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">피드 톤앤매너가 중구난방이라 전문성이 안 느껴짐 <em>(브랜드 위계 문제)</em></span>
+                                <span class="option-text">피드가 어수선함</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="수익화 슬롯 부재">
+                                <input type="radio" name="bounce_reason" value="열심히 올리는데 매출이랑 무관">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">게시물은 꾸준히 올리는데 매출과 상관없는 내용뿐임 <em>(수익화 슬롯 부재)</em></span>
+                                <span class="option-text">열심히 올리는데 매출이랑 무관</span>
                             </label>
                             <label class="radio-option">
                                 <input type="radio" name="bounce_reason" value="잘 모르겠음">
@@ -1465,177 +1436,172 @@
                                 <span class="option-text">잘 모르겠음</span>
                             </label>
                         </div>
-                        <div class="error-message">이탈 이유를 선택해주세요.</div>
+                        <div class="error-message">현재 상황을 선택해주세요.</div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: 고민 -->
+                <div class="form-step" data-step="3">
+                    <div class="step-header">
+                        <div class="step-number">STEP 03</div>
+                        <h4 class="step-name">고민 선택</h4>
+                        <p class="step-desc">해당되는 고민을 모두 선택해주세요.</p>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            현재 가장 큰 고민은 무엇입니까?
-                            <small>복수 선택 가능</small>
-                        </label>
                         <div class="checkbox-group">
                             <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="신규 고객 유입 부족">
+                                <input type="checkbox" name="concerns" value="손님이 안 늘어남">
                                 <span class="checkbox-custom"></span>
-                                <span class="option-text">신규 고객 유입 부족</span>
+                                <span class="option-text">손님이 안 늘어남</span>
                             </label>
                             <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="예약 문의 저조">
+                                <input type="checkbox" name="concerns" value="문의/예약이 없음">
                                 <span class="checkbox-custom"></span>
-                                <span class="option-text">예약 문의 저조</span>
+                                <span class="option-text">문의/예약이 없음</span>
                             </label>
                             <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="브랜드 이미지 고급화 필요">
+                                <input type="checkbox" name="concerns" value="싸구려 느낌을 바꾸고 싶음">
                                 <span class="checkbox-custom"></span>
-                                <span class="option-text">브랜드 이미지 고급화 필요</span>
+                                <span class="option-text">싸구려 느낌을 바꾸고 싶음</span>
                             </label>
                             <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="광고 효율 저하">
+                                <input type="checkbox" name="concerns" value="광고 효율이 안 나옴">
                                 <span class="checkbox-custom"></span>
-                                <span class="option-text">광고 효율 저하</span>
+                                <span class="option-text">광고 효율이 안 나옴</span>
                             </label>
                         </div>
                     </div>
 
                     <div class="btn-container">
-                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
+                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
+                        <button type="button" class="btn btn-next" onclick="nextStep()">다음</button>
                     </div>
                 </div>
 
-                <!-- Step 2: 업종별 핵심 진단 -->
-                <div class="form-step" data-step="2">
+                <!-- Step 4: 업종별 핵심 진단 -->
+                <div class="form-step" data-step="4">
                     <div class="step-header">
-                        <div class="step-number">STEP 02</div>
-                        <h4 class="step-name">업종별 핵심 진단</h4>
-                        <p class="step-desc">선택하신 업종에 맞는 핵심 질문입니다.</p>
+                        <div class="step-number">STEP 04</div>
+                        <h4 class="step-name">핵심 진단</h4>
+                        <p class="step-desc">선택하신 업종에 맞는 질문입니다.</p>
                     </div>
 
                     <!-- F&B 질문 -->
                     <div class="form-group category-question" id="question-fnb" style="display: none;">
-                        <label class="form-label">
-                            <span class="question-category">[F&B 전용 진단]</span>
-                            고객이 사진 한 장으로 음식의 '질감'과 매장의 '분위기'를 즉각 체감하고 있습니까?
-                        </label>
-                        <div class="radio-group">
+                        <label class="form-label">사진만 보고 '가고 싶다' 느낌이 드나요?</label>
+                        <div class="radio-group auto-next">
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="예, 확실히 전달되고 있음">
+                                <input type="radio" name="category_answer" value="예">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">예, 확실히 전달되고 있음</span>
+                                <span class="option-text">예</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="보통, 잘 모르겠음">
+                                <input type="radio" name="category_answer" value="잘 모르겠음">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">보통, 잘 모르겠음</span>
+                                <span class="option-text">잘 모르겠음</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="아니오, 개선이 필요함">
+                                <input type="radio" name="category_answer" value="아니오">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">아니오, 개선이 필요함</span>
+                                <span class="option-text">아니오</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Beauty/Care & Fitness 질문 -->
                     <div class="form-group category-question" id="question-beauty-fitness" style="display: none;">
-                        <label class="form-label">
-                            <span class="question-category">[Beauty/Fitness 전용 진단]</span>
-                            원장님(트레이너)의 전문성을 입증할 '비포애프터'나 '지식 정보'가 수익화 슬롯에 전략적으로 배치되어 있습니까?
-                        </label>
-                        <div class="radio-group">
+                        <label class="form-label">전문성이 느껴지는 콘텐츠가 있나요?</label>
+                        <div class="radio-group auto-next">
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="예, 전략적으로 배치됨">
+                                <input type="radio" name="category_answer" value="예">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">예, 전략적으로 배치됨</span>
+                                <span class="option-text">예</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="올리고는 있지만 배치가 랜덤임">
+                                <input type="radio" name="category_answer" value="있긴 한데 묻혀있음">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">올리고는 있지만 배치가 랜덤임</span>
+                                <span class="option-text">있긴 한데 묻혀있음</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="아니오, 거의 없음">
+                                <input type="radio" name="category_answer" value="거의 없음">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">아니오, 거의 없음</span>
+                                <span class="option-text">거의 없음</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Service/Other 질문 -->
                     <div class="form-group category-question" id="question-service" style="display: none;">
-                        <label class="form-label">
-                            <span class="question-category">[Service/Other 전용 진단]</span>
-                            고객이 귀하의 서비스를 선택해야만 하는 '단 하나의 압도적 이유'가 피드 상단 9구에 명확히 보입니까?
-                        </label>
-                        <div class="radio-group">
+                        <label class="form-label">왜 여기서 사야 하는지 바로 보이나요?</label>
+                        <div class="radio-group auto-next">
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="예, 명확히 보임">
+                                <input type="radio" name="category_answer" value="예">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">예, 명확히 보임</span>
+                                <span class="option-text">예</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="있긴 하지만 묻혀있음">
+                                <input type="radio" name="category_answer" value="있긴 한데 안 보임">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">있긴 하지만 묻혀있음</span>
+                                <span class="option-text">있긴 한데 안 보임</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="category_answer" value="아니오, 차별점이 안 보임">
+                                <input type="radio" name="category_answer" value="없음">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">아니오, 차별점이 안 보임</span>
+                                <span class="option-text">없음</span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="error-message" id="categoryError" style="display: none;">질문에 답변해주세요.</div>
+                    <div class="error-message" id="categoryError" style="display: none;">선택해주세요.</div>
 
                     <div class="btn-container">
                         <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
                     </div>
                 </div>
 
-                <!-- Step 3: 목표 및 예산 -->
-                <div class="form-step" data-step="3">
+                <!-- Step 5: 목표 및 예산 -->
+                <div class="form-step" data-step="5">
                     <div class="step-header">
-                        <div class="step-number">STEP 03</div>
-                        <h4 class="step-name">목표 및 예산</h4>
-                        <p class="step-desc">원하시는 방향과 투자 가능 범위를 알려주세요.</p>
+                        <div class="step-number">STEP 05</div>
+                        <h4 class="step-name">목표 설정</h4>
+                        <p class="step-desc">원하시는 방향을 알려주세요.</p>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            희망하는 브랜드 이미지
-                        </label>
+                        <label class="form-label">원하는 느낌</label>
                         <div class="radio-group">
                             <label class="radio-option">
-                                <input type="radio" name="brand_image" value="압도적 전문성" required>
+                                <input type="radio" name="brand_image" value="전문적인" required>
                                 <span class="radio-custom"></span>
-                                <span class="option-text">압도적 전문성</span>
+                                <span class="option-text">전문적인</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="brand_image" value="정갈한 미니멀리즘">
+                                <input type="radio" name="brand_image" value="깔끔한">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">정갈한 미니멀리즘</span>
+                                <span class="option-text">깔끔한</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="brand_image" value="에너제틱">
+                                <input type="radio" name="brand_image" value="활기찬">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">에너제틱</span>
+                                <span class="option-text">활기찬</span>
                             </label>
                             <label class="radio-option">
-                                <input type="radio" name="brand_image" value="친근함">
+                                <input type="radio" name="brand_image" value="친근한">
                                 <span class="radio-custom"></span>
-                                <span class="option-text">친근함</span>
+                                <span class="option-text">친근한</span>
                             </label>
                         </div>
-                        <div class="error-message">희망하는 브랜드 이미지를 선택해주세요.</div>
+                        <div class="error-message">선택해주세요.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            투자 가능한 월 예산
-                            <small>디렉팅 서비스 및 광고비 포함</small>
-                        </label>
-                        <div class="radio-group">
+                        <label class="form-label">월 예산</label>
+                        <div class="radio-group auto-next-check">
                             <label class="radio-option">
                                 <input type="radio" name="monthly_budget" value="50만원 미만" required>
                                 <span class="radio-custom"></span>
@@ -1652,56 +1618,46 @@
                                 <span class="option-text">100만원 이상</span>
                             </label>
                         </div>
-                        <div class="error-message">월 예산을 선택해주세요.</div>
+                        <div class="error-message">선택해주세요.</div>
                     </div>
 
                     <div class="btn-container">
                         <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                        <button type="button" class="btn btn-next" onclick="nextStep()">다음 단계</button>
                     </div>
                 </div>
 
-                <!-- Step 4: 연락처 정보 -->
-                <div class="form-step" data-step="4">
+                <!-- Step 6: 연락처 정보 -->
+                <div class="form-step" data-step="6">
                     <div class="step-header">
-                        <div class="step-number">STEP 04</div>
-                        <h4 class="step-name">연락처 정보</h4>
-                        <p class="step-desc">분석 리포트를 받으실 정보를 입력해주세요.</p>
+                        <div class="step-number">STEP 06</div>
+                        <h4 class="step-name">마지막 단계</h4>
+                        <p class="step-desc">분석 결과를 보내드릴게요.</p>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            성함
-                        </label>
+                        <label class="form-label">어떻게 불러드릴까요?</label>
                         <input type="text" name="name" class="form-input" placeholder="홍길동" required>
-                        <div class="error-message">성함을 입력해주세요.</div>
+                        <div class="error-message">입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            연락처
-                        </label>
+                        <label class="form-label">결과 받으실 연락처</label>
                         <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                        <div class="error-message">연락처를 입력해주세요.</div>
+                        <div class="error-message">입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">
-                            인스타그램 계정 주소
-                            <small>현재 운영 중인 비즈니스 계정 (분석용)</small>
+                            분석할 인스타그램 계정
+                            <small>피드 구조 분석을 위해 필요해요. 개인 계정도 괜찮습니다.</small>
                         </label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@yourstore 또는 instagram.com/yourstore" required>
-                        <div class="error-message">인스타그램 계정을 입력해주세요.</div>
-                    </div>
-
-                    <div class="submit-notice">
-                        <strong>사장님의 소중한 시간과 비용을 낭비하게 하고 싶지 않습니다.</strong>
-                        설문 검토 후, 피드온이 실제로 도움이 될 수 있다고 판단되는 경우에만 분석 리포트를 보내드립니다.
+                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                        <div class="error-message">입력해주세요.</div>
                     </div>
 
                     <div class="btn-container">
                         <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                        <button type="submit" class="btn btn-submit">진단 신청하기</button>
+                        <button type="submit" class="btn btn-submit">무료 진단 받기</button>
                     </div>
                 </div>
             </form>
@@ -1911,21 +1867,16 @@
     <script>
         // 현재 스텝 관리
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 6;
 
         // 스텝 타이틀
         const stepTitles = {
-            1: '현재 상황 체크',
-            2: '업종별 핵심 진단',
-            3: '목표 및 예산',
-            4: '연락처 정보'
-        };
-
-        // 프로그레스 메시지
-        const progressMessages = {
-            2: '',
-            3: '거의 다 왔습니다. 1분만 더 투자하면 매출 지도가 바뀝니다.',
-            4: '마지막 단계입니다. 리포트 받으실 연락처만 남겨주세요.'
+            1: '업종 선택',
+            2: '현재 상황',
+            3: '고민 선택',
+            4: '핵심 진단',
+            5: '목표 설정',
+            6: '마지막 단계'
         };
 
         // 프로그레스 바 업데이트
@@ -1935,15 +1886,6 @@
             document.getElementById('stepIndicator').textContent = 
                 `STEP 0${currentStep} / 0${totalSteps}`;
             document.getElementById('stepTitle').textContent = stepTitles[currentStep];
-
-            // 프로그레스 메시지 업데이트
-            const messageEl = document.getElementById('progressMessage');
-            if (progressMessages[currentStep]) {
-                messageEl.textContent = progressMessages[currentStep];
-                messageEl.classList.add('show');
-            } else {
-                messageEl.classList.remove('show');
-            }
         }
 
         // 업종별 질문 표시
@@ -1979,8 +1921,8 @@
             }
         }
 
-        // Step 2 진입 시 업종별 질문 표시
-        function onStep2Enter() {
+        // Step 4 진입 시 업종별 질문 표시
+        function onStep4Enter() {
             showCategoryQuestion();
         }
 
@@ -2017,8 +1959,8 @@
                 }
             });
 
-            // Step 2 특별 처리: 카테고리 질문 유효성 검사
-            if (currentStep === 2) {
+            // Step 4 특별 처리: 카테고리 질문 유효성 검사
+            if (currentStep === 4) {
                 const visibleQuestion = document.querySelector('.category-question[style*="block"]');
                 if (visibleQuestion) {
                     const radios = visibleQuestion.querySelectorAll('input[type="radio"]');
@@ -2047,9 +1989,9 @@
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
                 updateProgress();
 
-                // Step 2 진입 시 업종별 질문 표시
-                if (currentStep === 2) {
-                    onStep2Enter();
+                // Step 4 진입 시 업종별 질문 표시
+                if (currentStep === 4) {
+                    onStep4Enter();
                 }
                 
                 // 스크롤을 폼 상단으로
@@ -2149,15 +2091,6 @@
 
             // 제출 후 성공 모달 표시 (iframe 사용 시 응답을 받을 수 없으므로 바로 성공으로 처리)
             setTimeout(() => {
-                // Google Analytics 이벤트 전송 (설문 제출 전환 추적)
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'generate_lead', {
-                        'event_category': 'Form',
-                        'event_label': 'Diagnosis Form Submission',
-                        'value': 1
-                    });
-                }
-
                 document.getElementById('successModal').classList.add('active');
                 // 폼 초기화
                 this.reset();
@@ -2242,6 +2175,31 @@
 
         window.addEventListener('scroll', handleScroll);
         handleScroll(); // 초기 실행
+
+        // 자동 넘김 기능 (단일 선택 시)
+        document.querySelectorAll('.auto-next input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // 선택 효과를 보여준 후 넘김
+                setTimeout(() => {
+                    nextStep();
+                }, 300);
+            });
+        });
+
+        // Step 5 전용: 두 번째 그룹 선택 시 넘김
+        document.querySelectorAll('.auto-next-check input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // 두 그룹 모두 선택되었는지 확인
+                const brandSelected = document.querySelector('input[name="brand_image"]:checked');
+                const budgetSelected = document.querySelector('input[name="monthly_budget"]:checked');
+                
+                if (brandSelected && budgetSelected) {
+                    setTimeout(() => {
+                        nextStep();
+                    }, 300);
+                }
+            });
+        });
     </script>
 </body>
 </html>
