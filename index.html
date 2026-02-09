@@ -610,6 +610,33 @@
             cursor: not-allowed;
         }
 
+        /* 간단 폼 스타일 */
+        .simple-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        .form-notice {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .optional {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
         /* 에러 메시지 */
         .error-message {
             color: #dc3545;
@@ -1386,313 +1413,52 @@
     <!-- 진단 섹션 -->
     <section class="diagnosis" id="diagnosis">
         <h3 class="section-title">
-            <span>내 피드</span> 문제 찾기
+            <span>무료</span> 피드 진단
         </h3>
 
         <div class="form-container">
-            <!-- 프로그레스 바 -->
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 16.6%;"></div>
-                </div>
-                <div class="progress-text">
-                    <span class="step-indicator" id="stepIndicator">STEP 01 / 06</span>
-                    <span class="step-title" id="stepTitle">업종 선택</span>
-                </div>
-            </div>
-
             <!-- Google Apps Script 연동 폼 -->
             <form id="diagnosisForm">
-                
-                <!-- Step 1: 업종 -->
-                <div class="form-step active" data-step="1">
-                    <div class="step-header">
-                        <div class="step-number">STEP 01</div>
-                        <h4 class="step-name">업종 선택</h4>
-                        <p class="step-desc">어떤 비즈니스를 운영하고 계신가요?</p>
-                    </div>
-
+                <div class="simple-form">
                     <div class="form-group">
-                        <div class="radio-group auto-next">
-                            <label class="radio-option">
-                                <input type="radio" name="business_category" value="F&B" required>
-                                <span class="radio-custom"></span>
-                                <span class="option-text">음식점 / 카페 / 주점</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="business_category" value="Beauty/Care">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">뷰티 / 네일 / 피부 / 헤어</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="business_category" value="Fitness">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">PT / 헬스 / 필라테스 / 요가</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="business_category" value="Service/Other">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">기타 (교육, 상담, 커머스 등)</span>
-                            </label>
-                        </div>
-                        <div class="error-message">업종을 선택해주세요.</div>
-                    </div>
-                </div>
-
-                <!-- Step 2: 현재 상황 -->
-                <div class="form-step" data-step="2">
-                    <div class="step-header">
-                        <div class="step-number">STEP 02</div>
-                        <h4 class="step-name">현재 상황</h4>
-                        <p class="step-desc">지금 피드에서 가장 문제라고 느끼는 건 뭔가요?</p>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="radio-group auto-next">
-                            <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="구경만 하고 연락 안 함" required>
-                                <span class="radio-custom"></span>
-                                <span class="option-text">구경만 하고 연락 안 함</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="피드가 어수선함">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">피드가 어수선함</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="열심히 올리는데 매출이랑 무관">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">열심히 올리는데 매출이랑 무관</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="bounce_reason" value="잘 모르겠음">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">잘 모르겠음</span>
-                            </label>
-                        </div>
-                        <div class="error-message">현재 상황을 선택해주세요.</div>
-                    </div>
-
-                    <div class="btn-container">
-                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                    </div>
-                </div>
-
-                <!-- Step 3: 고민 -->
-                <div class="form-step" data-step="3">
-                    <div class="step-header">
-                        <div class="step-number">STEP 03</div>
-                        <h4 class="step-name">고민 선택</h4>
-                        <p class="step-desc">해당되는 고민을 모두 선택해주세요.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="손님이 안 늘어남">
-                                <span class="checkbox-custom"></span>
-                                <span class="option-text">손님이 안 늘어남</span>
-                            </label>
-                            <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="문의/예약이 없음">
-                                <span class="checkbox-custom"></span>
-                                <span class="option-text">문의/예약이 없음</span>
-                            </label>
-                            <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="싸구려 느낌을 바꾸고 싶음">
-                                <span class="checkbox-custom"></span>
-                                <span class="option-text">싸구려 느낌을 바꾸고 싶음</span>
-                            </label>
-                            <label class="checkbox-option">
-                                <input type="checkbox" name="concerns" value="광고 효율이 안 나옴">
-                                <span class="checkbox-custom"></span>
-                                <span class="option-text">광고 효율이 안 나옴</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="btn-container">
-                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                        <button type="button" class="btn btn-next" onclick="nextStep()">다음</button>
-                    </div>
-                </div>
-
-                <!-- Step 4: 업종별 핵심 진단 -->
-                <div class="form-step" data-step="4">
-                    <div class="step-header">
-                        <div class="step-number">STEP 04</div>
-                        <h4 class="step-name">핵심 진단</h4>
-                        <p class="step-desc">선택하신 업종에 맞는 질문입니다.</p>
-                    </div>
-
-                    <!-- F&B 질문 -->
-                    <div class="form-group category-question" id="question-fnb" style="display: none;">
-                        <label class="form-label">사진만 보고 '가고 싶다' 느낌이 드나요?</label>
-                        <div class="radio-group auto-next">
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="예">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">예</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="잘 모르겠음">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">잘 모르겠음</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="아니오">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">아니오</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Beauty/Care & Fitness 질문 -->
-                    <div class="form-group category-question" id="question-beauty-fitness" style="display: none;">
-                        <label class="form-label">전문성이 느껴지는 콘텐츠가 있나요?</label>
-                        <div class="radio-group auto-next">
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="예">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">예</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="있긴 한데 묻혀있음">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">있긴 한데 묻혀있음</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="거의 없음">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">거의 없음</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Service/Other 질문 -->
-                    <div class="form-group category-question" id="question-service" style="display: none;">
-                        <label class="form-label">왜 여기서 사야 하는지 바로 보이나요?</label>
-                        <div class="radio-group auto-next">
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="예">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">예</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="있긴 한데 안 보임">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">있긴 한데 안 보임</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="category_answer" value="없음">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">없음</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="error-message" id="categoryError" style="display: none;">선택해주세요.</div>
-
-                    <div class="btn-container">
-                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                    </div>
-                </div>
-
-                <!-- Step 5: 목표 및 예산 -->
-                <div class="form-step" data-step="5">
-                    <div class="step-header">
-                        <div class="step-number">STEP 05</div>
-                        <h4 class="step-name">목표 설정</h4>
-                        <p class="step-desc">원하시는 방향을 알려주세요.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">원하는 느낌</label>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="brand_image" value="전문적인" required>
-                                <span class="radio-custom"></span>
-                                <span class="option-text">전문적인</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="brand_image" value="깔끔한">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">깔끔한</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="brand_image" value="활기찬">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">활기찬</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="brand_image" value="친근한">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">친근한</span>
-                            </label>
-                        </div>
-                        <div class="error-message">선택해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">월 예산</label>
-                        <div class="radio-group auto-next-check">
-                            <label class="radio-option">
-                                <input type="radio" name="monthly_budget" value="50만원 미만" required>
-                                <span class="radio-custom"></span>
-                                <span class="option-text">50만원 미만</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="monthly_budget" value="50~100만원">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">50~100만원</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="monthly_budget" value="100만원 이상">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">100만원 이상</span>
-                            </label>
-                        </div>
-                        <div class="error-message">선택해주세요.</div>
-                    </div>
-
-                    <div class="btn-container">
-                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                    </div>
-                </div>
-
-                <!-- Step 6: 연락처 정보 -->
-                <div class="form-step" data-step="6">
-                    <div class="step-header">
-                        <div class="step-number">STEP 06</div>
-                        <h4 class="step-name">마지막 단계</h4>
-                        <p class="step-desc">분석 결과를 보내드릴게요.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">어떻게 불러드릴까요?</label>
-                        <input type="text" name="name" class="form-input" placeholder="홍길동" required>
-                        <div class="error-message">입력해주세요.</div>
+                        <label class="form-label">
+                            분석할 인스타그램 계정
+                            <small>피드 분석을 위해 필요해요</small>
+                        </label>
+                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                        <div class="error-message">계정을 입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">결과 받으실 연락처</label>
                         <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                        <div class="error-message">입력해주세요.</div>
+                        <div class="error-message">연락처를 입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">
-                            분석할 인스타그램 계정
-                            <small>피드 구조 분석을 위해 필요해요. 개인 계정도 괜찮습니다.</small>
-                        </label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
-                        <div class="error-message">입력해주세요.</div>
+                        <label class="form-label">가장 큰 고민 <span class="optional">(선택)</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="concerns" value="구경만 하고 연락이 안 와요">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">구경만 하고 연락이 안 와요</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="concerns" value="피드가 어수선해요">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">피드가 어수선해요</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="concerns" value="뭐가 문제인지 모르겠어요">
+                                <span class="radio-custom"></span>
+                                <span class="option-text">뭐가 문제인지 모르겠어요</span>
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="btn-container">
-                        <button type="button" class="btn btn-prev" onclick="prevStep()">이전</button>
-                        <button type="submit" class="btn btn-submit">무료 진단 받기</button>
-                    </div>
+                    <button type="submit" class="btn btn-submit btn-full">무료 진단 신청하기</button>
+                    
+                    <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
                 </div>
             </form>
         </div>
@@ -1783,82 +1549,82 @@
     <!-- 패키지 섹션 -->
     <section class="packages">
         <div class="packages-container">
-            <div class="section-label">RECOMMENDED PACKAGE</div>
+            <div class="section-label">PACKAGE</div>
             <h3 class="section-title">
-                진단 결과에 따른<br><span>맞춤 패키지</span>
+                진단 후 <span>맞춤 제안</span>드려요
             </h3>
 
             <div class="package-intro">
                 <p class="package-intro-text">
-                    디자인이라는 노동력을 사는 것이 아닙니다.<br>
-                    매출 확률을 높이는 <strong>전문가의 '판단력'</strong>을 사십시오.
+                    예쁜 사진을 파는 게 아닙니다.<br>
+                    <strong>매출이 나는 피드 구조</strong>를 만들어 드립니다.
                 </p>
             </div>
 
             <div class="package-grid">
-                <!-- 브랜드 설계 패키지 -->
+                <!-- 피드 정리 패키지 -->
                 <div class="package-card">
-                    <h4 class="package-name">브랜드 설계</h4>
-                    <p class="package-subtitle">피드 세팅 패키지</p>
+                    <h4 class="package-name">피드 정리</h4>
+                    <p class="package-subtitle">한 번에 싹 정리</p>
                     <div class="package-price">
                         <span class="package-price-value">55</span>
                         <span class="package-price-unit">만원</span>
                     </div>
                     <ul class="package-features">
-                        <li>7단계 브랜드 진단 리포트</li>
-                        <li>마스터 그리드 설계</li>
-                        <li>컬러 팔레트 & 폰트 가이드</li>
-                        <li>프로필 최적화</li>
+                        <li>내 피드 문제점 분석 리포트</li>
+                        <li>피드 전체 레이아웃 정리</li>
+                        <li>색감/글꼴 통일</li>
+                        <li>프로필 정리</li>
                         <li>하이라이트 커버 제작</li>
-                        <li>기초 콘텐츠 템플릿 5종</li>
+                        <li>앞으로 쓸 템플릿 5개</li>
                     </ul>
                     <div class="package-target">
-                        <div class="package-target-label">RECOMMENDED FOR</div>
-                        <p class="package-target-text">피드 톤앤매너가 뒤죽박죽이라 전문성이 안 보이는 사장님</p>
+                        <div class="package-target-label">이런 분께 추천</div>
+                        <p class="package-target-text">피드가 지저분해서 전문성이 안 보이는 분</p>
                     </div>
                 </div>
 
-                <!-- 매출 성장 패키지 -->
+                <!-- 월간 관리 패키지 -->
                 <div class="package-card featured">
-                    <h4 class="package-name">매출 성장</h4>
-                    <p class="package-subtitle">월간 전략 관리 패키지</p>
+                    <h4 class="package-name">월간 관리</h4>
+                    <p class="package-subtitle">매달 피드 운영 대행</p>
                     <div class="package-price">
                         <span class="package-price-value">45</span>
                         <span class="package-price-unit">만원/월</span>
                     </div>
                     <ul class="package-features">
-                        <li><strong>월 8회 고감도 피드 콘텐츠 제작</strong></li>
-                        <li>수익화 슬롯(Revenue Slot) 배치 전략</li>
-                        <li>고객 이탈 방지 스토리 가이드 제공</li>
-                        <li>해시태그 & 캡션 최적화</li>
-                        <li>월간 성과 분석 및 전략 제언</li>
-                        <li>카카오톡 실시간 소통</li>
+                        <li><strong>한 달에 피드 8개 제작</strong></li>
+                        <li>매출로 이어지는 게시물 배치</li>
+                        <li>스토리 운영 가이드</li>
+                        <li>해시태그/글 작성</li>
+                        <li>매달 성과 정리</li>
+                        <li>카톡으로 바로 연락</li>
                     </ul>
                     <div class="package-target">
-                        <div class="package-target-label">RECOMMENDED FOR</div>
-                        <p class="package-target-text">단순 업로드를 넘어 실질적인 예약과 매출 전환이 절실한 사장님</p>
+                        <div class="package-target-label">이런 분께 추천</div>
+                        <p class="package-target-text">올리긴 하는데 예약/문의가 안 들어오는 분</p>
                     </div>
                 </div>
 
-                <!-- 전담 디렉팅 패키지 -->
+                <!-- 올인원 패키지 -->
                 <div class="package-card">
-                    <h4 class="package-name">전담 디렉팅</h4>
-                    <p class="package-subtitle">프리미엄 풀케어 패키지</p>
+                    <h4 class="package-name">올인원</h4>
+                    <p class="package-subtitle">인스타 전부 맡기기</p>
                     <div class="package-price">
                         <span class="package-price-value">90</span>
                         <span class="package-price-unit">만원/월</span>
                     </div>
                     <ul class="package-features">
-                        <li>Blueprint + Revenue 전 항목</li>
-                        <li>전담 디렉터 1:1 배정</li>
-                        <li>주 1회 전략 미팅</li>
-                        <li>광고 캠페인 기획 & 집행</li>
-                        <li>경쟁 매장 모니터링</li>
-                        <li>긴급 콘텐츠 즉시 대응</li>
+                        <li>위 패키지 전부 포함</li>
+                        <li>전담 담당자 배정</li>
+                        <li>매주 통화 1번</li>
+                        <li>광고 기획 + 실행</li>
+                        <li>경쟁 업체 분석</li>
+                        <li>급한 거 당일 처리</li>
                     </ul>
                     <div class="package-target">
-                        <div class="package-target-label">RECOMMENDED FOR</div>
-                        <p class="package-target-text">장사는 잘되지만 인스타 운영까지 신경 쓸 여력이 없는 대표님</p>
+                        <div class="package-target-label">이런 분께 추천</div>
+                        <p class="package-target-text">장사하기도 바빠서 인스타까지 신경 못 쓰는 분</p>
                     </div>
                 </div>
             </div>
@@ -1899,165 +1665,38 @@
     </div>
 
     <script>
-        // 현재 스텝 관리
-        let currentStep = 1;
-        const totalSteps = 6;
-
-        // 스텝 타이틀
-        const stepTitles = {
-            1: '업종 선택',
-            2: '현재 상황',
-            3: '고민 선택',
-            4: '핵심 진단',
-            5: '목표 설정',
-            6: '마지막 단계'
-        };
-
-        // 프로그레스 바 업데이트
-        function updateProgress() {
-            const progress = (currentStep / totalSteps) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('stepIndicator').textContent = 
-                `STEP 0${currentStep} / 0${totalSteps}`;
-            document.getElementById('stepTitle').textContent = stepTitles[currentStep];
-        }
-
-        // 업종별 질문 표시
-        function showCategoryQuestion() {
-            const category = document.querySelector('input[name="business_category"]:checked');
-            if (!category) return;
-
-            // 모든 카테고리 질문 숨기기
-            document.querySelectorAll('.category-question').forEach(q => {
-                q.style.display = 'none';
-                q.querySelectorAll('input[type="radio"]').forEach(r => r.required = false);
-            });
-
-            // 선택된 카테고리에 맞는 질문 표시
-            let questionId = '';
-            switch(category.value) {
-                case 'F&B':
-                    questionId = 'question-fnb';
-                    break;
-                case 'Beauty/Care':
-                case 'Fitness':
-                    questionId = 'question-beauty-fitness';
-                    break;
-                case 'Service/Other':
-                    questionId = 'question-service';
-                    break;
-            }
-
-            if (questionId) {
-                const questionEl = document.getElementById(questionId);
-                questionEl.style.display = 'block';
-                questionEl.querySelectorAll('input[type="radio"]').forEach(r => r.required = true);
-            }
-        }
-
-        // Step 4 진입 시 업종별 질문 표시
-        function onStep4Enter() {
-            showCategoryQuestion();
-        }
-
-        // 현재 스텝 유효성 검사
-        function validateCurrentStep() {
-            const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-            const requiredFields = currentStepElement.querySelectorAll('[required]');
+        // 간단한 유효성 검사
+        function validateForm() {
             let isValid = true;
-
+            const form = document.getElementById('diagnosisForm');
+            
+            // 필수 필드 검사 (instagram, phone)
+            const requiredFields = form.querySelectorAll('[required]');
             requiredFields.forEach(field => {
                 const formGroup = field.closest('.form-group');
-                if (!formGroup) return;
-                
-                // 숨겨진 요소는 검사하지 않음
-                if (formGroup.style.display === 'none') return;
-                
-                // 라디오 버튼 그룹 체크
-                if (field.type === 'radio') {
-                    const radioGroup = currentStepElement.querySelectorAll(`input[name="${field.name}"]`);
-                    const isChecked = Array.from(radioGroup).some(radio => radio.checked);
-                    if (!isChecked) {
-                        formGroup.classList.add('error');
-                        isValid = false;
-                    } else {
-                        formGroup.classList.remove('error');
-                    }
-                }
-                // 일반 필드 체크
-                else if (!field.value.trim()) {
+                if (!field.value.trim()) {
                     formGroup.classList.add('error');
                     isValid = false;
                 } else {
                     formGroup.classList.remove('error');
                 }
             });
-
-            // Step 4 특별 처리: 카테고리 질문 유효성 검사
-            if (currentStep === 4) {
-                const visibleQuestion = document.querySelector('.category-question[style*="block"]');
-                if (visibleQuestion) {
-                    const radios = visibleQuestion.querySelectorAll('input[type="radio"]');
-                    const isAnswered = Array.from(radios).some(r => r.checked);
-                    if (!isAnswered) {
-                        document.getElementById('categoryError').style.display = 'block';
-                        isValid = false;
-                    } else {
-                        document.getElementById('categoryError').style.display = 'none';
-                    }
-                }
-            }
-
+            
             return isValid;
-        }
-
-        // 다음 스텝으로
-        function nextStep() {
-            if (!validateCurrentStep()) {
-                return;
-            }
-
-            if (currentStep < totalSteps) {
-                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
-                currentStep++;
-                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
-                updateProgress();
-
-                // Step 4 진입 시 업종별 질문 표시
-                if (currentStep === 4) {
-                    onStep4Enter();
-                }
-                
-                // 스크롤을 폼 상단으로
-                document.querySelector('.form-container').scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
-            }
-        }
-
-        // 이전 스텝으로
-        function prevStep() {
-            if (currentStep > 1) {
-                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
-                currentStep--;
-                document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
-                updateProgress();
-            }
         }
 
         // 폼 제출 처리
         document.getElementById('diagnosisForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            if (!validateCurrentStep()) {
+            if (!validateForm()) {
                 return;
             }
 
             // 중복 제출 방지: 버튼 비활성화 및 텍스트 변경
             const submitBtn = document.querySelector('.btn-submit');
             if (submitBtn.disabled) {
-                return; // 이미 제출 중이면 무시
+                return;
             }
             submitBtn.disabled = true;
             const originalText = submitBtn.textContent;
@@ -2068,10 +1707,10 @@
             // Google Apps Script URL
             const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
 
-            // 폼 데이터 수집 및 GAS 키 이름으로 매핑
+            // 폼 데이터 수집
             const formData = new FormData(this);
 
-            // 체크박스 데이터 수집 (복수 선택 가능)
+            // concerns 데이터 수집
             const concerns = [];
             formData.getAll('concerns').forEach(value => {
                 concerns.push(value);
@@ -2084,7 +1723,6 @@
                 iframe.id = 'hidden-iframe';
                 iframe.name = 'hidden-iframe';
                 iframe.style.display = 'none';
-                // 403 에러 메시지 숨기기 (데이터는 정상 전송됨)
                 iframe.onerror = function() { return true; };
                 document.body.appendChild(iframe);
             }
@@ -2123,18 +1761,10 @@
             tempForm.submit();
             document.body.removeChild(tempForm);
 
-            // 제출 후 성공 모달 표시 (iframe 사용 시 응답을 받을 수 없으므로 바로 성공으로 처리)
+            // 제출 후 성공 모달 표시
             setTimeout(() => {
                 document.getElementById('successModal').classList.add('active');
-                // 폼 초기화
                 this.reset();
-                currentStep = 1;
-                document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
-                document.querySelector('.form-step[data-step="1"]').classList.add('active');
-                document.querySelectorAll('.category-question').forEach(q => q.style.display = 'none');
-                updateProgress();
-
-                // 버튼 다시 활성화
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
                 submitBtn.style.opacity = '1';
@@ -2147,7 +1777,6 @@
             document.getElementById('successModal').classList.remove('active');
         }
 
-        // 모달 바깥 클릭 시 닫기
         document.getElementById('successModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
@@ -2155,20 +1784,9 @@
         });
 
         // 입력 시 에러 제거
-        document.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(field => {
+        document.querySelectorAll('.form-input').forEach(field => {
             field.addEventListener('input', function() {
                 this.closest('.form-group').classList.remove('error');
-            });
-        });
-
-        document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(field => {
-            field.addEventListener('change', function() {
-                const formGroup = this.closest('.form-group');
-                if (formGroup) {
-                    formGroup.classList.remove('error');
-                }
-                // 카테고리 에러 메시지 숨기기
-                document.getElementById('categoryError').style.display = 'none';
             });
         });
 
@@ -2183,23 +1801,13 @@
             const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
             const diagnosisTop = diagnosisSection.offsetTop;
             const diagnosisBottom = diagnosisTop + diagnosisSection.offsetHeight;
-            const packagesTop = packagesSection.offsetTop;
-            const packagesBottom = packagesTop + packagesSection.offsetHeight;
             const footerTop = footerSection.offsetTop;
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
 
-            // 각 영역 판단
             const isInHeroArea = scrollY < heroBottom;
-            const isInDiagnosisArea = scrollY > diagnosisTop + 200 && scrollY < diagnosisBottom - 300;
             const isInPackagesArea = scrollY >= diagnosisBottom && scrollY + windowHeight < footerTop + 100;
-            const isInFooterArea = scrollY + windowHeight >= footerTop + 100;
 
-            // 1. 히어로 영역: 표시
-            // 2. 히어로 ~ 설문지 사이: 숨김
-            // 3. 설문지 영역: 숨김
-            // 4. 패키지 섹션: 표시
-            // 5. 푸터: 숨김
             if (isInHeroArea || isInPackagesArea) {
                 floatingCta.classList.add('visible');
             } else {
@@ -2208,32 +1816,7 @@
         }
 
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // 초기 실행
-
-        // 자동 넘김 기능 (단일 선택 시)
-        document.querySelectorAll('.auto-next input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                // 선택 효과를 보여준 후 넘김
-                setTimeout(() => {
-                    nextStep();
-                }, 300);
-            });
-        });
-
-        // Step 5 전용: 두 번째 그룹 선택 시 넘김
-        document.querySelectorAll('.auto-next-check input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                // 두 그룹 모두 선택되었는지 확인
-                const brandSelected = document.querySelector('input[name="brand_image"]:checked');
-                const budgetSelected = document.querySelector('input[name="monthly_budget"]:checked');
-                
-                if (brandSelected && budgetSelected) {
-                    setTimeout(() => {
-                        nextStep();
-                    }, 300);
-                }
-            });
-        });
+        handleScroll();
     </script>
 </body>
 </html>
