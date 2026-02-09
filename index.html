@@ -122,7 +122,7 @@
         /* ===== 히어로 섹션 ===== */
         .hero {
             position: relative;
-            padding: 60px 20px 80px;
+            padding: 40px 20px 60px;
             text-align: center;
             overflow: hidden;
         }
@@ -142,22 +142,22 @@
 
         .hero-badge {
             display: inline-block;
-            padding: 10px 24px;
+            padding: 8px 20px;
             background: var(--accent-orange-light);
             border: 1px solid var(--border-orange);
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--accent-orange);
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
 
         .hero-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 1.5;
-            margin-bottom: 32px;
+            margin-bottom: 16px;
             position: relative;
         }
 
@@ -166,15 +166,65 @@
         }
 
         .hero-subtitle {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
             color: var(--text-secondary);
-            line-height: 1.8;
+            line-height: 1.7;
+            margin-bottom: 32px;
         }
 
         .hero-subtitle strong {
             color: var(--accent-orange);
             font-weight: 600;
+        }
+
+        .hero-form-container {
+            max-width: 400px;
+            margin: 0 auto 24px;
+            text-align: left;
+        }
+
+        .hero-form-container .simple-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-form-container .form-group {
+            margin-bottom: 16px;
+        }
+
+        .hero-form-container .form-label {
+            font-size: 14px;
+        }
+
+        .hero-form-container .form-label small {
+            font-size: 11px;
+        }
+
+        .hero-form-container .form-input {
+            padding: 14px 16px;
+            font-size: 15px;
+        }
+
+        .hero-form-container .radio-option {
+            padding: 12px 16px;
+        }
+
+        .hero-form-container .option-text {
+            font-size: 14px;
+        }
+
+        .hero-form-container .btn-full {
+            padding: 16px 24px;
+            font-size: 15px;
+        }
+
+        .hero-form-container .form-notice {
+            margin-top: 12px;
+            font-size: 11px;
         }
 
         .hero-divider {
@@ -188,21 +238,21 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            margin-top: 40px;
-            padding: 12px 24px;
+            margin-top: 0;
+            padding: 10px 20px;
             background: var(--accent-orange-light);
             border: 1px solid var(--border-orange);
             border-radius: 8px;
         }
 
         .hero-slot-label {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-secondary);
         }
 
         .hero-slot-count {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
+            font-size: 20px;
             color: var(--accent-orange);
             letter-spacing: 2px;
         }
@@ -1283,15 +1333,23 @@
             }
 
             .hero {
-                padding: 100px 40px 120px;
+                padding: 60px 40px 80px;
             }
 
             .hero-title {
-                font-size: 42px;
+                font-size: 36px;
             }
 
             .hero-subtitle {
-                font-size: 18px;
+                font-size: 17px;
+            }
+
+            .hero-form-container {
+                max-width: 450px;
+            }
+
+            .hero-form-container .simple-form {
+                padding: 32px;
             }
 
             .urgency-banner {
@@ -1370,7 +1428,11 @@
         /* ===== 반응형 - 데스크탑 ===== */
         @media (min-width: 1024px) {
             .hero-title {
-                font-size: 48px;
+                font-size: 42px;
+            }
+
+            .hero-form-container {
+                max-width: 480px;
             }
 
             .diagnosis {
@@ -1392,32 +1454,20 @@
     </style>
 </head>
 <body>
-    <!-- 히어로 섹션 -->
-    <section class="hero">
+    <!-- 히어로 + 폼 통합 섹션 -->
+    <section class="hero diagnosis" id="diagnosis">
         <div class="hero-badge">무료 피드 진단</div>
         <h2 class="hero-title">
-            인스타 열심히 하는데<br>
-            <span>매출이 안 나오시나요?</span>
+            인스타그램,<br>
+            <span>매출로 이어지고 있나요?</span>
         </h2>
-        <div class="hero-divider"></div>
         <p class="hero-subtitle">
-            같은 실력인데 누군 300 벌고, 누군 1,000 법니다.<br>
-            차이는 <strong>피드 구조</strong>입니다.
+            똑같이 올려도 누군 월 300, 누군 월 1,000.<br>
+            차이는 <strong>'피드 구조'</strong>입니다.
         </p>
-        <div class="hero-slot">
-            <span class="hero-slot-label">2월 진단 가능</span>
-            <span class="hero-slot-count">1/5</span>
-        </div>
-    </section>
 
-    <!-- 진단 섹션 -->
-    <section class="diagnosis" id="diagnosis">
-        <h3 class="section-title">
-            <span>무료</span> 피드 진단
-        </h3>
-
-        <div class="form-container">
-            <!-- Google Apps Script 연동 폼 -->
+        <!-- 폼 -->
+        <div class="hero-form-container">
             <form id="diagnosisForm">
                 <div class="simple-form">
                     <div class="form-group">
@@ -1461,6 +1511,11 @@
                     <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
                 </div>
             </form>
+        </div>
+
+        <div class="hero-slot">
+            <span class="hero-slot-label">2월 진단 가능</span>
+            <span class="hero-slot-count">1/5</span>
         </div>
     </section>
 
@@ -1793,22 +1848,19 @@
         // 플로팅 CTA 스크롤 이벤트
         const floatingCta = document.getElementById('floatingCta');
         const heroSection = document.querySelector('.hero');
-        const diagnosisSection = document.querySelector('.diagnosis');
-        const packagesSection = document.querySelector('.packages');
         const footerSection = document.querySelector('.footer');
 
         function handleScroll() {
             const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-            const diagnosisTop = diagnosisSection.offsetTop;
-            const diagnosisBottom = diagnosisTop + diagnosisSection.offsetHeight;
             const footerTop = footerSection.offsetTop;
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
 
-            const isInHeroArea = scrollY < heroBottom;
-            const isInPackagesArea = scrollY >= diagnosisBottom && scrollY + windowHeight < footerTop + 100;
+            // 폼(히어로) 영역을 지나고, 푸터 전까지만 표시
+            const isPastForm = scrollY > heroBottom - 100;
+            const isBeforeFooter = scrollY + windowHeight < footerTop + 100;
 
-            if (isInHeroArea || isInPackagesArea) {
+            if (isPastForm && isBeforeFooter) {
                 floatingCta.classList.add('visible');
             } else {
                 floatingCta.classList.remove('visible');
