@@ -1515,7 +1515,7 @@
 
         <div class="hero-slot">
             <span class="hero-slot-label">2월 진단 가능</span>
-            <span class="hero-slot-count">3/5</span>
+            <span class="hero-slot-count">1/5</span>
         </div>
     </section>
 
@@ -1715,7 +1715,7 @@
 
     <!-- 플로팅 CTA -->
     <div class="floating-cta" id="floatingCta">
-        <span class="floating-cta-text">2월 진단 가능: <strong>3/5</strong></span>
+        <span class="floating-cta-text">2월 진단 가능: <strong>1/5</strong></span>
         <a href="#diagnosis" class="floating-cta-btn">내 피드 진단받기 →</a>
     </div>
 
@@ -1724,11 +1724,13 @@
         function validateForm() {
             let isValid = true;
             const form = document.getElementById('diagnosisForm');
+            if (!form) return false;
             
             // 필수 필드 검사 (instagram, phone)
             const requiredFields = form.querySelectorAll('[required]');
             requiredFields.forEach(field => {
                 const formGroup = field.closest('.form-group');
+                if (!formGroup) return;
                 if (!field.value.trim()) {
                     formGroup.classList.add('error');
                     isValid = false;
@@ -1741,43 +1743,45 @@
         }
 
         // 폼 제출 처리
-        document.getElementById('diagnosisForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        const diagnosisForm = document.getElementById('diagnosisForm');
+        if (diagnosisForm) {
+            diagnosisForm.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            if (!validateForm()) {
-                return;
-            }
+                if (!validateForm()) {
+                    return;
+                }
 
-            // 중복 제출 방지: 버튼 비활성화 및 텍스트 변경
-            const submitBtn = document.querySelector('.btn-submit');
-            if (submitBtn.disabled) {
-                return;
-            }
-            submitBtn.disabled = true;
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '전송 중...';
-            submitBtn.style.opacity = '0.6';
-            submitBtn.style.cursor = 'not-allowed';
+                // 중복 제출 방지: 버튼 비활성화 및 텍스트 변경
+                const submitBtn = document.querySelector('.btn-submit');
+                if (!submitBtn || submitBtn.disabled) {
+                    return;
+                }
+                submitBtn.disabled = true;
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '전송 중...';
+                submitBtn.style.opacity = '0.6';
+                submitBtn.style.cursor = 'not-allowed';
 
-            // Google Apps Script URL
-            const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
+                // Google Apps Script URL
+                const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
 
-            // 폼 데이터 수집
-            const formData = new FormData(this);
+                // 폼 데이터 수집
+                const formData = new FormData(this);
 
-            // concerns 데이터 수집
-            const concerns = [];
-            formData.getAll('concerns').forEach(value => {
-                concerns.push(value);
-            });
+                // concerns 데이터 수집
+                const concerns = [];
+                formData.getAll('concerns').forEach(value => {
+                    concerns.push(value);
+                });
 
-            // 숨겨진 iframe 생성 (CORS 우회)
-            let iframe = document.getElementById('hidden-iframe');
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.id = 'hidden-iframe';
-                iframe.name = 'hidden-iframe';
-                iframe.style.display = 'none';
+                // 숨겨진 iframe 생성 (CORS 우회)
+                let iframe = document.getElementById('hidden-iframe');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.id = 'hidden-iframe';
+                    iframe.name = 'hidden-iframe';
+                    iframe.style.display = 'none';
                 iframe.onerror = function() { return true; };
                 document.body.appendChild(iframe);
             }
@@ -1818,7 +1822,8 @@
 
             // 제출 후 성공 모달 표시
             setTimeout(() => {
-                document.getElementById('successModal').classList.add('active');
+                const modal = document.getElementById('successModal');
+                if (modal) modal.classList.add('active');
                 this.reset();
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
@@ -1826,22 +1831,28 @@
                 submitBtn.style.cursor = 'pointer';
             }, 500);
         });
+        }
 
         // 모달 닫기
         function closeModal() {
-            document.getElementById('successModal').classList.remove('active');
+            const modal = document.getElementById('successModal');
+            if (modal) modal.classList.remove('active');
         }
 
-        document.getElementById('successModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+        const successModal = document.getElementById('successModal');
+        if (successModal) {
+            successModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
 
         // 입력 시 에러 제거
         document.querySelectorAll('.form-input').forEach(field => {
             field.addEventListener('input', function() {
-                this.closest('.form-group').classList.remove('error');
+                const group = this.closest('.form-group');
+                if (group) group.classList.remove('error');
             });
         });
 
@@ -1850,25 +1861,27 @@
         const heroSection = document.querySelector('.hero');
         const footerSection = document.querySelector('.footer');
 
-        function handleScroll() {
-            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-            const footerTop = footerSection.offsetTop;
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
+        if (floatingCta && heroSection && footerSection) {
+            function handleScroll() {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const footerTop = footerSection.offsetTop;
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
 
-            // 폼(히어로) 영역을 지나고, 푸터 전까지만 표시
-            const isPastForm = scrollY > heroBottom - 100;
-            const isBeforeFooter = scrollY + windowHeight < footerTop + 100;
+                // 폼(히어로) 영역을 지나고, 푸터 전까지만 표시
+                const isPastForm = scrollY > heroBottom - 100;
+                const isBeforeFooter = scrollY + windowHeight < footerTop + 100;
 
-            if (isPastForm && isBeforeFooter) {
-                floatingCta.classList.add('visible');
-            } else {
-                floatingCta.classList.remove('visible');
+                if (isPastForm && isBeforeFooter) {
+                    floatingCta.classList.add('visible');
+                } else {
+                    floatingCta.classList.remove('visible');
+                }
             }
-        }
 
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
+            window.addEventListener('scroll', handleScroll);
+            handleScroll();
+        }
     </script>
 </body>
 </html>
