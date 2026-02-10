@@ -1458,33 +1458,13 @@
     <section class="hero diagnosis" id="diagnosis">
         <div class="hero-badge">무료 피드 진단</div>
         <h2 class="hero-title">
-            인스타그램,<br>
-            <span>매출로 이어지고 있나요?</span>
+            내 피드 <span>몇 점일까?</span>
         </h2>
-        <p class="hero-subtitle">
-            똑같이 올려도 누군 월 300, 누군 월 1,000.<br>
-            차이는 <strong>'피드 구조'</strong>입니다.
-        </p>
 
         <!-- 폼 -->
         <div class="hero-form-container">
             <form id="diagnosisForm">
                 <div class="simple-form">
-                    <div class="form-group">
-                        <label class="form-label">
-                            분석할 인스타그램 계정
-                            <small>피드 분석을 위해 필요해요</small>
-                        </label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
-                        <div class="error-message">계정을 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">결과 받으실 연락처</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                        <div class="error-message">연락처를 입력해주세요.</div>
-                    </div>
-
                     <div class="form-group">
                         <label class="form-label">가장 큰 고민 <span class="optional">(선택)</span></label>
                         <div class="radio-group">
@@ -1506,7 +1486,22 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-submit btn-full">무료 진단 신청하기</button>
+                    <div class="form-group">
+                        <label class="form-label">
+                            분석할 인스타그램 계정
+                            <small>피드 분석을 위해 필요해요</small>
+                        </label>
+                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                        <div class="error-message">계정을 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">결과 받으실 연락처</label>
+                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                        <div class="error-message">연락처를 입력해주세요.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit btn-full">내 피드 점수 보기</button>
                     
                     <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
                 </div>
@@ -1621,10 +1616,6 @@
                 <div class="package-card">
                     <h4 class="package-name">피드 정리</h4>
                     <p class="package-subtitle">한 번에 싹 정리</p>
-                    <div class="package-price">
-                        <span class="package-price-value">55</span>
-                        <span class="package-price-unit">만원</span>
-                    </div>
                     <ul class="package-features">
                         <li>내 피드 문제점 분석 리포트</li>
                         <li>피드 전체 레이아웃 정리</li>
@@ -1643,10 +1634,6 @@
                 <div class="package-card featured">
                     <h4 class="package-name">월간 관리</h4>
                     <p class="package-subtitle">매달 피드 운영 대행</p>
-                    <div class="package-price">
-                        <span class="package-price-value">45</span>
-                        <span class="package-price-unit">만원/월</span>
-                    </div>
                     <ul class="package-features">
                         <li><strong>한 달에 피드 8개 제작</strong></li>
                         <li>매출로 이어지는 게시물 배치</li>
@@ -1665,10 +1652,6 @@
                 <div class="package-card">
                     <h4 class="package-name">올인원</h4>
                     <p class="package-subtitle">인스타 전부 맡기기</p>
-                    <div class="package-price">
-                        <span class="package-price-value">90</span>
-                        <span class="package-price-unit">만원/월</span>
-                    </div>
                     <ul class="package-features">
                         <li>위 패키지 전부 포함</li>
                         <li>전담 담당자 배정</li>
@@ -1695,7 +1678,7 @@
         <p class="footer-subtext">
             지금 바로 전문 디렉터의 무료 진단을 받아보세요.
         </p>
-        <a href="#diagnosis" class="footer-cta">브랜드 진단 받기</a>
+        <a href="#diagnosis" class="footer-cta">내 피드 점수 보기</a>
         <p class="footer-copyright">© 2024 FEED-ON. All rights reserved.</p>
     </footer>
 
@@ -1716,7 +1699,7 @@
     <!-- 플로팅 CTA -->
     <div class="floating-cta" id="floatingCta">
         <span class="floating-cta-text">2월 진단 가능: <strong>3/5</strong></span>
-        <a href="#diagnosis" class="floating-cta-btn">내 피드 진단받기 →</a>
+        <a href="#diagnosis" class="floating-cta-btn">내 피드 점수 보기 →</a>
     </div>
 
     <script>
