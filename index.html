@@ -178,13 +178,290 @@
             font-weight: 600;
         }
 
+        /* ===== 히어로 메인 컨테이너 ===== */
+        .hero-main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding: 0;
+        }
+
+        /* ===== 리포트 카드 ===== */
+        .report-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #e8e8e8;
+            box-shadow: var(--shadow-md);
+            order: -1;
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .report-label {
+            font-size: 11px;
+            color: var(--accent-orange);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .report-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* 문제점 리스트 */
+        .problem-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: #fff5f5;
+            border: 1px solid rgba(255, 107, 107, 0.15);
+            border-radius: 12px;
+        }
+
+        .problem-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .problem-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .score-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .score-grade {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff0eb 100%);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 16px;
+            padding: 16px 28px;
+        }
+
+        .grade-letter {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ff6b6b;
+        }
+
+        .grade-divider {
+            width: 1px;
+            height: 45px;
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        .grade-score {
+            text-align: left;
+        }
+
+        .grade-score-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .grade-score-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .radar-section {
+            margin-bottom: 20px;
+        }
+
+        .radar-chart {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .radar-bg svg {
+            width: 160px;
+            height: 160px;
+        }
+
+        .radar-labels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .radar-label {
+            position: absolute;
+            font-size: 9px;
+            color: #666;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .radar-label.top { top: -8px; left: 50%; transform: translateX(-50%); }
+        .radar-label.top-right { top: 25px; right: -25px; }
+        .radar-label.bottom-right { bottom: 20px; right: -20px; }
+        .radar-label.bottom-left { bottom: 20px; left: -25px; }
+        .radar-label.top-left { top: 25px; left: -20px; }
+
+        .score-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-item-label {
+            flex: 0 0 80px;
+            font-size: 11px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .score-item-bar {
+            flex: 1;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-item-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .score-item-fill.danger { background: linear-gradient(90deg, #ff6b6b, #ee5a5a); }
+        .score-item-fill.warning { background: linear-gradient(90deg, #ffa726, #fb8c00); }
+        .score-item-fill.good { background: linear-gradient(90deg, #66bb6a, #4caf50); }
+
+        .score-item-value {
+            flex: 0 0 25px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right;
+            color: #333;
+        }
+
+        .score-item-status {
+            flex: 0 0 16px;
+            font-size: 10px;
+        }
+
+        .solution-section {
+            position: relative;
+            background: #f8f8f8;
+            border-radius: 12px;
+            padding: 16px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .solution-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .solution-blur {
+            filter: blur(5px);
+            opacity: 0.6;
+        }
+
+        .solution-blur-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .solution-blur-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .solution-blur-icon {
+            color: var(--accent-orange);
+            flex-shrink: 0;
+        }
+
+        .solution-lock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            margin-top: 8px;
+        }
+
+        .lock-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(245, 133, 41, 0.3);
+        }
+
+        .lock-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
         .hero-form-container {
             max-width: 400px;
-            margin: 0 auto 24px;
+            margin: 0 auto;
             text-align: left;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow-md);
+            width: 100%;
         }
 
         .form-header {
@@ -250,7 +527,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            margin-top: 0;
+            margin-top: 24px;
             padding: 10px 20px;
             background: var(--accent-orange-light);
             border: 1px solid var(--border-orange);
@@ -1356,8 +1633,22 @@
                 font-size: 17px;
             }
 
+            .hero-main-container {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 32px;
+            }
+
             .hero-form-container {
-                max-width: 450px;
+                flex: 1;
+                max-width: 420px;
+                order: 0;
+            }
+
+            .report-card {
+                flex: 0 0 340px;
+                order: 1;
+                max-width: 340px;
             }
 
             .hero-form-container .simple-form {
@@ -1444,11 +1735,11 @@
             }
 
             .hero-form-container {
-                max-width: 480px;
+                max-width: 440px;
             }
 
             .diagnosis {
-                max-width: 700px;
+                max-width: 900px;
             }
 
             .form-container {
@@ -1473,54 +1764,105 @@
             내 피드 <span>몇 점일까?</span>
         </h2>
 
-        <!-- 폼 -->
-        <div class="hero-form-container">
-            <div class="form-header">
-                <span>30초면 끝나요</span>
+        <div class="hero-main-container">
+            <!-- 폼 -->
+            <div class="hero-form-container">
+                <div class="form-header">
+                    <span>내 피드 점수 보기</span>
+                </div>
+                <form id="diagnosisForm">
+                    <div class="simple-form">
+                        <div class="form-group">
+                            <label class="form-label">가장 큰 고민</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="concerns" value="구경만 하고 연락이 안 와요">
+                                    <span class="radio-custom"></span>
+                                    <span class="option-text">구경만 하고 연락이 안 와요</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="concerns" value="피드가 어수선해요">
+                                    <span class="radio-custom"></span>
+                                    <span class="option-text">피드가 어수선해요</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="concerns" value="뭐가 문제인지 모르겠어요">
+                                    <span class="radio-custom"></span>
+                                    <span class="option-text">뭐가 문제인지 모르겠어요</span>
+                                </label>
+                            </div>
+                            <div class="error-message">고민을 선택해주세요.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                분석할 인스타그램 계정
+                                <small>피드 분석을 위해 필요해요</small>
+                            </label>
+                            <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                            <div class="error-message">계정을 입력해주세요.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">결과 받으실 연락처</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                            <div class="error-message">연락처를 입력해주세요.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-submit btn-full">리포트 받기</button>
+                        
+                        <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
+                    </div>
+                </form>
             </div>
-            <form id="diagnosisForm">
-                <div class="simple-form">
-                    <div class="form-group">
-                        <label class="form-label">가장 큰 고민 <span class="optional">(선택)</span></label>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="concerns" value="구경만 하고 연락이 안 와요">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">구경만 하고 연락이 안 와요</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="concerns" value="피드가 어수선해요">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">피드가 어수선해요</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="concerns" value="뭐가 문제인지 모르겠어요">
-                                <span class="radio-custom"></span>
-                                <span class="option-text">뭐가 문제인지 모르겠어요</span>
-                            </label>
+
+            <!-- 리포트 카드 -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-label">FEED REPORT</div>
+                    <div class="report-title">내 리포트 미리보기</div>
+                </div>
+
+                <!-- 문제점 리스트 -->
+                <div class="problem-list">
+                    <div class="problem-item">
+                        <span class="problem-icon">❌</span>
+                        <span class="problem-text">DM 보내려다가 귀찮아서 그냥 나감</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">❌</span>
+                        <span class="problem-text">피드 딱 보고 '별거 없네' 3초 컷</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">❌</span>
+                        <span class="problem-text">같은 거 파는데 옆집만 예약 꽉 참</span>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">❌</span>
+                        <span class="problem-text">열심히 올렸는데 그냥 스크롤 넘김</span>
+                    </div>
+                </div>
+
+                <!-- 블러 해결법 -->
+                <div class="solution-section">
+                    <div class="solution-title">✅ 이렇게 바뀌면</div>
+                    <div class="solution-blur">
+                        <div class="solution-blur-item">
+                            <span>"인스타 보고 왔어요" 듣는 법</span>
+                        </div>
+                        <div class="solution-blur-item">
+                            <span>가격 올려도 예약 밀리는 피드</span>
+                        </div>
+                        <div class="solution-blur-item">
+                            <span>DM 먼저 오게 만드는 프로필</span>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            분석할 인스타그램 계정
-                            <small>피드 분석을 위해 필요해요</small>
-                        </label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
-                        <div class="error-message">계정을 입력해주세요.</div>
+                    <div class="solution-lock">
+                        <div class="lock-icon">🔒</div>
+                        <div class="lock-text">신청 후 확인</div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">결과 받으실 연락처</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                        <div class="error-message">연락처를 입력해주세요.</div>
-                    </div>
-
-                    <button type="submit" class="btn btn-submit btn-full">내 피드 점수 보기</button>
-                    
-                    <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
                 </div>
-            </form>
+            </div>
         </div>
 
         <div class="hero-slot">
@@ -1724,6 +2066,16 @@
             const form = document.getElementById('diagnosisForm');
             if (!form) return false;
             
+            // 라디오 버튼 검사 (가장 큰 고민)
+            const concernsRadio = form.querySelector('input[name="concerns"]:checked');
+            const concernsGroup = form.querySelector('input[name="concerns"]').closest('.form-group');
+            if (!concernsRadio) {
+                if (concernsGroup) concernsGroup.classList.add('error');
+                isValid = false;
+            } else {
+                if (concernsGroup) concernsGroup.classList.remove('error');
+            }
+            
             // 필수 필드 검사 (instagram, phone)
             const requiredFields = form.querySelectorAll('[required]');
             requiredFields.forEach(field => {
@@ -1849,6 +2201,14 @@
         // 입력 시 에러 제거
         document.querySelectorAll('.form-input').forEach(field => {
             field.addEventListener('input', function() {
+                const group = this.closest('.form-group');
+                if (group) group.classList.remove('error');
+            });
+        });
+
+        // 라디오 버튼 선택 시 에러 제거
+        document.querySelectorAll('input[name="concerns"]').forEach(radio => {
+            radio.addEventListener('change', function() {
                 const group = this.closest('.form-group');
                 if (group) group.classList.remove('error');
             });
