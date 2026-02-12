@@ -142,22 +142,22 @@
 
         .hero-badge {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 12px 28px;
             background: var(--accent-orange-light);
             border: 1px solid var(--border-orange);
             border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 700;
             letter-spacing: 2px;
             color: var(--accent-orange);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .hero-title {
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.5;
-            margin-bottom: 16px;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 28px;
             position: relative;
         }
 
@@ -195,7 +195,6 @@
             padding: 24px;
             border: 1px solid #e8e8e8;
             box-shadow: var(--shadow-md);
-            order: -1;
             max-width: 400px;
             margin: 0 auto;
             width: 100%;
@@ -222,7 +221,140 @@
             color: var(--text-primary);
         }
 
-        /* 문제점 리스트 */
+        /* 점수 영역 */
+        .score-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .score-grade {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff0eb 100%);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 16px;
+            padding: 16px 28px;
+        }
+
+        .grade-letter {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ff6b6b;
+        }
+
+        .grade-divider {
+            width: 1px;
+            height: 45px;
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        .grade-score {
+            text-align: left;
+        }
+
+        .grade-score-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .grade-score-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* 레이더 차트 */
+        .radar-section {
+            margin-bottom: 20px;
+        }
+
+        .radar-chart {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+        }
+
+        .radar-bg svg {
+            width: 180px;
+            height: 180px;
+        }
+
+        .radar-labels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .radar-label {
+            position: absolute;
+            font-size: 9px;
+            color: #666;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .radar-label.top { top: -8px; left: 50%; transform: translateX(-50%); }
+        .radar-label.top-right { top: 30px; right: -25px; }
+        .radar-label.bottom-right { bottom: 25px; right: -20px; }
+        .radar-label.bottom-left { bottom: 25px; left: -25px; }
+        .radar-label.top-left { top: 30px; left: -20px; }
+
+        /* 항목별 점수 */
+        .score-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-item-label {
+            flex: 0 0 80px;
+            font-size: 11px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .score-item-bar {
+            flex: 1;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-item-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .score-item-fill.danger { background: linear-gradient(90deg, #ff6b6b, #ee5a5a); }
+        .score-item-fill.warning { background: linear-gradient(90deg, #ffa726, #fb8c00); }
+        .score-item-fill.good { background: linear-gradient(90deg, #66bb6a, #4caf50); }
+
+        .score-item-value {
+            flex: 0 0 25px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right;
+            color: #333;
+        }
+
+        .score-item-status {
+            flex: 0 0 16px;
+            font-size: 10px;
+        }
+
+        /* 문제점 리스트 (fallback) */
         .problem-list {
             display: flex;
             flex-direction: column;
@@ -252,7 +384,7 @@
             font-weight: 500;
         }
 
-        .score-section {
+        .solution-section {
             text-align: center;
             margin-bottom: 24px;
         }
@@ -1626,7 +1758,7 @@
             }
 
             .hero-title {
-                font-size: 36px;
+                font-size: 44px;
             }
 
             .hero-subtitle {
@@ -1731,7 +1863,7 @@
         /* ===== 반응형 - 데스크탑 ===== */
         @media (min-width: 1024px) {
             .hero-title {
-                font-size: 42px;
+                font-size: 48px;
             }
 
             .hero-form-container {
@@ -1820,32 +1952,90 @@
             <div class="report-card">
                 <div class="report-header">
                     <div class="report-label">FEED REPORT</div>
-                    <div class="report-title">내 리포트 미리보기</div>
+                    <div class="report-title">신청하면 이 리포트가 와요</div>
                 </div>
 
-                <!-- 문제점 리스트 -->
-                <div class="problem-list">
-                    <div class="problem-item">
-                        <span class="problem-icon">❌</span>
-                        <span class="problem-text">DM 보내려다가 귀찮아서 그냥 나감</span>
-                    </div>
-                    <div class="problem-item">
-                        <span class="problem-icon">❌</span>
-                        <span class="problem-text">피드 딱 보고 '별거 없네' 3초 컷</span>
-                    </div>
-                    <div class="problem-item">
-                        <span class="problem-icon">❌</span>
-                        <span class="problem-text">같은 거 파는데 옆집만 예약 꽉 참</span>
-                    </div>
-                    <div class="problem-item">
-                        <span class="problem-icon">❌</span>
-                        <span class="problem-text">열심히 올렸는데 그냥 스크롤 넘김</span>
+                <!-- 점수 -->
+                <div class="score-section">
+                    <div class="score-grade">
+                        <div class="grade-letter">C</div>
+                        <div class="grade-divider"></div>
+                        <div class="grade-score">
+                            <div class="grade-score-value">58점</div>
+                            <div class="grade-score-label">종합 점수</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 블러 해결법 -->
+                <!-- 레이더 차트 -->
+                <div class="radar-section">
+                    <div class="radar-chart">
+                        <div class="radar-bg">
+                            <svg viewBox="0 0 200 200">
+                                <polygon points="100,20 176,58 152,148 48,148 24,58" fill="none" stroke="#e8e8e8" stroke-width="1"/>
+                                <polygon points="100,40 156,68 138,138 62,138 44,68" fill="none" stroke="#e8e8e8" stroke-width="1"/>
+                                <polygon points="100,60 136,78 124,128 76,128 64,78" fill="none" stroke="#e8e8e8" stroke-width="1"/>
+                                <polygon points="100,80 116,88 110,118 90,118 84,88" fill="none" stroke="#e8e8e8" stroke-width="1"/>
+                                <line x1="100" y1="100" x2="100" y2="20" stroke="#e8e8e8" stroke-width="1"/>
+                                <line x1="100" y1="100" x2="176" y2="58" stroke="#e8e8e8" stroke-width="1"/>
+                                <line x1="100" y1="100" x2="152" y2="148" stroke="#e8e8e8" stroke-width="1"/>
+                                <line x1="100" y1="100" x2="48" y2="148" stroke="#e8e8e8" stroke-width="1"/>
+                                <line x1="100" y1="100" x2="24" y2="58" stroke="#e8e8e8" stroke-width="1"/>
+                                <polygon points="100,50 140,75 130,120 55,125 55,72" fill="rgba(245, 133, 41, 0.15)" stroke="#F58529" stroke-width="2"/>
+                                <circle cx="100" cy="50" r="4" fill="#F58529"/>
+                                <circle cx="140" cy="75" r="4" fill="#F58529"/>
+                                <circle cx="130" cy="120" r="4" fill="#F58529"/>
+                                <circle cx="55" cy="125" r="4" fill="#ff6b6b"/>
+                                <circle cx="55" cy="72" r="4" fill="#ff6b6b"/>
+                            </svg>
+                        </div>
+                        <div class="radar-labels">
+                            <span class="radar-label top">첫인상</span>
+                            <span class="radar-label top-right">고급감</span>
+                            <span class="radar-label bottom-right">정보 전달</span>
+                            <span class="radar-label bottom-left">프로 느낌</span>
+                            <span class="radar-label top-left">연락 전환</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 항목별 점수 -->
+                <div class="score-items">
+                    <div class="score-item">
+                        <span class="score-item-label">연락 전환</span>
+                        <div class="score-item-bar"><div class="score-item-fill danger" style="width: 40%;"></div></div>
+                        <span class="score-item-value">40</span>
+                        <span class="score-item-status">🔴</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">첫인상</span>
+                        <div class="score-item-bar"><div class="score-item-fill warning" style="width: 62%;"></div></div>
+                        <span class="score-item-value">62</span>
+                        <span class="score-item-status">🟠</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">프로 느낌</span>
+                        <div class="score-item-bar"><div class="score-item-fill danger" style="width: 45%;"></div></div>
+                        <span class="score-item-value">45</span>
+                        <span class="score-item-status">🔴</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">고급감</span>
+                        <div class="score-item-bar"><div class="score-item-fill warning" style="width: 55%;"></div></div>
+                        <span class="score-item-value">55</span>
+                        <span class="score-item-status">🟠</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">정보 전달</span>
+                        <div class="score-item-bar"><div class="score-item-fill good" style="width: 70%;"></div></div>
+                        <span class="score-item-value">70</span>
+                        <span class="score-item-status">🟢</span>
+                    </div>
+                </div>
+
+                <!-- 블러 솔루션 -->
                 <div class="solution-section">
-                    <div class="solution-title">✅ 이렇게 바뀌면</div>
+                    <div class="solution-title">🔓 해결법</div>
                     <div class="solution-blur">
                         <div class="solution-blur-item">
                             <span>"인스타 보고 왔어요" 듣는 법</span>
@@ -2029,13 +2219,13 @@
     <!-- 푸터 -->
     <footer class="footer">
         <p class="footer-question">
-            사장님의 인스타는<br>
-            <span>'비용'</span>인가요, <span>'자산'</span>인가요?
+            "인스타 보고 왔어요"<br>
+            <span>언제 마지막으로 들으셨나요?</span>
         </p>
         <p class="footer-subtext">
-            지금 바로 전문 디렉터의 무료 진단을 받아보세요.
+            30초 투자로 내 피드 문제점을 알 수 있어요.
         </p>
-        <a href="#diagnosis" class="footer-cta">내 피드 점수 보기</a>
+        <a href="#diagnosis" class="footer-cta">무료로 내 점수 보기</a>
         <p class="footer-copyright">© 2024 FEED-ON. All rights reserved.</p>
     </footer>
 
@@ -2056,7 +2246,7 @@
     <!-- 플로팅 CTA -->
     <div class="floating-cta" id="floatingCta">
         <span class="floating-cta-text">2월 진단 가능: <strong>3/5</strong></span>
-        <a href="#diagnosis" class="floating-cta-btn">내 피드 점수 보기 →</a>
+        <a href="#diagnosis" class="floating-cta-btn">무료로 점수 보기 →</a>
     </div>
 
     <script>
