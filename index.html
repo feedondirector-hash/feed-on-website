@@ -1510,6 +1510,97 @@
             color: var(--text-muted);
         }
 
+        /* ===== 타겟 섹션 ===== */
+        .target-section {
+            padding: 60px 20px;
+            background: var(--bg-card);
+            text-align: center;
+        }
+
+        .target-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .target-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            color: var(--text-primary);
+        }
+
+        .target-title span {
+            color: var(--accent-orange);
+        }
+
+        .target-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 36px;
+            text-align: left;
+        }
+
+        .target-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .target-item-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .report-info {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .report-info-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .report-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .report-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .report-info-item::before {
+            content: "•";
+            color: var(--accent-orange);
+            font-weight: bold;
+        }
+
+        .target-notice {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
         /* ===== 감사 프로세스 섹션 ===== */
         .audit-process {
             position: relative;
@@ -2058,6 +2149,43 @@
         <div class="hero-slot">
             <span class="hero-slot-label">2월 진단 가능</span>
             <span class="hero-slot-count">3/5</span>
+        </div>
+    </section>
+
+    <!-- 타겟 섹션 -->
+    <section class="target-section">
+        <div class="target-container">
+            <h3 class="target-title">🎯 이런 분께 <span>딱 맞아요</span></h3>
+            
+            <div class="target-list">
+                <div class="target-item">
+                    <span class="target-item-icon">✓</span>
+                    <span>피드 운영할 시간이 없는 분</span>
+                </div>
+                <div class="target-item">
+                    <span class="target-item-icon">✓</span>
+                    <span>어떻게 꾸며야 할지 감이 안 오는 분</span>
+                </div>
+                <div class="target-item">
+                    <span class="target-item-icon">✓</span>
+                    <span>대행사는 비싸고, 혼자 하긴 막막한 분</span>
+                </div>
+                <div class="target-item">
+                    <span class="target-item-icon">✓</span>
+                    <span>잘하고 있는 건지 확인받고 싶은 분</span>
+                </div>
+            </div>
+
+            <div class="report-info">
+                <div class="report-info-title">📋 무료 분석 리포트로 알 수 있는 것</div>
+                <div class="report-info-list">
+                    <div class="report-info-item">왜 문의가 안 오는지</div>
+                    <div class="report-info-item">내 피드 수준이 어느 정도인지</div>
+                    <div class="report-info-item">바로 적용할 수 있는 개선 방향</div>
+                </div>
+            </div>
+
+            <p class="target-notice">※ 팔로워 늘리기, 좋아요 작업 등 조작성 서비스는 취급하지 않습니다</p>
         </div>
     </section>
 
