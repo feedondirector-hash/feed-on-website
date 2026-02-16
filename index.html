@@ -202,11 +202,11 @@
             padding: 0;
         }
 
-        /* ===== 리포트 카드 ===== */
-        .report-card {
+        /* ===== 혜택 카드 ===== */
+        .benefit-card {
             background: #ffffff;
             border-radius: 20px;
-            padding: 24px;
+            padding: 28px 24px;
             border: 1px solid #e8e8e8;
             box-shadow: var(--shadow-md);
             max-width: 400px;
@@ -214,28 +214,62 @@
             width: 100%;
         }
 
-        .report-header {
-            text-align: center;
-            margin-bottom: 20px;
+        .benefit-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
             padding-bottom: 16px;
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .report-label {
-            font-size: 11px;
-            color: var(--accent-orange);
-            letter-spacing: 2px;
-            margin-bottom: 4px;
-            font-weight: 600;
+        .benefit-icon {
+            font-size: 24px;
         }
 
-        .report-title {
-            font-size: 15px;
+        .benefit-title {
+            font-size: 18px;
             font-weight: 700;
             color: var(--text-primary);
         }
 
-        /* 점수 영역 */
+        .benefit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: #fafafa;
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .benefit-check {
+            color: var(--accent-orange);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .benefit-notice {
+            text-align: center;
+            padding: 14px;
+            background: linear-gradient(135deg, #fff8f3 0%, #fff0eb 100%);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        /* 점수 영역 (미사용) */
         .score-section {
             text-align: center;
             margin-bottom: 24px;
@@ -1671,6 +1705,82 @@
             margin-top: 16px;
         }
 
+        /* 간소화된 3단계 */
+        .simple-steps {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .simple-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 20px 28px;
+            width: 100%;
+            max-width: 320px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .simple-step-number {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .simple-step-content {
+            flex: 1;
+        }
+
+        .simple-step-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .simple-step-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .simple-step-arrow {
+            font-size: 24px;
+            color: var(--accent-orange);
+            transform: rotate(90deg);
+        }
+
+        @media (min-width: 768px) {
+            .simple-steps {
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .simple-step {
+                flex-direction: column;
+                text-align: center;
+                padding: 28px 24px;
+                max-width: 200px;
+            }
+
+            .simple-step-arrow {
+                transform: rotate(0deg);
+            }
+        }
+
         .audit-steps {
             display: flex;
             flex-direction: column;
@@ -1903,7 +2013,7 @@
                 order: 0;
             }
 
-            .report-card {
+            .benefit-card {
                 flex: 0 0 340px;
                 order: 1;
                 max-width: 340px;
@@ -2056,109 +2166,28 @@
                 </form>
             </div>
 
-            <!-- 리포트 카드 -->
-            <div class="report-card">
-                <div class="report-header">
-                    <div class="report-label">FEED REPORT</div>
-                    <div class="report-title">신청하면 이 리포트가 와요</div>
+            <!-- 신청하면 받는 것 -->
+            <div class="benefit-card">
+                <div class="benefit-header">
+                    <span class="benefit-icon">🎁</span>
+                    <span class="benefit-title">신청하면 받는 것</span>
                 </div>
-
-                <!-- 점수 -->
-                <div class="score-section">
-                    <div class="score-grade">
-                        <div class="grade-letter">C</div>
-                        <div class="grade-divider"></div>
-                        <div class="grade-score">
-                            <div class="grade-score-value">58점</div>
-                            <div class="grade-score-label">종합 점수</div>
-                        </div>
+                <div class="benefit-list">
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>내 피드 문제점 분석</span>
                     </div>
-                </div>
-
-                <!-- 레이더 차트 -->
-                <div class="radar-section">
-                    <div class="radar-chart">
-                        <div class="radar-bg">
-                            <svg viewBox="0 0 200 200">
-                                <polygon points="100,20 176,58 152,148 48,148 24,58" fill="none" stroke="#e8e8e8" stroke-width="1"/>
-                                <polygon points="100,40 156,68 138,138 62,138 44,68" fill="none" stroke="#e8e8e8" stroke-width="1"/>
-                                <polygon points="100,60 136,78 124,128 76,128 64,78" fill="none" stroke="#e8e8e8" stroke-width="1"/>
-                                <polygon points="100,80 116,88 110,118 90,118 84,88" fill="none" stroke="#e8e8e8" stroke-width="1"/>
-                                <line x1="100" y1="100" x2="100" y2="20" stroke="#e8e8e8" stroke-width="1"/>
-                                <line x1="100" y1="100" x2="176" y2="58" stroke="#e8e8e8" stroke-width="1"/>
-                                <line x1="100" y1="100" x2="152" y2="148" stroke="#e8e8e8" stroke-width="1"/>
-                                <line x1="100" y1="100" x2="48" y2="148" stroke="#e8e8e8" stroke-width="1"/>
-                                <line x1="100" y1="100" x2="24" y2="58" stroke="#e8e8e8" stroke-width="1"/>
-                                <polygon points="100,50 140,75 130,120 55,125 55,72" fill="rgba(245, 133, 41, 0.15)" stroke="#F58529" stroke-width="2"/>
-                                <circle cx="100" cy="50" r="4" fill="#F58529"/>
-                                <circle cx="140" cy="75" r="4" fill="#F58529"/>
-                                <circle cx="130" cy="120" r="4" fill="#F58529"/>
-                                <circle cx="55" cy="125" r="4" fill="#ff6b6b"/>
-                                <circle cx="55" cy="72" r="4" fill="#ff6b6b"/>
-                            </svg>
-                        </div>
-                        <div class="radar-labels">
-                            <span class="radar-label top">첫인상</span>
-                            <span class="radar-label top-right">고급감</span>
-                            <span class="radar-label bottom-right">정보 전달</span>
-                            <span class="radar-label bottom-left">프로 느낌</span>
-                            <span class="radar-label top-left">연락 전환</span>
-                        </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>맞춤 개선 방향 제안</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">✓</span>
+                        <span>예시 시안 1장</span>
                     </div>
                 </div>
-
-                <!-- 항목별 점수 -->
-                <div class="score-items">
-                    <div class="score-item">
-                        <span class="score-item-label">연락 전환</span>
-                        <div class="score-item-bar"><div class="score-item-fill danger" style="width: 40%;"></div></div>
-                        <span class="score-item-value">40</span>
-                        <span class="score-item-status">🔴</span>
-                    </div>
-                    <div class="score-item">
-                        <span class="score-item-label">첫인상</span>
-                        <div class="score-item-bar"><div class="score-item-fill warning" style="width: 62%;"></div></div>
-                        <span class="score-item-value">62</span>
-                        <span class="score-item-status">🟠</span>
-                    </div>
-                    <div class="score-item">
-                        <span class="score-item-label">프로 느낌</span>
-                        <div class="score-item-bar"><div class="score-item-fill danger" style="width: 45%;"></div></div>
-                        <span class="score-item-value">45</span>
-                        <span class="score-item-status">🔴</span>
-                    </div>
-                    <div class="score-item">
-                        <span class="score-item-label">고급감</span>
-                        <div class="score-item-bar"><div class="score-item-fill warning" style="width: 55%;"></div></div>
-                        <span class="score-item-value">55</span>
-                        <span class="score-item-status">🟠</span>
-                    </div>
-                    <div class="score-item">
-                        <span class="score-item-label">정보 전달</span>
-                        <div class="score-item-bar"><div class="score-item-fill good" style="width: 70%;"></div></div>
-                        <span class="score-item-value">70</span>
-                        <span class="score-item-status">🟢</span>
-                    </div>
-                </div>
-
-                <!-- 블러 솔루션 -->
-                <div class="solution-section">
-                    <div class="solution-title">🔓 해결법</div>
-                    <div class="solution-blur">
-                        <div class="solution-blur-item">
-                            <span>"인스타 보고 왔어요" 듣는 법</span>
-                        </div>
-                        <div class="solution-blur-item">
-                            <span>가격 올려도 예약 밀리는 피드</span>
-                        </div>
-                        <div class="solution-blur-item">
-                            <span>DM 먼저 오게 만드는 프로필</span>
-                        </div>
-                    </div>
-                    <div class="solution-lock">
-                        <div class="lock-icon">🔒</div>
-                        <div class="lock-text">신청 후 확인</div>
-                    </div>
+                <div class="benefit-notice">
+                    <span>✨ 100% 무료, 부담 없이 받아보세요</span>
                 </div>
             </div>
         </div>
@@ -2177,28 +2206,19 @@
             <div class="target-list">
                 <div class="target-item">
                     <span class="target-item-icon">✓</span>
-                    <span>피드 운영할 시간이 없는 분</span>
+                    <span>매일 피드 올리는데 DM 문의는 0건인 분</span>
                 </div>
                 <div class="target-item">
                     <span class="target-item-icon">✓</span>
-                    <span>어떻게 꾸며야 할지 감이 안 오는 분</span>
+                    <span>경쟁 업체보다 매장은 예쁜데, 인스타만 구멍가게 같은 분</span>
                 </div>
                 <div class="target-item">
                     <span class="target-item-icon">✓</span>
-                    <span>대행사는 비싸고, 혼자 하긴 막막한 분</span>
+                    <span>대행사 맡기긴 비싸고, 혼자 하긴 막막한 분</span>
                 </div>
                 <div class="target-item">
                     <span class="target-item-icon">✓</span>
-                    <span>잘하고 있는 건지 확인받고 싶은 분</span>
-                </div>
-            </div>
-
-            <div class="report-info">
-                <div class="report-info-title">📋 무료 분석 리포트로 알 수 있는 것</div>
-                <div class="report-info-list">
-                    <div class="report-info-item">왜 문의가 안 오는지</div>
-                    <div class="report-info-item">내 피드 수준이 어느 정도인지</div>
-                    <div class="report-info-item">바로 적용할 수 있는 개선 방향</div>
+                    <span>열심히 하는데 이게 맞는 건지 모르겠는 분</span>
                 </div>
             </div>
 
@@ -2210,151 +2230,34 @@
     <section class="audit-process">
         <div class="audit-container">
             <div class="audit-intro">
-                <div class="section-label">DIAGNOSIS PROCESS</div>
+                <div class="section-label">HOW IT WORKS</div>
                 <h3 class="section-title">
-                    피드온은 <span>이렇게 진단</span>합니다
+                    딱 <span>3단계</span>면 끝
                 </h3>
-                <p class="audit-intro-text">
-                    단순히 '예쁘게' 만드는 게 아닙니다.<br>
-                    사장님의 인스타그램이 <strong>왜 안 팔리는지</strong> 원인을 찾아드립니다.
-                </p>
             </div>
 
-            <div class="audit-steps">
-                <!-- Step 01 -->
-                <div class="audit-step">
-                    <div class="audit-step-header">
-                        <div class="audit-step-number">01</div>
-                        <div class="audit-step-title">
-                            <div class="audit-step-en">CONTENT EFFICIENCY</div>
-                            <div class="audit-step-kr">콘텐츠 효율 분석</div>
-                        </div>
-                    </div>
-                    <p class="audit-step-desc">
-                        사장님이 올린 게시물이 실제로 <strong>고객 유입과 문의</strong>로 이어지고 있는지,
-                        아니면 올릴 때만 반짝하고 묻히는지 확인합니다.
-                    </p>
-                    <span class="audit-step-point">게시물당 유입률 및 프로필 전환율 체크</span>
-                </div>
-
-                <!-- Step 02 -->
-                <div class="audit-step">
-                    <div class="audit-step-header">
-                        <div class="audit-step-number">02</div>
-                        <div class="audit-step-title">
-                            <div class="audit-step-en">VISUAL AUTHORITY</div>
-                            <div class="audit-step-kr">비주얼 신뢰도 점검</div>
-                        </div>
-                    </div>
-                    <p class="audit-step-desc">
-                        고객이 피드를 3초만 봐도 <strong>"여긴 좀 다르네"</strong>라고 느낄 만큼
-                        전문성이 시각적으로 드러나고 있는지 점검합니다.
-                    </p>
-                    <span class="audit-step-point">9가지 디자인 기준으로 브랜드 인상 체크</span>
-                </div>
-
-                <!-- Step 03 -->
-                <div class="audit-step">
-                    <div class="audit-step-header">
-                        <div class="audit-step-number">03</div>
-                        <div class="audit-step-title">
-                            <div class="audit-step-en">CONVERSION PATH</div>
-                            <div class="audit-step-kr">구매 전환 경로 분석</div>
-                        </div>
-                    </div>
-                    <p class="audit-step-desc">
-                        고객이 피드를 보고 "여기 가볼까?"에서 <strong>실제 예약/문의</strong>까지 
-                        이어지는 과정에서 어디서 이탈하는지 찾아냅니다.
-                    </p>
-                    <span class="audit-step-point">프로필 → 하이라이트 → DM 흐름 점검</span>
-                </div>
-
-                <!-- Step 04 -->
-                <div class="audit-step">
-                    <div class="audit-step-header">
-                        <div class="audit-step-number">04</div>
-                        <div class="audit-step-title">
-                            <div class="audit-step-en">ACTION PLAN</div>
-                            <div class="audit-step-kr">맞춤 개선안 제안</div>
-                        </div>
-                    </div>
-                    <p class="audit-step-desc">
-                        진단 결과를 바탕으로, <strong>"이렇게 바꾸면 됩니다"</strong>라는 
-                        구체적인 피드 구성안과 콘텐츠 방향을 제안드립니다.
-                    </p>
-                    <span class="audit-step-point">12칸 그리드 기반 피드 재배치 전략</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 패키지 섹션 -->
-    <section class="packages">
-        <div class="packages-container">
-            <div class="section-label">PACKAGE</div>
-            <h3 class="section-title">
-                진단 후 <span>맞춤 제안</span>드려요
-            </h3>
-
-            <div class="package-intro">
-                <p class="package-intro-text">
-                    예쁜 사진을 파는 게 아닙니다.<br>
-                    <strong>매출이 나는 피드 구조</strong>를 만들어 드립니다.
-                </p>
-            </div>
-
-            <div class="package-grid">
-                <!-- 피드 정리 패키지 -->
-                <div class="package-card">
-                    <h4 class="package-name">피드 정리</h4>
-                    <p class="package-subtitle">한 번에 싹 정리</p>
-                    <ul class="package-features">
-                        <li>내 피드 문제점 분석 리포트</li>
-                        <li>피드 전체 레이아웃 정리</li>
-                        <li>색감/글꼴 통일</li>
-                        <li>프로필 정리</li>
-                        <li>하이라이트 커버 제작</li>
-                        <li>앞으로 쓸 템플릿 5개</li>
-                    </ul>
-                    <div class="package-target">
-                        <div class="package-target-label">이런 분께 추천</div>
-                        <p class="package-target-text">피드가 지저분해서 전문성이 안 보이는 분</p>
+            <div class="simple-steps">
+                <div class="simple-step">
+                    <div class="simple-step-number">1</div>
+                    <div class="simple-step-content">
+                        <div class="simple-step-title">계정명만 입력</div>
+                        <div class="simple-step-desc">30초면 끝나요</div>
                     </div>
                 </div>
-
-                <!-- 월간 관리 패키지 -->
-                <div class="package-card featured">
-                    <h4 class="package-name">월간 관리</h4>
-                    <p class="package-subtitle">매달 피드 운영 대행</p>
-                    <ul class="package-features">
-                        <li><strong>한 달에 피드 8개 제작</strong></li>
-                        <li>매출로 이어지는 게시물 배치</li>
-                        <li>스토리 운영 가이드</li>
-                        <li>해시태그/글 작성</li>
-                        <li>매달 성과 정리</li>
-                        <li>카톡으로 바로 연락</li>
-                    </ul>
-                    <div class="package-target">
-                        <div class="package-target-label">이런 분께 추천</div>
-                        <p class="package-target-text">올리긴 하는데 예약/문의가 안 들어오는 분</p>
+                <div class="simple-step-arrow">→</div>
+                <div class="simple-step">
+                    <div class="simple-step-number">2</div>
+                    <div class="simple-step-content">
+                        <div class="simple-step-title">피드온 1:1 분석</div>
+                        <div class="simple-step-desc">문제점 파악</div>
                     </div>
                 </div>
-
-                <!-- 올인원 패키지 -->
-                <div class="package-card">
-                    <h4 class="package-name">올인원</h4>
-                    <p class="package-subtitle">인스타 전부 맡기기</p>
-                    <ul class="package-features">
-                        <li>위 패키지 전부 포함</li>
-                        <li>전담 담당자 배정</li>
-                        <li>매주 통화 1번</li>
-                        <li>광고 기획 + 실행</li>
-                        <li>경쟁 업체 분석</li>
-                        <li>급한 거 당일 처리</li>
-                    </ul>
-                    <div class="package-target">
-                        <div class="package-target-label">이런 분께 추천</div>
-                        <p class="package-target-text">장사하기도 바빠서 인스타까지 신경 못 쓰는 분</p>
+                <div class="simple-step-arrow">→</div>
+                <div class="simple-step">
+                    <div class="simple-step-number">3</div>
+                    <div class="simple-step-content">
+                        <div class="simple-step-title">맞춤 시안 발송</div>
+                        <div class="simple-step-desc">카톡으로 전달</div>
                     </div>
                 </div>
             </div>
