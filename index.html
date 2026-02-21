@@ -819,12 +819,7 @@
 
         /* 폼 스텝 */
         .form-step {
-            display: none;
             animation: fadeIn 0.4s ease;
-        }
-
-        .form-step.active {
-            display: block;
         }
 
         @keyframes fadeIn {
@@ -1172,6 +1167,184 @@
 
         .form-group.error .error-message {
             display: block;
+        }
+
+        /* 스텝 폼 스타일 */
+        .form-step {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 프로그레스 바 */
+        .progress-bar-container {
+            padding: 16px 20px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            position: relative;
+            max-width: 120px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .progress-step {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e8e8e8;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .progress-step.done {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e8e8e8;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-orange), #ff9a5c);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-label {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .progress-label span {
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        /* 다음 버튼 */
+        .btn-next {
+            background: var(--accent-orange);
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 16px;
+            opacity: 0.5;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-next.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-next.enabled:hover {
+            background: var(--accent-orange-dark);
+        }
+
+        .radio-group-step {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .radio-option-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 18px;
+            background: #fafafa;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option-step:hover {
+            border-color: var(--accent-orange);
+            background: #fff8f3;
+        }
+
+        .radio-option-step input[type="radio"] {
+            display: none;
+        }
+
+        .radio-custom-step {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .radio-option-step input[type="radio"]:checked + .radio-custom-step {
+            border-color: var(--accent-orange);
+            background: var(--accent-orange);
+        }
+
+        .radio-option-step input[type="radio"]:checked + .radio-custom-step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .option-text-step {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .other-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .other-input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
         }
 
         /* ===== 패키지 섹션 ===== */
@@ -2143,25 +2316,77 @@
                 <div class="form-header">
                     <span>무료 분석 신청</span>
                 </div>
+                
+                <!-- 프로그레스 바 -->
+                <div class="progress-bar-container">
+                    <div class="progress-steps">
+                        <span class="progress-step active">1</span>
+                        <span class="progress-step">2</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-label"><span id="currentStep">1</span> / 2 단계</div>
+                </div>
+
                 <form id="diagnosisForm" name="applyForm">
                     <div class="simple-form">
-                        <div class="form-group">
-                            <label class="form-label">
-                                분석할 인스타그램 계정
-                            </label>
-                            <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
-                            <div class="error-message">계정을 입력해주세요.</div>
+                        <!-- Step 1: 문제 선택 -->
+                        <div class="form-step" id="step1">
+                            <div class="form-group">
+                                <label class="form-label">현재 인스타그램 운영에서<br>가장 해결하고 싶은 <strong>'단 하나'</strong>의 문제는?</label>
+                                <div class="radio-group-step">
+                                    <label class="radio-option-step">
+                                        <input type="radio" name="main_concern" value="피드가 전문적이지 않고 저렴해 보임">
+                                        <span class="radio-custom-step"></span>
+                                        <span class="option-text-step">피드가 전문적이지 않고 저렴해 보임</span>
+                                    </label>
+                                    <label class="radio-option-step">
+                                        <input type="radio" name="main_concern" value="유입은 있으나 실제 문의가 안 옴">
+                                        <span class="radio-custom-step"></span>
+                                        <span class="option-text-step">유입(조회수)은 있으나 실제 문의가 안 옴</span>
+                                    </label>
+                                    <label class="radio-option-step">
+                                        <input type="radio" name="main_concern" value="직접 관리할 시간이 없고 꾸준함이 부족함">
+                                        <span class="radio-custom-step"></span>
+                                        <span class="option-text-step">직접 관리할 시간이 없고 꾸준함이 부족함</span>
+                                    </label>
+                                    <label class="radio-option-step">
+                                        <input type="radio" name="main_concern" value="어떤 내용을 올려야 할지 매번 막막함">
+                                        <span class="radio-custom-step"></span>
+                                        <span class="option-text-step">어떤 내용을 올려야 할지 매번 막막함</span>
+                                    </label>
+                                    <label class="radio-option-step other-option">
+                                        <input type="radio" name="main_concern" value="기타">
+                                        <span class="radio-custom-step"></span>
+                                        <span class="option-text-step">기타 (직접 입력)</span>
+                                    </label>
+                                    <input type="text" name="main_concern_other" class="other-input" placeholder="직접 입력해주세요" style="display: none;">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-next btn-full" id="nextBtn">다음 단계로</button>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">무료 분석 받으실 연락처</label>
-                            <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                            <div class="error-message">연락처를 입력해주세요.</div>
-                        </div>
+                        <!-- Step 2: 연락처 입력 -->
+                        <div class="form-step" id="step2" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    분석할 인스타그램 계정
+                                </label>
+                                <input type="text" name="instagram" class="form-input" placeholder="@계정명">
+                                <div class="error-message">계정을 입력해주세요.</div>
+                            </div>
 
-                        <button type="submit" class="btn btn-submit btn-full">내 계정 무료 분석받기</button>
-                        
-                        <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
+                            <div class="form-group">
+                                <label class="form-label">무료 분석 받으실 연락처</label>
+                                <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000">
+                                <div class="error-message">연락처를 입력해주세요.</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-submit btn-full">내 계정 무료 분석받기</button>
+                            
+                            <p class="form-notice">입력하신 정보는 진단 목적으로만 사용됩니다.</p>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -2298,24 +2523,96 @@
     </div>
 
     <script>
+        // 스텝 폼 로직
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const radioOptions = document.querySelectorAll('.radio-option-step');
+        const otherInput = document.querySelector('.other-input');
+        const otherOption = document.querySelector('.other-option');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressFill = document.getElementById('progressFill');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const currentStepLabel = document.getElementById('currentStep');
+
+        // 라디오 버튼 클릭 시 다음 버튼 활성화
+        radioOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+
+                // 기타 옵션인 경우
+                if (this.classList.contains('other-option')) {
+                    otherInput.style.display = 'block';
+                    otherInput.focus();
+                } else {
+                    otherInput.style.display = 'none';
+                }
+
+                // 다음 버튼 활성화
+                nextBtn.classList.add('enabled');
+            });
+        });
+
+        // 기타 입력 시에도 버튼 활성화 유지
+        if (otherInput) {
+            otherInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    nextBtn.classList.add('enabled');
+                }
+            });
+        }
+
+        // 다음 버튼 클릭 시 step2로 이동
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function() {
+                // 선택 확인
+                const selectedRadio = document.querySelector('input[name="main_concern"]:checked');
+                if (!selectedRadio) {
+                    alert('문제를 하나 선택해주세요.');
+                    return;
+                }
+
+                // 기타 선택했는데 입력 안 한 경우
+                if (selectedRadio.value === '기타' && !otherInput.value.trim()) {
+                    otherInput.focus();
+                    return;
+                }
+
+                // step2로 전환
+                step1.style.display = 'none';
+                step2.style.display = 'block';
+
+                // 프로그레스 바 업데이트
+                progressFill.style.width = '100%';
+                progressSteps[0].classList.add('done');
+                progressSteps[1].classList.add('active');
+                currentStepLabel.textContent = '2';
+            });
+        }
+
         // 간단한 유효성 검사
         function validateForm() {
             let isValid = true;
             const form = document.getElementById('diagnosisForm');
             if (!form) return false;
             
-            // 필수 필드 검사 (instagram, phone)
-            const requiredFields = form.querySelectorAll('[required]');
-            requiredFields.forEach(field => {
-                const formGroup = field.closest('.form-group');
-                if (!formGroup) return;
-                if (!field.value.trim()) {
-                    formGroup.classList.add('error');
-                    isValid = false;
-                } else {
-                    formGroup.classList.remove('error');
-                }
-            });
+            // Step 2 필드만 검사
+            const instagram = form.querySelector('input[name="instagram"]');
+            const phone = form.querySelector('input[name="phone"]');
+
+            if (!instagram.value.trim()) {
+                instagram.closest('.form-group').classList.add('error');
+                isValid = false;
+            } else {
+                instagram.closest('.form-group').classList.remove('error');
+            }
+
+            if (!phone.value.trim()) {
+                phone.closest('.form-group').classList.add('error');
+                isValid = false;
+            } else {
+                phone.closest('.form-group').classList.remove('error');
+            }
             
             return isValid;
         }
@@ -2347,11 +2644,14 @@
                 // 폼 데이터 수집
                 const formData = new FormData(this);
 
-                // concerns 데이터 수집
-                const concerns = [];
-                formData.getAll('concerns').forEach(value => {
-                    concerns.push(value);
-                });
+                // main_concern 처리 (기타인 경우 직접 입력값 사용)
+                let mainConcern = formData.get('main_concern');
+                if (mainConcern === '기타') {
+                    const otherValue = formData.get('main_concern_other');
+                    if (otherValue && otherValue.trim()) {
+                        mainConcern = '기타: ' + otherValue.trim();
+                    }
+                }
 
                 // 숨겨진 iframe 생성 (CORS 우회)
                 let iframe = document.getElementById('hidden-iframe');
@@ -2373,15 +2673,9 @@
 
             // 폼 데이터 추가
             const data = {
-                name: formData.get('name'),
                 phone: formData.get('phone'),
                 instagram: formData.get('instagram'),
-                category: formData.get('business_category'),
-                exit_reason: formData.get('bounce_reason'),
-                main_concern: concerns.join(', '),
-                visual_check: formData.get('category_answer'),
-                brand_image: formData.get('brand_image'),
-                budget: formData.get('monthly_budget')
+                main_concern: mainConcern
             };
 
             // 각 데이터를 hidden input으로 추가
@@ -2403,6 +2697,18 @@
                 const modal = document.getElementById('successModal');
                 if (modal) modal.classList.add('active');
                 this.reset();
+                // 스텝 리셋
+                document.getElementById('step1').style.display = 'block';
+                document.getElementById('step2').style.display = 'none';
+                document.querySelector('.other-input').style.display = 'none';
+                // 프로그레스 바 리셋
+                document.getElementById('progressFill').style.width = '50%';
+                document.querySelectorAll('.progress-step').forEach((step, i) => {
+                    step.classList.remove('done', 'active');
+                    if (i === 0) step.classList.add('active');
+                });
+                document.getElementById('currentStep').textContent = '1';
+                document.getElementById('nextBtn').classList.remove('enabled');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
                 submitBtn.style.opacity = '1';
