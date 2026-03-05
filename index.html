@@ -113,8 +113,8 @@
         }
         .hero-logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 48px;
-            letter-spacing: 12px;
+            font-size: 54px;
+            letter-spacing: 14px;
             color: var(--text-primary);
         }
         .hero-logo em { font-style: normal; color: var(--accent); }
@@ -124,19 +124,23 @@
             letter-spacing: 4px;
         }
         .hero-headline {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 900;
-            line-height: 1.45;
+            line-height: 1.5;
             margin-bottom: 24px;
+            letter-spacing: -1px;
         }
-        .hero-headline span { color: var(--accent); }
+        .hero-headline span {
+            color: var(--accent);
+            font-size: 44px;
+        }
         .hero-desc {
             font-size: 17px;
             color: var(--text-secondary);
-            line-height: 1.85;
+            line-height: 1.9;
             margin-bottom: 40px;
         }
-        .hero-desc strong { color: var(--text-primary); font-weight: 700; }
+        .hero-desc strong { color: var(--text-primary); font-weight: 800; font-size: 19px; }
         .hero-btns {
             display: flex;
             flex-direction: column;
@@ -147,14 +151,14 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 18px 44px;
+            padding: 20px 48px;
             background: var(--accent);
             color: #fff;
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 800;
             letter-spacing: 1px;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 14px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(245, 133, 41, 0.3);
         }
@@ -389,53 +393,7 @@
             color: var(--accent-dark);
         }
 
-        /* ===== 후기 ===== */
-        .reviews {
-            padding: 80px 20px;
-            background: var(--bg-primary);
-        }
-        .reviews-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .review-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 28px 24px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-        .review-stars {
-            color: var(--accent);
-            font-size: 16px;
-            margin-bottom: 12px;
-            letter-spacing: 2px;
-        }
-        .review-text {
-            font-size: 15px;
-            color: var(--text-primary);
-            line-height: 1.75;
-            font-weight: 500;
-            margin-bottom: 14px;
-        }
-        .review-author {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .reviews-placeholder {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            border: 2px dashed var(--border-subtle);
-        }
-        .reviews-placeholder-text {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
+
 
         /* ===== FAQ ===== */
         .faq {
@@ -816,8 +774,10 @@
         /* ===== 반응형 ===== */
         @media (min-width: 768px) {
             .hero { padding: 100px 40px 80px; }
-            .hero-headline { font-size: 44px; }
+            .hero-headline { font-size: 52px; }
+            .hero-headline span { font-size: 60px; }
             .hero-desc { font-size: 18px; }
+            .hero-desc strong { font-size: 20px; }
             .section-title { font-size: 32px; }
             .service-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
             .floating-cta {
@@ -833,7 +793,8 @@
             .footer-question { font-size: 28px; }
         }
         @media (min-width: 1024px) {
-            .hero-headline { font-size: 48px; }
+            .hero-headline { font-size: 58px; }
+            .hero-headline span { font-size: 66px; }
             .form-container { max-width: 480px; }
             .footer { padding: 100px 40px; }
         }
@@ -1010,21 +971,7 @@
     </section>
 
 
-    <!-- ===== 후기 ===== -->
-    <section class="reviews">
-        <div class="reviews-container">
-            <div class="section-label">REVIEWS</div>
-            <h2 class="section-title">컨설팅 받으신 분들의 <span>후기</span></h2>
-            <p class="section-desc"></p>
 
-            <div class="reviews-placeholder">
-                <p class="reviews-placeholder-text">
-                    현재 체험 컨설팅 진행 중입니다.<br>
-                    곧 실제 후기가 업데이트됩니다.
-                </p>
-            </div>
-        </div>
-    </section>
 
 
     <!-- ===== FAQ ===== -->
