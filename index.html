@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6PYDED7XNV"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -9,7 +8,6 @@
       gtag('js', new Date());
       gtag('config', 'G-6PYDED7XNV');
     </script>
-    <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -224,110 +222,99 @@
             font-size: 16px;
         }
 
-        /* ===== 서비스 섹션 ===== */
+        /* ===== 서비스 섹션 (리뉴얼) ===== */
         .services {
             padding: 80px 20px;
             background: var(--bg-primary);
         }
         .services-container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
-        .service-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 32px 28px;
-            position: relative;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-        .service-card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(245, 133, 41, 0.1);
-        }
-        .service-card-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            border-radius: 6px;
-            margin-bottom: 16px;
-        }
-        .service-card-badge.popular {
-            background: #ff4757;
-        }
-        .service-card-icon {
-            width: 48px; height: 48px;
-            background: var(--accent);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(245, 133, 41, 0.25);
-        }
-        .service-card-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        .service-card-price {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 14px;
-        }
-        .service-card-price small {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-muted);
-        }
-        .service-card-desc {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 16px;
-        }
-        .service-card-target {
-            display: inline-block;
-            padding: 8px 16px;
-            background: var(--accent-light);
-            border: 1px solid var(--border-accent);
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-dark);
-        }
-        .service-card-list {
-            list-style: none;
+        .service-flow {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 40px;
         }
-        .service-card-list li {
-            font-size: 14px;
-            color: var(--text-secondary);
-            padding-left: 20px;
-            position: relative;
-        }
-        .service-card-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
+        .step-badge {
+            font-size: 20px;
+            font-weight: 900;
             color: var(--accent);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .step-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-accent);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(245, 133, 41, 0.1);
+        }
+        .step-card-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .step-card-price {
+            font-size: 20px;
             font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+        .step-card-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            word-break: keep-all;
+        }
+        .step-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--text-primary);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .step-cta:hover { background: #000; transform: translateY(-2px); }
+        
+        .step-2-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .step-2-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .sub-services {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .sub-service {
+            background: #fff;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .sub-service strong { font-size: 16px; color: var(--text-primary); }
+        .sub-service span { font-size: 13px; color: var(--text-muted); }
+
+        @media (min-width: 600px) {
+            .sub-services { flex-direction: row; }
+            .sub-service { flex: 1; }
         }
 
         /* ===== 코칭 커리큘럼 ===== */
@@ -393,8 +380,6 @@
             color: var(--accent-dark);
         }
 
-
-
         /* ===== FAQ ===== */
         .faq {
             padding: 80px 20px;
@@ -445,7 +430,7 @@
             line-height: 1.8;
         }
 
-        /* ===== 폼 섹션 ===== */
+        /* ===== 폼 섹션 (리뉴얼) ===== */
         .form-section {
             position: relative;
             padding: 80px 20px 100px;
@@ -466,7 +451,7 @@
         .form-container {
             position: relative;
             z-index: 2;
-            max-width: 440px;
+            max-width: 500px;
             margin: 0 auto;
             border-radius: 20px;
             overflow: hidden;
@@ -476,27 +461,34 @@
             background: var(--accent);
             color: #fff;
             text-align: center;
-            padding: 16px 20px;
-            font-size: 15px;
-            font-weight: 700;
+            padding: 24px 20px;
         }
+        .form-header-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+        .form-header-desc { font-size: 13px; opacity: 0.9; }
+        
         .form-body {
             background: var(--bg-card);
             border: 1px solid var(--border-accent);
             border-top: none;
             border-radius: 0 0 20px 20px;
-            padding: 28px 24px;
+            padding: 32px 24px;
         }
-        .form-group { margin-bottom: 20px; }
+        .form-group { margin-bottom: 24px; }
         .form-label {
             display: block;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 10px;
             line-height: 1.5;
         }
-        .form-label strong { color: var(--accent); }
+        .form-label-desc {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
         .form-input {
             width: 100%;
             padding: 14px 16px;
@@ -508,13 +500,17 @@
             font-size: 15px;
             transition: all 0.3s ease;
         }
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
         .form-input:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(245, 133, 41, 0.12);
             background: #fff;
         }
-        .form-input::placeholder { color: var(--text-muted); }
+        .form-input::placeholder { color: var(--text-muted); font-size: 14px; }
         .form-error {
             color: #dc3545;
             font-size: 12px;
@@ -524,63 +520,45 @@
         .form-group.error .form-input { border-color: #dc3545; }
         .form-group.error .form-error { display: block; }
 
-        .radio-group {
+        /* 체크박스 스타일 */
+        .checkbox-option {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 8px;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
-            padding: 16px 18px;
-            background: #fafafa;
-            border: 2px solid #e8e8e8;
-            border-radius: 12px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #fff8f3;
+            border: 1px solid var(--border-accent);
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .radio-option:hover { border-color: var(--accent); background: #fff8f3; }
-        .radio-option input[type="radio"] { display: none; }
-        .radio-dot {
-            width: 20px; height: 20px;
-            border: 2px solid #ccc;
-            border-radius: 50%;
+        .checkbox-option:hover { border-color: var(--accent); }
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 2px;
+            width: 18px; height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
             flex-shrink: 0;
-            position: relative;
-            transition: all 0.2s ease;
         }
-        .radio-option input:checked + .radio-dot {
-            border-color: var(--accent);
-            background: var(--accent);
+        .checkbox-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
         }
-        .radio-option input:checked + .radio-dot::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px; height: 8px;
-            background: #fff;
-            border-radius: 50%;
-        }
-        .radio-option:has(input:checked) {
-            border-color: var(--accent);
-            background: rgba(245, 133, 41, 0.06);
-        }
-        .radio-text { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+        .checkbox-text strong { color: var(--accent); font-weight: 700; }
 
         .btn-form {
             width: 100%;
-            padding: 16px 24px;
+            padding: 18px 24px;
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 800;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 8px;
             background: var(--accent);
             color: #fff;
             box-shadow: 0 4px 12px rgba(245, 133, 41, 0.25);
@@ -779,7 +757,6 @@
             .hero-desc { font-size: 18px; }
             .hero-desc strong { font-size: 20px; }
             .section-title { font-size: 32px; }
-            .service-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
             .floating-cta {
                 flex-direction: row;
                 justify-content: center;
@@ -795,14 +772,13 @@
         @media (min-width: 1024px) {
             .hero-headline { font-size: 58px; }
             .hero-headline span { font-size: 66px; }
-            .form-container { max-width: 480px; }
+            .form-container { max-width: 540px; }
             .footer { padding: 100px 40px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== 히어로 ===== -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-brand">
@@ -823,102 +799,86 @@
 
             <div class="hero-btns">
                 <a href="#consultForm" class="hero-cta">컨설팅 신청하기 →</a>
-                <a href="#services" class="hero-cta-sub">서비스 보기 ↓</a>
+                <a href="#services" class="hero-cta-sub">진행 방식 보기 ↓</a>
             </div>
         </div>
     </section>
 
 
-    <!-- ===== 고민 섹션 ===== -->
     <section class="pain">
         <div class="pain-container">
             <div class="section-label">ARE YOU STUCK?</div>
-            <h2 class="section-title">이런 <span>고민</span> 있으시죠?</h2>
-            <p class="section-desc"></p>
+            <h2 class="section-title">혹시 이런 <span>상황</span>이신가요?</h2>
+            <p class="section-desc">노력이 부족한 게 아닙니다. 알고리즘의 방향을 모를 뿐입니다.</p>
 
             <div class="pain-list">
                 <div class="pain-item">
-                    <div class="pain-icon">😩</div>
-                    <span>뭘 올려야 할지 매번 막막하다</span>
+                    <div class="pain-icon">⏳</div>
+                    <span>매일 릴스를 올려도 문의나 팔로워 전환은 0건이다</span>
                 </div>
                 <div class="pain-item">
-                    <div class="pain-icon">📉</div>
-                    <span>올려도 조회수가 안 나온다</span>
+                    <div class="pain-icon">💸</div>
+                    <span>대행사에 월 수십만 원을 쓰려다 망설이고 있다</span>
                 </div>
                 <div class="pain-item">
-                    <div class="pain-icon">😕</div>
-                    <span>피드가 전문적이지 않고 저렴해 보인다</span>
+                    <div class="pain-icon">🤖</div>
+                    <span>나름 열심히 하는데, 알고리즘이 내 계정만 버린 것 같다</span>
                 </div>
                 <div class="pain-item">
-                    <div class="pain-icon">🤯</div>
-                    <span>캡컷? 릴스? 어디서부터 시작해야 할지 모르겠다</span>
+                    <div class="pain-icon">🧭</div>
+                    <span>매장 홍보, 개인 브랜딩... 뭐부터 세팅할지 방향조차 안 잡힌다</span>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <!-- ===== 서비스 3종 ===== -->
     <section class="services" id="services">
         <div class="services-container">
-            <div class="section-label">SERVICES</div>
-            <h2 class="section-title">딱 맞는 <span>서비스</span>를 골라보세요</h2>
-            <p class="section-desc">방향만 잡고 싶은 분부터, 편집까지 맡기고 싶은 분까지.</p>
+            <div class="section-label">PROCESS</div>
+            <h2 class="section-title">피드온 <span>운영 디렉팅</span> 흐름</h2>
+            <p class="section-desc">무작정 대행부터 맡기지 마세요. 방향 점검이 먼저입니다.</p>
 
-            <div class="service-grid">
-                <!-- 1:1 컨설팅 -->
-                <div class="service-card">
-                    <div class="service-card-icon">📐</div>
-                    <div class="service-card-title">1:1 컨설팅</div>
-                    <div class="service-card-price">5만원 <small>/ 1시간</small></div>
-                    <ul class="service-card-list">
-                        <li>계정 사전 분석</li>
-                        <li>운영 방향 진단 및 제시</li>
-                        <li>전화 or 줌 1시간</li>
-                        <li>통화 후 방향 요약 전달</li>
-                    </ul>
-                    <div class="service-card-target">"뭐부터 해야 할지 모르겠다면"</div>
+            <div class="service-flow">
+                <div class="service-step">
+                    <div class="step-badge">STEP 1. 먼저 진단부터</div>
+                    <div class="step-card">
+                        <div class="step-card-title">1:1 맞춤 컨설팅</div>
+                        <div class="step-card-price">5만원 / 1시간</div>
+                        <p class="step-card-desc">
+                            계정을 사전 분석한 뒤, 전화로 지금 뭐가 잘못되어 있고<br>
+                            대표님의 업종과 현재 상황에 딱 맞는 현실적인 방향을 설계해 드립니다.
+                        </p>
+                        <a href="#consultForm" class="step-cta">컨설팅 신청하기 →</a>
+                    </div>
                 </div>
 
-                <!-- 4주 코칭 -->
-                <div class="service-card">
-                    <span class="service-card-badge popular">인기</span>
-                    <div class="service-card-icon">🎯</div>
-                    <div class="service-card-title">4주 코칭</div>
-                    <div class="service-card-price">20만원 <small>/ 4주</small></div>
-                    <ul class="service-card-list">
-                        <li>주 1회 × 4주 (회당 1시간)</li>
-                        <li>방향 세팅 + 콘텐츠 기획</li>
-                        <li>캡컷 편집 실전 교육</li>
-                        <li>운영 루틴 + 매주 피드백</li>
-                    </ul>
-                    <div class="service-card-target">"방향은 알겠는데 실행이 안 된다면"</div>
-                </div>
-
-                <!-- 릴스 편집 -->
-                <div class="service-card">
-                    <div class="service-card-icon">🎬</div>
-                    <div class="service-card-title">릴스 편집</div>
-                    <div class="service-card-price">5만원 <small>/ 1건</small></div>
-                    <ul class="service-card-list">
-                        <li>영상 소스 + 래퍼런스 전달</li>
-                        <li>컷편집 + 자막 + 음악</li>
-                        <li>썸네일 제작</li>
-                        <li>24~48시간 내 납품</li>
-                    </ul>
-                    <div class="service-card-target">"기획은 하는데 편집이 안 된다면"</div>
+                <div class="service-step">
+                    <div class="step-badge">STEP 2. 진단 후, 필요하다면</div>
+                    <div class="step-2-box">
+                        <p class="step-2-desc">컨설팅 후 본인의 상황에 맞는 다음 단계를 안내해 드립니다.</p>
+                        <div class="sub-services">
+                            <div class="sub-service">
+                                <strong>🎯 4주 코칭</strong>
+                                <span>혼자 실행하고 싶다면</span>
+                            </div>
+                            <div class="sub-service">
+                                <strong>🎬 릴스 편집</strong>
+                                <span>편집만 맡기고 싶다면</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <!-- ===== 4주 코칭 커리큘럼 ===== -->
     <section class="curriculum">
         <div class="curriculum-container">
-            <div class="section-label">4-WEEK COACHING</div>
-            <h2 class="section-title">4주 뒤, <span>혼자 운영</span>할 수 있습니다</h2>
-            <p class="section-desc">방향 잡기부터 캡컷 편집까지. 매주 숙제 → 피드백으로 실력이 쌓입니다.</p>
+            <div class="section-label">AFTER CONSULTING</div>
+            <h2 class="section-title">혼자 하기 막막하다면, <span>4주 코칭</span></h2>
+            <p class="section-desc">컨설팅 후 직접 실행이 어려우신 분들을 위해 준비된 커리큘럼입니다.</p>
 
             <div class="week-card">
                 <div class="week-card-header">
@@ -970,11 +930,6 @@
         </div>
     </section>
 
-
-
-
-
-    <!-- ===== FAQ ===== -->
     <section class="faq">
         <div class="faq-container">
             <div class="section-label">FAQ</div>
@@ -1007,17 +962,7 @@
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
-                    <p class="faq-a-text">상담 신청 후 DM 또는 전화로 연락드리며, 카카오페이 또는 계좌이체로 결제 가능합니다. 결제 확인 후 바로 일정을 잡아드립니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">
-                    <span>코칭 환불 가능한가요?</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <p class="faq-a-text">1주차 진행 전까지 100% 환불 가능합니다. 1주차 이후에는 잔여 주차에 대해 부분 환불이 가능합니다.</p>
+                    <p class="faq-a-text">상담 신청 후 DM 또는 전화로 연락드리며, 카카오페이 또는 계좌이체로 결제 안내를 도와드립니다. 결제 확인 후 바로 사전 분석에 들어갑니다.</p>
                 </div>
             </div>
 
@@ -1034,47 +979,42 @@
     </section>
 
 
-    <!-- ===== 폼 ===== -->
     <section class="form-section" id="consultForm">
         <div class="section-label">CONTACT</div>
-        <h2 class="section-title">인스타 운영 <span>컨설팅 신청</span></h2>
-        <p class="section-desc">계정을 알려주시면 사전 분석 후 연락드리겠습니다.</p>
+        <h2 class="section-title">인스타 운영 <span>진단 신청</span></h2>
+        <p class="section-desc">계정을 알려주시면 사전 분석 후 방향을 잡아드립니다.</p>
 
         <div class="form-container">
-            <div class="form-header">컨설팅 신청</div>
+            <div class="form-header">
+                <div class="form-header-title">1:1 맞춤 진단 신청</div>
+                <div class="form-header-desc">계정 분석 + 1시간 전화 디렉팅</div>
+            </div>
 
             <div class="form-body">
                 <form id="consultFormEl">
+                    
                     <div class="form-group">
-                        <label class="form-label">현재 가장 <strong>답답한 점</strong>은?</label>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="main_concern" value="뭘 올려야 할지 모르겠음">
-                                <span class="radio-dot"></span>
-                                <span class="radio-text">뭘 올려야 할지 모르겠음</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="main_concern" value="올려도 조회수가 안 나옴">
-                                <span class="radio-dot"></span>
-                                <span class="radio-text">올려도 조회수가 안 나옴</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="main_concern" value="피드가 전문적이지 않음">
-                                <span class="radio-dot"></span>
-                                <span class="radio-text">피드가 전문적이지 않음</span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="main_concern" value="방향 자체를 모르겠음">
-                                <span class="radio-dot"></span>
-                                <span class="radio-text">방향 자체를 모르겠음</span>
-                            </label>
-                        </div>
+                        <label class="form-label">인스타그램 계정 아이디</label>
+                        <input type="text" name="instagram" class="form-input" placeholder="@계정명">
+                        <div class="form-error">계정을 입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">인스타그램 계정</label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명">
-                        <div class="form-error">계정을 입력해주세요.</div>
+                        <label class="form-label">
+                            현재 운영에서 가장 답답하거나 막히는 부분을 자유롭게 적어주세요.
+                            <span class="form-label-desc">(예: "릴스를 올려도 조회수가 100을 못 넘겨요", "뭘 올려야 할지 몰라서 3주째 안 올리고 있어요")</span>
+                        </label>
+                        <textarea name="pain_point" class="form-input" rows="3" placeholder="내용을 입력해주세요"></textarea>
+                        <div class="form-error">내용을 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            컨설팅을 통해 어떤 결과를 얻고 싶으세요?
+                            <span class="form-label-desc">(예: "내 계정에 딱 맞는 운영 방향을 알고 싶어요", "매장 홍보로 이어지는 방법을 알고 싶어요")</span>
+                        </label>
+                        <textarea name="desired_outcome" class="form-input" rows="2" placeholder="내용을 입력해주세요"></textarea>
+                        <div class="form-error">내용을 입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
@@ -1083,7 +1023,12 @@
                         <div class="form-error">연락처를 입력해주세요.</div>
                     </div>
 
-                    <button type="submit" class="btn-form">컨설팅 신청하기</button>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="paid_agree" required>
+                        <span class="checkbox-text">본 신청은 <strong>5만원의 비용이 발생하는 유료 심층 진단</strong>입니다. 신청 후 결제 안내를 받으시게 됩니다. 동의합니다.</span>
+                    </label>
+
+                    <button type="submit" class="btn-form">유료 진단 신청하기</button>
                     <p class="form-notice">신청 후 1영업일 내 연락드리겠습니다.</p>
                 </form>
             </div>
@@ -1091,7 +1036,6 @@
     </section>
 
 
-    <!-- ===== 푸터 ===== -->
     <footer class="footer">
         <p class="footer-question">
             인스타 운영,<br>
@@ -1099,56 +1043,60 @@
         </p>
         <p class="footer-subtext">올바른 방향, 지금 잡아보세요.</p>
         <a href="#consultForm" class="footer-cta">컨설팅 신청하기 →</a>
-        <p class="footer-copy">© 2025 FEED:ON. All rights reserved.</p>
+        <p class="footer-copy">© 2026 FEED:ON. All rights reserved.</p>
     </footer>
 
 
-    <!-- ===== 성공 모달 ===== -->
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="modal-icon">✓</div>
-            <h4 class="modal-title">컨설팅 신청이 완료되었습니다</h4>
+            <h4 class="modal-title">진단 신청이 완료되었습니다</h4>
             <p class="modal-text">
                 계정을 사전 분석한 후<br>
-                <strong>1영업일 내</strong>에 연락드리겠습니다.
+                <strong>1영업일 내</strong>에 결제 및 일정 안내를 드리겠습니다.
             </p>
             <button class="modal-close" onclick="closeModal()">확인</button>
         </div>
     </div>
 
 
-    <!-- ===== 플로팅 CTA ===== -->
     <div class="floating-cta" id="floatingCta">
         <span class="floating-cta-text">인스타 운영, 방향부터 잡아보세요</span>
-        <a href="#consultForm" class="floating-cta-btn">컨설팅 신청하기 →</a>
+        <a href="#consultForm" class="floating-cta-btn">유료 진단 신청하기 →</a>
     </div>
 
 
     <script>
-        // === 폼 제출 ===
+        // === 폼 제출 (구글 스프레드시트 연동 유지) ===
         const consultForm = document.getElementById('consultFormEl');
-        const radioOptions = document.querySelectorAll('.radio-option');
-
-        radioOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-            });
-        });
 
         if (consultForm) {
             consultForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 let valid = true;
+                
                 const ig = this.querySelector('input[name="instagram"]');
+                const painPoint = this.querySelector('textarea[name="pain_point"]');
+                const desiredOutcome = this.querySelector('textarea[name="desired_outcome"]');
                 const phone = this.querySelector('input[name="phone"]');
-                const concern = this.querySelector('input[name="main_concern"]:checked');
+                const agree = this.querySelector('input[name="paid_agree"]');
 
                 if (!ig.value.trim()) { ig.closest('.form-group').classList.add('error'); valid = false; }
                 else { ig.closest('.form-group').classList.remove('error'); }
 
+                if (!painPoint.value.trim()) { painPoint.closest('.form-group').classList.add('error'); valid = false; }
+                else { painPoint.closest('.form-group').classList.remove('error'); }
+
+                if (!desiredOutcome.value.trim()) { desiredOutcome.closest('.form-group').classList.add('error'); valid = false; }
+                else { desiredOutcome.closest('.form-group').classList.remove('error'); }
+
                 if (!phone.value.trim()) { phone.closest('.form-group').classList.add('error'); valid = false; }
                 else { phone.closest('.form-group').classList.remove('error'); }
+
+                if (!agree.checked) {
+                    alert('유료 심층 진단 진행에 동의해주셔야 신청이 가능합니다.');
+                    valid = false;
+                }
 
                 if (!valid) return;
 
@@ -1177,10 +1125,14 @@
                 tempForm.target = 'hidden-iframe';
                 tempForm.style.display = 'none';
 
+                // 구글 폼으로 보낼 데이터 조립
+                // 기존 스크립트에서 받던 'main_concern' 필드에 주관식 내용을 묶어서 보냅니다.
+                const combinedData = `[답답한점]: ${painPoint.value} / [얻고싶은결과]: ${desiredOutcome.value} / [유료동의]: O`;
+
                 const data = {
                     phone: phone.value,
                     instagram: ig.value,
-                    main_concern: concern ? concern.value : '미선택'
+                    main_concern: combinedData // 구글 시트 구조를 안 바꾸기 위해 주관식을 합쳐서 기존 컬럼으로 전송
                 };
 
                 for (const [key, value] of Object.entries(data)) {
