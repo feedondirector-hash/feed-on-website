@@ -1101,7 +1101,7 @@
 
 		<div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> -->"1일 1포스팅 하라" 같은 뻔한 소리만 하는 거 아닌가요?</span>
+                    <span> → "1일 1포스팅 하라" 같은 뻔한 소리만 하는 거 아닌가요?</span>
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
@@ -1111,7 +1111,7 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> -->얼굴 노출이나 춤추는 릴스가 부담스러운데 가능할까요?</span>
+                    <span> → 얼굴 노출이나 춤추는 릴스가 부담스러운데 가능할까요?</span>
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
@@ -1121,7 +1121,7 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> -->5만 원 컨설팅을 받으면 정확히 뭘 얻어 가나요?</span>
+                    <span> → 5만 원 컨설팅을 받으면 정확히 뭘 얻어 가나요?</span>
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
@@ -1131,7 +1131,7 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> -->게시물이 몇 개 없는 초기 계정인데 받아도 되나요?</span>
+                    <span> → 게시물이 몇 개 없는 초기 계정인데 받아도 되나요?</span>
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
@@ -1141,7 +1141,7 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> -->컨설팅 후에 고가의 대행이나 코칭을 강요하진 않나요?</span>
+                    <span> → 컨설팅 후에 고가의 대행이나 코칭을 강요하진 않나요?</span>
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
@@ -1449,6 +1449,65 @@
                 }
             }
         }
+    </script>
+
+    <script>
+    // 💡 1. 모바일 찐 체류 시간
+    let activeSeconds = 0;
+    let timer = setInterval(() => {
+        if(document.visibilityState === 'visible') {
+            activeSeconds++;
+        }
+        if(activeSeconds === 15) {
+            fbq('trackCustom', 'Mobile_15_Sec_Engaged');
+            clearInterval(timer);
+        }
+    }, 1000);
+
+    // 💡 2. 스크롤 뎁스
+    let scrollMarks = { 25: false, 50: false, 75: false, 90: false };
+    window.addEventListener('scroll', function() {
+        let scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+        [25, 50, 75, 90].forEach(mark => {
+            if (scrollPercent >= mark && !scrollMarks[mark]) {
+                fbq('trackCustom', 'Scroll_Depth', { depth: mark + '%' });
+                if(mark === 90) fbq('track', 'ViewContent');
+                scrollMarks[mark] = true;
+            }
+        });
+    }, { passive: true });
+
+    // 💡 3. 폼 입력 정밀 추적
+    let formStatus = 'none';
+    const formInputs = document.querySelectorAll('input, textarea');
+
+    formInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            if(formStatus === 'none') {
+                fbq('track', 'InitiateCheckout', { value: 5000, currency: 'KRW' });
+                formStatus = 'touched';
+            }
+        });
+
+        input.addEventListener('input', function() {
+            if(formStatus === 'touched') {
+                fbq('trackCustom', 'Form_Typing_Started', { value: 10000, currency: 'KRW' });
+                formStatus = 'typing';
+            }
+        });
+    });
+
+    // 💡 4. 모바일 이탈 감지
+    let mobileExitCaught = false;
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden' && !mobileExitCaught) {
+            fbq('trackCustom', 'Mobile_Exit_Triggered', {
+                form_status: formStatus,
+                time_spent: activeSeconds
+            });
+            mobileExitCaught = true;
+        }
+    });
     </script>
 </body>
 </html>
