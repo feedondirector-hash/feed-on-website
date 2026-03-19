@@ -28,7 +28,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -44,7 +43,6 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1462407898938004&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
     <style>
         :root {
             --bg-primary: #faf9f7;
@@ -52,7 +50,6 @@
             --bg-card: #ffffff;
             --accent: #F58529;
             --accent-dark: #e07520;
-            --accent-light: rgba(245, 133, 41, 0.08);
             --text-primary: #1a1a1a;
             --text-secondary: #4a4a4a;
             --text-muted: #888888;
@@ -147,15 +144,14 @@
         }
         .hero-headline span {
             color: var(--accent);
-            font-size: 44px;
+            font-size: 40px;
         }
         .hero-desc {
-            font-size: 17px;
+            font-size: 16px;
             color: var(--text-secondary);
-            line-height: 1.9;
+            line-height: 1.8;
             margin-bottom: 40px;
         }
-        .hero-desc strong { color: var(--text-primary); font-weight: 800; font-size: 19px; }
         .hero-btns {
             display: flex;
             flex-direction: column;
@@ -182,17 +178,6 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 24px rgba(245, 133, 41, 0.4);
         }
-        .hero-cta-sub {
-            display: inline-block;
-            padding: 12px 32px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        .hero-cta-sub:hover { color: var(--accent); }
 
         /* ===== 고민 섹션 ===== */
         .pain {
@@ -251,150 +236,54 @@
         .service-flow {
             display: flex;
             flex-direction: column;
-            gap: 40px;
-        }
-        .step-badge {
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 16px;
-            text-align: center;
+            gap: 30px;
         }
         .step-card {
             background: var(--bg-card);
-            border: 2px solid var(--border-accent);
+            border: 1px solid var(--border-subtle);
             border-radius: 16px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 8px 24px rgba(245, 133, 41, 0.1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            transition: border-color 0.3s;
+        }
+        .step-card:hover {
+            border-color: var(--accent);
         }
         .step-card-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-        .step-card-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 24px;
+            margin-bottom: 12px;
         }
         .step-card-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--text-secondary);
             line-height: 1.7;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             word-break: keep-all;
         }
         .step-cta {
             display: inline-block;
-            padding: 16px 40px;
+            padding: 14px 32px;
             background: var(--text-primary);
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            border-radius: 12px;
+            border-radius: 10px;
             text-decoration: none;
             transition: all 0.3s ease;
         }
         .step-cta:hover { background: #000; transform: translateY(-2px); }
-        
-        .step-2-box {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 30px;
+
+        .service-footer-note {
             text-align: center;
-        }
-        .step-2-desc {
             font-size: 15px;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
-        .sub-services {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .sub-service {
-            background: #fff;
-            padding: 16px;
-            border-radius: 10px;
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .sub-service strong { font-size: 16px; color: var(--text-primary); }
-        .sub-service span { font-size: 13px; color: var(--text-muted); }
-
-        @media (min-width: 600px) {
-            .sub-services { flex-direction: row; }
-            .sub-service { flex: 1; }
-        }
-
-        /* ===== 코칭 커리큘럼 ===== */
-        .curriculum {
-            padding: 80px 20px;
-            background: var(--bg-secondary);
-        }
-        .curriculum-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .week-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 28px 24px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            transition: all 0.25s ease;
-        }
-        .week-card:hover {
-            border-color: var(--border-accent);
-            box-shadow: 0 4px 16px rgba(245, 133, 41, 0.08);
-        }
-        .week-card-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
-        .week-num {
-            width: 44px; height: 44px;
-            background: var(--accent);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 20px;
-            letter-spacing: 2px;
-            color: #fff;
-            flex-shrink: 0;
-        }
-        .week-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .week-content {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.75;
-            padding-left: 58px;
-        }
-        .week-homework {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 6px 14px;
-            background: var(--accent-light);
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-dark);
+        .service-footer-note strong {
+            color: var(--accent);
         }
 
         /* ===== FAQ ===== */
@@ -447,7 +336,7 @@
             line-height: 1.8;
         }
 
-        /* ===== 폼 섹션 (리뉴얼) ===== */
+        /* ===== 폼 섹션 ===== */
         .form-section {
             position: relative;
             padding: 80px 20px 100px;
@@ -499,13 +388,6 @@
             margin-bottom: 10px;
             line-height: 1.5;
         }
-        .form-label-desc {
-            display: block;
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
         .form-input {
             width: 100%;
             padding: 14px 16px;
@@ -537,7 +419,6 @@
         .form-group.error .form-input { border-color: #dc3545; }
         .form-group.error .form-error { display: block; }
 
-        /* 체크박스 스타일 */
         .checkbox-option {
             display: flex;
             align-items: flex-start;
@@ -706,7 +587,6 @@
             line-height: 1.7;
             margin-bottom: 28px;
         }
-        .modal-text strong { color: var(--accent); }
         .modal-close {
             padding: 14px 36px;
             background: transparent;
@@ -769,11 +649,10 @@
         /* ===== 반응형 ===== */
         @media (min-width: 768px) {
             .hero { padding: 100px 40px 80px; }
-            .hero-headline { font-size: 52px; }
-            .hero-headline span { font-size: 60px; }
-            .hero-desc { font-size: 18px; }
-            .hero-desc strong { font-size: 20px; }
-            .section-title { font-size: 32px; }
+            .hero-headline { font-size: 44px; }
+            .hero-headline span { font-size: 48px; }
+            .hero-desc { font-size: 17px; }
+            .section-title { font-size: 30px; }
             .floating-cta {
                 flex-direction: row;
                 justify-content: center;
@@ -787,8 +666,8 @@
             .footer-question { font-size: 28px; }
         }
         @media (min-width: 1024px) {
-            .hero-headline { font-size: 58px; }
-            .hero-headline span { font-size: 66px; }
+            .hero-headline { font-size: 50px; }
+            .hero-headline span { font-size: 54px; }
             .form-container { max-width: 540px; }
             .footer { padding: 100px 40px; }
         }
@@ -805,17 +684,6 @@
             padding: 0 20px;
             text-align: center;
             position: relative;
-        }
-        .proof-header .section-label {
-            margin-bottom: 16px;
-        }
-        .proof-header .section-title {
-            margin-bottom: 16px;
-        }
-        .proof-header .section-desc {
-            font-size: 15px;
-            opacity: 0.85;
-            line-height: 1.7;
         }
         .proof-slider-container {
             display: flex;
@@ -836,12 +704,8 @@
                 gap: 32px;
             }
         }
-        .proof-slider-container:active {
-            cursor: grabbing;
-        }
-        .proof-slider-container::-webkit-scrollbar {
-            display: none;
-        }
+        .proof-slider-container:active { cursor: grabbing; }
+        .proof-slider-container::-webkit-scrollbar { display: none; }
         .proof-slide-item {
             flex-shrink: 0;
             width: fit-content;
@@ -852,48 +716,23 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             border: 2px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            transition: all 0.4s ease;
         }
         .proof-slide-item:hover {
             transform: translateY(-12px) scale(1.02);
             box-shadow: 0 20px 50px rgba(245, 133, 41, 0.25);
         }
         .proof-slide-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            width: 100%; height: auto; display: block;
             pointer-events: none;
-            -webkit-user-drag: none;
-            -webkit-touch-callout: none;
         }
         @media (min-width: 768px) {
-            .proof-slider-section {
-                padding: 120px 0 140px;
-            }
-            .proof-header {
-                margin: 0 auto 70px;
-                max-width: 900px;
-            }
-            .proof-header .section-desc {
-                font-size: 17px;
-            }
-            .proof-slide-item {
-                max-width: 350px;
-                border-radius: 24px;
-            }
-            .proof-slide-item::after {
-                border-radius: 24px;
-            }
+            .proof-slider-section { padding: 120px 0 140px; }
+            .proof-header { margin: 0 auto 70px; max-width: 900px; }
+            .proof-slide-item { max-width: 350px; border-radius: 24px; }
         }
         @media (min-width: 1200px) {
-            .proof-slide-item {
-                max-width: 400px;
-            }
+            .proof-slide-item { max-width: 400px; }
         }
     </style>
 </head>
@@ -907,255 +746,112 @@
             </div>
 
             <h1 class="hero-headline">
-                인스타 운영,<br>
-                <span>올바른 방향</span>부터<br>
-                잡아드립니다
+                조회수 100~1000대에<br>갇혀 답답하신가요?<br>
+                <span>이제 방향을 고쳐 잡을 때입니다.</span>
             </h1>
 
             <p class="hero-desc">
-                안 되는 이유는 실력이 아니라 <strong>방향이 틀려서</strong>입니다.<br>
-                방향이 맞으면, 같은 노력으로 결과가 달라집니다.
+                백날 릴스만 찍어낸다고 계정이 크지 않습니다.<br>
+                내 비즈니스에 돈이 되는 '정확한 인스타 세팅법'을 알려드립니다.
             </p>
 
             <div class="hero-btns">
-                <a href="#consultForm" class="hero-cta">컨설팅 신청하기 →</a>
-                <a href="#services" class="hero-cta-sub">진행 방식 보기 ↓</a>
+                <a href="#consultForm" class="hero-cta">내 계정에 맞는 솔루션 진단받기 →</a>
             </div>
         </div>
     </section>
-
 
     <section class="pain">
         <div class="pain-container">
-            <div class="section-label">ARE YOU STUCK?</div>
-            <h2 class="section-title">혹시 이런 <span>상황</span>이신가요?</h2>
-            <p class="section-desc">노력이 부족한 게 아닙니다. 알고리즘의 방향을 모를 뿐입니다.</p>
+            <div class="section-label">CHECKLIST</div>
+            <h2 class="section-title">딱 <span>3가지</span>만 체크해 보세요.</h2>
+            <p class="section-desc">단 하나라도 해당된다면, 실력이 아니라 '방향'이 틀린 겁니다.</p>
 
             <div class="pain-list">
                 <div class="pain-item">
-                    <div class="pain-icon">⏳</div>
-                    <span> -->매일 릴스를 올려도 문의나 팔로워 전환은 0건이다</span>
+                    <div class="pain-icon">☑️</div>
+                    <span>3시간 편집해서 올렸는데, 조회수는 귀신같이 100~1000대에서 멈춘다.</span>
                 </div>
                 <div class="pain-item">
-                    <div class="pain-icon">💸</div>
-                    <span> -->대행사에 월 수십만 원을 쓰려다 망설이고 있다</span>
+                    <div class="pain-icon">☑️</div>
+                    <span>좋아요는 찍히는데, 정작 내 제품/서비스 문의로 이어지진 않는다.</span>
                 </div>
                 <div class="pain-item">
-                    <div class="pain-icon">🤖</div>
-                    <span> -->나름 열심히 하는데, 알고리즘이 내 계정만 버린 것 같다</span>
-                </div>
-                <div class="pain-item">
-                    <div class="pain-icon">🧭</div>
-                    <span> -->매장 홍보, 개인 브랜딩... 뭐부터 세팅할지 방향조차 안 잡힌다</span>
+                    <div class="pain-icon">☑️</div>
+                    <span>남들은 인스타로 돈 번다는데, 나만 방법을 몰라 헛고생 중이다.</span>
                 </div>
             </div>
         </div>
     </section>
 
+    <section class="services" id="services">
+        <div class="services-container">
+            <div class="section-label">SOLUTION</div>
+            <h2 class="section-title">피드온은 <span>이렇게 도와드립니다</span></h2>
+            <p class="section-desc">내 계정에 딱 맞는 인스타 성장·떡상 방법론을 1:1로 알려드립니다.</p>
+
+            <div class="service-flow">
+                <div class="step-card">
+                    <div class="step-card-title">STEP 1. 1:1 맞춤 컨설팅 (1시간 강의)</div>
+                    <p class="step-card-desc">
+                        내 계정이 왜 안 터지는지 원인을 진단하고, 앞으로 어떤 릴스를 올려야 하는지 '정답지'를 쥐여드리는 1:1 맞춤 강의입니다.
+                    </p>
+                    <a href="#consultForm" class="step-cta">1:1 컨설팅 신청하기 →</a>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-card-title">STEP 2. 4주 밀착 코칭 (실전 피드백)</div>
+                    <p class="step-card-desc">
+                        컨설팅에서 배운 내용을 직접 해보면서, 4주 동안 매번 릴스 대본을 피드백받고 알고리즘에 맞게 수정해 나가는 실전 코칭입니다.
+                    </p>
+                </div>
+            </div>
+
+            <p class="service-footer-note">
+                💡 처음이시라면 <strong>1:1 맞춤 컨설팅</strong>만으로도 방향을 잡기 충분합니다.
+            </p>
+        </div>
+    </section>
 
     <section class="proof-slider-section">
         <div class="proof-header">
             <div class="section-label">PROVEN RESULTS</div>
             <h2 class="section-title">운이 아닙니다.<br><span>방향이 만든 당연한 결과</span>입니다.</h2>
-            <p class="section-desc" style="margin-bottom: 0;">데이터는 거짓말을 하지 않습니다. 숫자 뒤에 숨겨진 진짜 '비즈니스 가치'를 확인해 보세요. (옆으로 밀어보기 →)</p>
+            <p class="section-desc">데이터는 거짓말을 하지 않습니다. 숫자 뒤에 숨겨진 진짜 가치를 확인해 보세요. (옆으로 밀어보기 →)</p>
         </div>
 
         <div class="proof-slider-container">
             <div class="proof-slide-item">
                 <img src="insight1.jpg" alt="도달률 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight2.png" alt="저장 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight3.png" alt="공유 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight4.png" alt="프로필 방문 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight5.png" alt="비팔로워 노출 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight6.png" alt="시청 시간 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight7.png" alt="팔로워 전환 지표">
             </div>
-
             <div class="proof-slide-item">
                 <img src="insight8.png" alt="팔로워 전환 지표">
             </div>
         </div>
     </section>
 
-
-    <section class="services" id="services">
-        <div class="services-container">
-            <div class="section-label">PROCESS</div>
-            <h2 class="section-title">피드온 <span>운영 디렉팅</span> 흐름</h2>
-            <p class="section-desc">무작정 대행부터 맡기지 마세요. 방향 점검이 먼저입니다.</p>
-
-            <div class="service-flow">
-                <div class="service-step">
-                    <div class="step-badge">STEP 1. 먼저 진단부터</div>
-                    <div class="step-card">
-                        <div class="step-card-title">1:1 맞춤 컨설팅</div>
-                        <div class="step-card-price">5만원 / 1시간</div>
-                        <p class="step-card-desc">
-                            계정을 사전 분석한 뒤, 전화로 지금 뭐가 잘못되어 있고<br>
-                            대표님의 업종과 현재 상황에 딱 맞는 현실적인 방향을 설계해 드립니다.
-                        </p>
-                        <a href="#consultForm" class="step-cta">컨설팅 신청하기 →</a>
-                    </div>
-                </div>
-
-                <div class="service-step">
-                    <div class="step-badge">STEP 2. 진단 후, 필요하다면</div>
-                    <div class="step-2-box">
-                        <p class="step-2-desc">컨설팅 후 본인의 상황에 맞는 다음 단계를 안내해 드립니다.</p>
-                        <div class="sub-services">
-                            <div class="sub-service">
-                                <strong>🎯 4주 코칭</strong>
-                                <span> -->혼자 실행하고 싶다면</span>
-                            </div>
-                            <div class="sub-service">
-                                <strong>🎬 릴스 편집</strong>
-                                <span> -->편집만 맡기고 싶다면</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="curriculum">
-        <div class="curriculum-container">
-            <div class="section-label">AFTER CONSULTING</div>
-            <h2 class="section-title">혼자 하기 막막하다면, <span>4주 코칭</span></h2>
-            <p class="section-desc">컨설팅 후 직접 실행이 어려우신 분들을 위해 준비된 커리큘럼입니다.</p>
-
-            <div class="week-card">
-                <div class="week-card-header">
-                    <div class="week-num">W1</div>
-                    <div class="week-title">방향 세팅</div>
-                </div>
-                <div class="week-content">
-                    계정 컨셉 잡기, 타겟 정하기, 피드 구성 설계.
-                    방향이 잡혀야 뭘 올릴지가 보입니다.
-                    <div class="week-homework">숙제: 프로필 리세팅 + 피드 상위 9개 기획</div>
-                </div>
-            </div>
-
-            <div class="week-card">
-                <div class="week-card-header">
-                    <div class="week-num">W2</div>
-                    <div class="week-title">콘텐츠 기획</div>
-                </div>
-                <div class="week-content">
-                    뭘 찍을지, 릴스 주제 뽑는 법, 래퍼런스 찾는 법.
-                    더 이상 "뭘 올리지" 고민 없어집니다.
-                    <div class="week-homework">숙제: 릴스 주제 4개 기획서 작성</div>
-                </div>
-            </div>
-
-            <div class="week-card">
-                <div class="week-card-header">
-                    <div class="week-num">W3</div>
-                    <div class="week-title">캡컷 편집 실전</div>
-                </div>
-                <div class="week-content">
-                    컷편집, 자막, 음악, 전환효과, 썸네일까지.
-                    "캡컷 이렇게 쉬웠어?" 하게 됩니다.
-                    <div class="week-homework">숙제: 릴스 1개 직접 편집해서 제출</div>
-                </div>
-            </div>
-
-            <div class="week-card">
-                <div class="week-card-header">
-                    <div class="week-num">W4</div>
-                    <div class="week-title">운영 루틴 완성</div>
-                </div>
-                <div class="week-content">
-                    업로드 타이밍, 인사이트 읽는 법, 월간 운영 루틴.
-                    이제 혼자 돌릴 수 있는 시스템이 잡힙니다.
-                    <div class="week-homework">숙제: 첫 릴스 업로드 + 리뷰</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq">
-        <div class="faq-container">
-            <div class="section-label">FAQ</div>
-            <h2 class="section-title">자주 묻는 <span>질문</span></h2>
-            <p class="section-desc"></p>
-
-		<div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → "1일 1포스팅 하라" 같은 뻔한 소리만 하는 거 아닌가요?</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <p class="faq-a-text">절대 아닙니다. 피드온이 유료 사전 분석을 고집하는 이유가 바로 그것입니다. 통화 전, 대표님의 계정과 경쟁사를 깊게 뜯어보고 <strong>'왜 안 크고 있는지(WHY)'</strong>와 <strong>'당장 어떤 컨셉으로 가야 하는지(WHAT)'</strong> 업종과 현재 상황에 딱 맞는 현실적인 맞춤형 나침반을 세워드립니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 얼굴 노출이나 춤추는 릴스가 부담스러운데 가능할까요?</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <p class="faq-a-text">물론입니다. 인스타 성장의 핵심은 '끼'가 아니라 '기획'입니다. 대표님의 성향과 업종에 맞춰, 얼굴이 나오지 않고도 전문성과 매력을 보여줄 수 있는 구조적인 방향을 설계해 드립니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 5만 원 컨설팅을 받으면 정확히 뭘 얻어 가나요?</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <p class="faq-a-text">혼자서 고민하며 버릴 <strong>'수개월의 시간과 스트레스'</strong>를 아낄 수 있습니다. 내 계정의 치명적인 문제점 진단, 앞으로 올려야 할 콘텐츠의 방향성, 그리고 타겟에게 먹히는 포지셔닝 전략을 1시간 동안 명확하게 얻어 가시게 됩니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 게시물이 몇 개 없는 초기 계정인데 받아도 되나요?</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <p class="faq-a-text">오히려 초기 계정일수록 가장 효과가 큽니다. 잘못된 방향으로 삽질(노가다)을 하기 전에, 처음부터 알고리즘이 좋아하는 올바른 구조를 세팅하고 시작할 수 있기 때문입니다.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 컨설팅 후에 고가의 대행이나 코칭을 강요하진 않나요?</span>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="faq-a">
-                    <p class="faq-a-text">전혀 없습니다. 피드온은 '대행'을 파는 곳이 아니라 '방향'을 파는 곳입니다. 컨설팅을 통해 방향을 잡으신 후 혼자서 실행하셔도 충분하며, 만약 직접 실행하기 벅차서 코칭이나 편집 외주가 필요한 분들께만 상황에 맞춰 후속 단계를 안내해 드립니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <section class="form-section" id="consultForm">
         <div class="section-label">CONTACT</div>
         <h2 class="section-title">인스타 운영 <span>진단 신청</span></h2>
-        <p class="section-desc">계정을 알려주시면 사전 분석 후 방향을 잡아드립니다.</p>
+        <p class="section-desc">아래에 남겨주시면 24시간 내로 연락드립니다.</p>
 
         <div class="form-container">
             <div class="form-header">
@@ -1167,33 +863,28 @@
                 <form id="consultFormEl">
                     
                     <div class="form-group">
-                        <label class="form-label">
-                            현재 운영에서 가장 답답하거나 막히는 부분을 자유롭게 적어주세요.
-                            <span class="form-label-desc">(예: "릴스를 올려도 조회수가 100을 못 넘겨요", "뭘 올려야 할지 몰라서 3주째 안 올리고 있어요")</span>
-                        </label>
-                        <textarea name="pain_point" class="form-input" rows="3" placeholder="내용을 입력해주세요"></textarea>
-                        <div class="form-error">내용을 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            컨설팅을 통해 어떤 결과를 얻고 싶으세요?
-                            <span class="form-label-desc">(예: "내 계정에 딱 맞는 운영 방향을 알고 싶어요", "매장 홍보로 이어지는 방법을 알고 싶어요")</span>
-                        </label>
-                        <textarea name="desired_outcome" class="form-input" rows="2" placeholder="내용을 입력해주세요"></textarea>
-                        <div class="form-error">내용을 입력해주세요.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">인스타그램 계정 아이디</label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명">
-                        <div class="form-error">계정을 입력해주세요.</div>
+                        <label class="form-label">이름</label>
+                        <input type="text" name="name" class="form-input" placeholder="대표님 성함">
+                        <div class="form-error">이름을 입력해주세요.</div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">연락처</label>
                         <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000">
                         <div class="form-error">연락처를 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">인스타그램 계정 링크 또는 아이디</label>
+                        <input type="text" name="instagram" class="form-input" placeholder="@계정명 또는 URL">
+                        <div class="form-error">계정을 입력해주세요.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            현재 운영에서 가장 고민되는 부분 (선택)
+                        </label>
+                        <textarea name="pain_point" class="form-input" rows="2" placeholder="자유롭게 적어주세요"></textarea>
                     </div>
 
                     <label class="checkbox-option">
@@ -1208,6 +899,53 @@
         </div>
     </section>
 
+    <section class="faq">
+        <div class="faq-container">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title">자주 묻는 <span>질문</span></h2>
+            <p class="section-desc"></p>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <span> → "1일 1포스팅 하라" 같은 뻔한 소리만 하는 거 아닌가요?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-a">
+                    <p class="faq-a-text">절대 아닙니다. 통화 전, 대표님의 계정과 경쟁사를 깊게 뜯어보고 '왜 안 크고 있는지'와 '어떤 컨셉으로 가야 하는지' 상황에 딱 맞는 현실적인 방향을 세워드립니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <span> → 얼굴 노출이나 춤추는 릴스가 부담스러운데 가능할까요?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-a">
+                    <p class="faq-a-text">물론입니다. 얼굴이 나오지 않고도 전문성과 매력을 보여줄 수 있는 구조적인 방향을 설계해 드립니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <span> → 5만 원 컨설팅을 받으면 정확히 뭘 얻어 가나요?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-a">
+                    <p class="faq-a-text">혼자서 고민하며 버릴 수개월의 시간을 아낄 수 있습니다. 내 계정의 문제점 진단, 앞으로 올려야 할 콘텐츠의 방향성을 1시간 동안 명확하게 얻어 가시게 됩니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                    <span> → 게시물이 몇 개 없는 초기 계정인데 받아도 되나요?</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="faq-a">
+                    <p class="faq-a-text">오히려 초기 계정일수록 가장 효과가 큽니다. 잘못된 방향으로 삽질을 하기 전에, 처음부터 알고리즘이 좋아하는 구조를 세팅하고 시작할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer class="footer">
         <p class="footer-question">
@@ -1219,25 +957,22 @@
         <p class="footer-copy">© 2026 FEED:ON. All rights reserved.</p>
     </footer>
 
-
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="modal-icon">✓</div>
             <h4 class="modal-title">진단 신청이 완료되었습니다</h4>
             <p class="modal-text">
                 계정을 사전 분석한 후<br>
-                <strong>1영업일 내</strong>에 결제 및 일정 안내를 드리겠습니다.
+                <strong>1영업일 내</strong>에 안내를 드리겠습니다.
             </p>
             <button class="modal-close" onclick="closeModal()">확인</button>
         </div>
     </div>
 
-
     <div class="floating-cta" id="floatingCta">
         <span class="floating-cta-text">인스타 운영, 방향부터 잡아보세요</span>
         <a href="#consultForm" class="floating-cta-btn">유료 진단 신청하기 →</a>
     </div>
-
 
     <script>
         // === 폼 제출 (구글 스프레드시트 연동 유지) ===
@@ -1248,23 +983,20 @@
                 e.preventDefault();
                 let valid = true;
                 
+                const name = this.querySelector('input[name="name"]');
+                const phone = this.querySelector('input[name="phone"]');
                 const ig = this.querySelector('input[name="instagram"]');
                 const painPoint = this.querySelector('textarea[name="pain_point"]');
-                const desiredOutcome = this.querySelector('textarea[name="desired_outcome"]');
-                const phone = this.querySelector('input[name="phone"]');
                 const agree = this.querySelector('input[name="paid_agree"]');
 
-                if (!ig.value.trim()) { ig.closest('.form-group').classList.add('error'); valid = false; }
-                else { ig.closest('.form-group').classList.remove('error'); }
-
-                if (!painPoint.value.trim()) { painPoint.closest('.form-group').classList.add('error'); valid = false; }
-                else { painPoint.closest('.form-group').classList.remove('error'); }
-
-                if (!desiredOutcome.value.trim()) { desiredOutcome.closest('.form-group').classList.add('error'); valid = false; }
-                else { desiredOutcome.closest('.form-group').classList.remove('error'); }
+                if (!name.value.trim()) { name.closest('.form-group').classList.add('error'); valid = false; }
+                else { name.closest('.form-group').classList.remove('error'); }
 
                 if (!phone.value.trim()) { phone.closest('.form-group').classList.add('error'); valid = false; }
                 else { phone.closest('.form-group').classList.remove('error'); }
+
+                if (!ig.value.trim()) { ig.closest('.form-group').classList.add('error'); valid = false; }
+                else { ig.closest('.form-group').classList.remove('error'); }
 
                 if (!agree.checked) {
                     alert('유료 심층 진단 진행에 동의해주셔야 신청이 가능합니다.');
@@ -1298,14 +1030,12 @@
                 tempForm.target = 'hidden-iframe';
                 tempForm.style.display = 'none';
 
-                // 구글 폼으로 보낼 데이터 조립
-                // 기존 스크립트에서 받던 'main_concern' 필드에 주관식 내용을 묶어서 보냅니다.
-                const combinedData = `[답답한점]: ${painPoint.value} / [얻고싶은결과]: ${desiredOutcome.value} / [유료동의]: O`;
+                const combinedData = `[이름]: ${name.value} / [고민]: ${painPoint.value} / [유료동의]: O`;
 
                 const data = {
                     phone: phone.value,
                     instagram: ig.value,
-                    main_concern: combinedData // 구글 시트 구조를 안 바꾸기 위해 주관식을 합쳐서 기존 컬럼으로 전송
+                    main_concern: combinedData
                 };
 
                 for (const [key, value] of Object.entries(data)) {
@@ -1339,7 +1069,6 @@
             });
         });
 
-        // 모달
         function closeModal() {
             const m = document.getElementById('successModal');
             if (m) m.classList.remove('active');
@@ -1351,7 +1080,6 @@
             });
         }
 
-        // FAQ 토글
         function toggleFaq(el) {
             const item = el.closest('.faq-item');
             item.classList.toggle('open');
@@ -1381,20 +1109,11 @@
             handleScroll();
         }
 
-        // 슬라이더 드래그 스크롤 (PC 전용) - 모멘텀 효과 추가
+        // 슬라이더 스크롤
         const sliderContainer = document.querySelector('.proof-slider-container');
         if (sliderContainer) {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let lastX;
-            let lastTime;
-            let velocity = 0;
-            let momentumID;
-
-            // 이미지 우클릭 및 드래그 방지
+            let isDown = false, startX, scrollLeft, lastX, lastTime, velocity = 0, momentumID;
             sliderContainer.addEventListener('contextmenu', (e) => e.preventDefault());
-
             sliderContainer.addEventListener('mousedown', (e) => {
                 isDown = true;
                 sliderContainer.style.scrollBehavior = 'auto';
@@ -1405,44 +1124,22 @@
                 velocity = 0;
                 cancelAnimationFrame(momentumID);
             });
-
-            sliderContainer.addEventListener('mouseleave', () => {
-                if (isDown) {
-                    isDown = false;
-                    applyMomentum();
-                }
-            });
-
-            sliderContainer.addEventListener('mouseup', () => {
-                if (isDown) {
-                    isDown = false;
-                    applyMomentum();
-                }
-            });
-
+            sliderContainer.addEventListener('mouseleave', () => { if(isDown){ isDown = false; applyMomentum(); }});
+            sliderContainer.addEventListener('mouseup', () => { if(isDown){ isDown = false; applyMomentum(); }});
             sliderContainer.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
-
                 const x = e.pageX - sliderContainer.offsetLeft;
-                const walk = (x - startX) * 2.5; // 스크롤 속도 조절
+                const walk = (x - startX) * 2.5; 
                 sliderContainer.scrollLeft = scrollLeft - walk;
-
-                // 속도 계산
-                const now = Date.now();
-                const dt = now - lastTime;
-                if (dt > 0) {
-                    velocity = (e.pageX - lastX) / dt;
-                }
-                lastX = e.pageX;
-                lastTime = now;
+                const now = Date.now(), dt = now - lastTime;
+                if (dt > 0) velocity = (e.pageX - lastX) / dt;
+                lastX = e.pageX; lastTime = now;
             });
-
-            // 관성 스크롤 함수
             function applyMomentum() {
                 if (Math.abs(velocity) > 0.1) {
                     sliderContainer.scrollLeft -= velocity * 16;
-                    velocity *= 0.95; // 감속
+                    velocity *= 0.95; 
                     momentumID = requestAnimationFrame(applyMomentum);
                 } else {
                     sliderContainer.style.scrollBehavior = 'smooth';
@@ -1452,19 +1149,12 @@
     </script>
 
     <script>
-    // 💡 1. 모바일 찐 체류 시간
     let activeSeconds = 0;
     let timer = setInterval(() => {
-        if(document.visibilityState === 'visible') {
-            activeSeconds++;
-        }
-        if(activeSeconds === 15) {
-            fbq('trackCustom', 'Mobile_15_Sec_Engaged');
-            clearInterval(timer);
-        }
+        if(document.visibilityState === 'visible') activeSeconds++;
+        if(activeSeconds === 15) { fbq('trackCustom', 'Mobile_15_Sec_Engaged'); clearInterval(timer); }
     }, 1000);
 
-    // 💡 2. 스크롤 뎁스
     let scrollMarks = { 25: false, 50: false, 75: false, 90: false };
     window.addEventListener('scroll', function() {
         let scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
@@ -1477,34 +1167,21 @@
         });
     }, { passive: true });
 
-    // 💡 3. 폼 입력 정밀 추적
     let formStatus = 'none';
     const formInputs = document.querySelectorAll('input, textarea');
-
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {
-            if(formStatus === 'none') {
-                fbq('track', 'InitiateCheckout', { value: 5000, currency: 'KRW' });
-                formStatus = 'touched';
-            }
+            if(formStatus === 'none') { fbq('track', 'InitiateCheckout', { value: 5000, currency: 'KRW' }); formStatus = 'touched'; }
         });
-
         input.addEventListener('input', function() {
-            if(formStatus === 'touched') {
-                fbq('trackCustom', 'Form_Typing_Started', { value: 10000, currency: 'KRW' });
-                formStatus = 'typing';
-            }
+            if(formStatus === 'touched') { fbq('trackCustom', 'Form_Typing_Started', { value: 10000, currency: 'KRW' }); formStatus = 'typing'; }
         });
     });
 
-    // 💡 4. 모바일 이탈 감지
     let mobileExitCaught = false;
     document.addEventListener('visibilitychange', function() {
         if (document.visibilityState === 'hidden' && !mobileExitCaught) {
-            fbq('trackCustom', 'Mobile_Exit_Triggered', {
-                form_status: formStatus,
-                time_spent: activeSeconds
-            });
+            fbq('trackCustom', 'Mobile_Exit_Triggered', { form_status: formStatus, time_spent: activeSeconds });
             mobileExitCaught = true;
         }
     });
