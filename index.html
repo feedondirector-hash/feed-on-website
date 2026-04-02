@@ -226,38 +226,53 @@
 
         /* ===== 서비스 섹션 (리뉴얼) ===== */
         .services {
-            padding: 80px 20px;
+            padding: 80px 0;
             background: var(--bg-primary);
         }
         .services-container {
-            max-width: 700px;
-            margin: 0 auto;
+            max-width: 100%;
+        }
+        .services-container .section-label,
+        .services-container .section-title,
+        .services-container .section-desc {
+            padding: 0 20px;
         }
         .service-flow {
             display: flex;
-            flex-direction: column;
-            gap: 30px;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: 10px 20px 20px;
+            scrollbar-width: none;
         }
+        .service-flow::-webkit-scrollbar { display: none; }
         .step-card {
+            flex: 0 0 300px;
+            min-width: 300px;
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
-            padding: 40px 30px;
+            padding: 32px 24px;
             text-align: center;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
             transition: border-color 0.3s;
+            scroll-snap-align: start;
         }
+        .step-card:first-child { margin-left: 0; }
+        .step-card:last-child { margin-right: 20px; }
         .step-card:hover {
             border-color: var(--accent);
         }
         .step-card-title {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 12px;
+            line-height: 1.4;
         }
         .step-card-desc {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: 24px;
@@ -265,10 +280,10 @@
         }
         .step-cta {
             display: inline-block;
-            padding: 14px 32px;
+            padding: 14px 28px;
             background: var(--text-primary);
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             border-radius: 10px;
             text-decoration: none;
@@ -281,9 +296,24 @@
             font-size: 15px;
             color: var(--text-secondary);
             margin-top: 20px;
+            padding: 0 20px;
         }
         .service-footer-note strong {
             color: var(--accent);
+        }
+
+        @media (min-width: 768px) {
+            .services { padding: 100px 40px; }
+            .service-flow {
+                justify-content: center;
+                overflow-x: visible;
+                padding: 10px 0 20px;
+            }
+            .step-card {
+                flex: 0 0 320px;
+                min-width: auto;
+            }
+            .step-card:last-child { margin-right: 0; }
         }
 
         /* ===== FAQ ===== */
@@ -738,6 +768,41 @@
 </head>
 <body>
 
+    <section class="proof-slider-section">
+        <div class="proof-header">
+            <div class="section-label">PROVEN RESULTS</div>
+            <h2 class="section-title">운이 아닙니다.<br><span>방향이 만든 당연한 결과</span>입니다.</h2>
+            <p class="section-desc">데이터는 거짓말을 하지 않습니다. 숫자 뒤에 숨겨진 진짜 가치를 확인해 보세요. (옆으로 밀어보기 →)</p>
+        </div>
+
+        <div class="proof-slider-container">
+            <div class="proof-slide-item">
+                <img src="insight1.jpg" alt="도달률 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight2.png" alt="저장 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight3.png" alt="공유 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight4.png" alt="프로필 방문 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight5.png" alt="비팔로워 노출 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight6.png" alt="시청 시간 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight7.png" alt="팔로워 전환 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight8.png" alt="팔로워 전환 지표">
+            </div>
+        </div>
+    </section>
+
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-brand">
@@ -817,41 +882,6 @@
             <p class="service-footer-note">
                 💡 우선 하단의 <strong>무료 1줄 진단</strong>부터 가벼운 마음으로 신청해 보세요.
             </p>
-        </div>
-    </section>
-
-    <section class="proof-slider-section">
-        <div class="proof-header">
-            <div class="section-label">PROVEN RESULTS</div>
-            <h2 class="section-title">운이 아닙니다.<br><span>방향이 만든 당연한 결과</span>입니다.</h2>
-            <p class="section-desc">데이터는 거짓말을 하지 않습니다. 숫자 뒤에 숨겨진 진짜 가치를 확인해 보세요. (옆으로 밀어보기 →)</p>
-        </div>
-
-        <div class="proof-slider-container">
-            <div class="proof-slide-item">
-                <img src="insight1.jpg" alt="도달률 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight2.png" alt="저장 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight3.png" alt="공유 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight4.png" alt="프로필 방문 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight5.png" alt="비팔로워 노출 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight6.png" alt="시청 시간 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight7.png" alt="팔로워 전환 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight8.png" alt="팔로워 전환 지표">
-            </div>
         </div>
     </section>
 
