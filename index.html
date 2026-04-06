@@ -1021,8 +1021,6 @@
                 const name = this.querySelector('input[name="name"]');
                 const phone = this.querySelector('input[name="phone"]');
                 const ig = this.querySelector('input[name="instagram"]');
-                const painPoint = this.querySelector('textarea[name="pain_point"]');
-                const agree = this.querySelector('input[name="paid_agree"]');
 
                 if (!name.value.trim()) { name.closest('.form-group').classList.add('error'); valid = false; }
                 else { name.closest('.form-group').classList.remove('error'); }
@@ -1032,11 +1030,6 @@
 
                 if (!ig.value.trim()) { ig.closest('.form-group').classList.add('error'); valid = false; }
                 else { ig.closest('.form-group').classList.remove('error'); }
-
-                if (!agree.checked) {
-                    alert('유료 심층 진단 진행에 동의해주셔야 신청이 가능합니다.');
-                    valid = false;
-                }
 
                 if (!valid) return;
 
@@ -1065,12 +1058,10 @@
                 tempForm.target = 'hidden-iframe';
                 tempForm.style.display = 'none';
 
-                const combinedData = `[이름]: ${name.value} / [고민]: ${painPoint.value} / [유료동의]: O`;
-
                 const data = {
                     phone: phone.value,
                     instagram: ig.value,
-                    main_concern: combinedData
+                    main_concern: `[이름]: ${name.value}`
                 };
 
                 for (const [key, value] of Object.entries(data)) {
