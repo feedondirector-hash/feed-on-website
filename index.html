@@ -1728,12 +1728,19 @@
             
             const paymentWidget = PaymentWidget(TOSS_CLIENT_KEY, PaymentWidget.ANONYMOUS);
             
+            const successParams = new URLSearchParams({
+                name: orderData.name || '',
+                phone: orderData.phone || '',
+                instagram: orderData.instagram || '',
+                productName: productName
+            });
+
             paymentWidget.requestPayment({
                 orderId: orderId,
                 orderName: productName,
                 customerName: orderData.name,
                 customerMobilePhone: orderData.phone.replace(/-/g, ''),
-                successUrl: window.location.origin + '/api/confirm',
+                successUrl: `${window.location.origin}/api/confirm?${successParams.toString()}`,
                 failUrl: window.location.origin + '/?payment=fail',
                 amount: price
             });
