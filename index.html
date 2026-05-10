@@ -1333,7 +1333,7 @@
 
                 <div class="product-card featured" onclick="openProductModal('consult')">
                     <div class="product-badge popular">인기</div>
-                    <div class="product-title">1시간 계정 상담</div>
+                    <div class="product-title">계정 상담</div>
                     <div class="product-price">70,000<span>원</span></div>
                     <p class="product-desc">
                         방향을 못 잡겠다면 여기서부터.<br>
@@ -1437,7 +1437,7 @@
             <div class="modal-form-section">
                 <div class="modal-product-header">
                     <span class="modal-badge popular">인기</span>
-                    <h3>1시간 계정 상담</h3>
+                    <h3>계정 상담</h3>
                     <div class="modal-price">70,000원</div>
                 </div>
 
@@ -1628,7 +1628,7 @@
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
-                    <p class="faq-a-text">네, 업종 상관없이 진행 가능해요. 다만 인스타그램으로 비즈니스를 성장시키고 싶은 분들께 가장 효과적입니다.</p>
+                    <p class="faq-a-text">업종은 전혀 상관없어요. 흔하지 않은 분야거나 저도 낯선 업종이라도 피하지 않습니다. 어떤 업종이든 인스타그램 안에서 통하는 방향이 있고, 그 답을 같이 진지하게 찾아드리겠습니다.</p>
                 </div>
             </div>
 
@@ -1785,7 +1785,7 @@
 
         const PRODUCTS = {
             reels:    { name: '릴스 피드백',      price: 20000 },
-            consult:  { name: '1시간 계정 상담',  price: 70000 },
+            consult:  { name: '계정 상담',  price: 70000 },
             coaching: { name: '4주 밀착 코칭',    price: 340000 }
         };
 
@@ -1845,6 +1845,9 @@
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
+            // 뒤로가기로 닫을 수 있도록 history state 추가
+            history.pushState({ feedonModal: type }, '');
+
             // 플로팅 CTA 숨김
             const cta = document.getElementById('floatingCta');
             if (cta) cta.classList.add('force-hide');
@@ -1858,15 +1861,16 @@
             }
         }
 
-        function closeProductModal(type) {
+        // skipHistory: 결제 팝업으로 넘어갈 때처럼 history를 건드리지 않을 경우 true
+        function closeProductModal(type, skipHistory = false) {
             const modal = document.getElementById(type + 'Modal');
             if (modal) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             }
-            // 플로팅 CTA 복구
             const cta = document.getElementById('floatingCta');
             if (cta) cta.classList.remove('force-hide');
+            if (!skipHistory) history.back();
         }
 
         // === 결제 팝업 ===
@@ -1888,6 +1892,7 @@
 
             popup.classList.add('active');
             document.body.style.overflow = 'hidden';
+            history.pushState({ feedonPayment: type }, '');
 
             // widgets 생성 및 렌더링
             const widgets = tossPayments.widgets({ customerKey: TossPayments.ANONYMOUS });
@@ -1907,10 +1912,11 @@
             }
         }
 
-        function closePaymentPopup() {
+        function closePaymentPopup(skipHistory = false) {
             document.getElementById('paymentPopup').classList.remove('active');
             document.body.style.overflow = '';
             activeWidgets = null;
+            if (!skipHistory) history.back();
         }
 
         // 결제 완료하기 버튼
@@ -1947,8 +1953,8 @@
         document.querySelectorAll('.product-modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', function(e) {
                 if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
+                    const type = this.id.replace('Modal', '');
+                    closeProductModal(type);
                 }
             });
         });
@@ -1960,10 +1966,24 @@
                     closePaymentPopup();
                     return;
                 }
-                document.querySelectorAll('.product-modal-overlay.active').forEach(m => {
-                    m.classList.remove('active');
-                });
-                document.body.style.overflow = '';
+                const openModal = document.querySelector('.product-modal-overlay.active');
+                if (openModal) {
+                    const type = openModal.id.replace('Modal', '');
+                    closeProductModal(type);
+                }
+            }
+        });
+
+        // 뒤로가기 버튼 → 팝업/모달 닫기
+        window.addEventListener('popstate', function() {
+            if (document.getElementById('paymentPopup').classList.contains('active')) {
+                closePaymentPopup(true); // history는 이미 뒤로 이동됨
+                return;
+            }
+            const openModal = document.querySelector('.product-modal-overlay.active');
+            if (openModal) {
+                const type = openModal.id.replace('Modal', '');
+                closeProductModal(type, true); // history는 이미 뒤로 이동됨
             }
         });
 
@@ -2035,7 +2055,7 @@
                 }));
 
                 clearDraft(type); // 결제 진행 시 임시저장 삭제
-                closeProductModal(type);
+                closeProductModal(type, true); // history는 결제 팝업이 관리
                 await openPaymentPopup(type, {
                     orderId,
                     name: name.value.trim(),
