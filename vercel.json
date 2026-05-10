@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/confirm.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
-}
