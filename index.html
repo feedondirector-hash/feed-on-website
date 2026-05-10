@@ -28,8 +28,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <!-- 토스페이먼츠 결제위젯 SDK -->
-    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+    <!-- 토스페이먼츠 SDK -->
+    <script src="https://js.tosspayments.com/v1"></script>
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -1725,9 +1725,7 @@
         function requestPayment(productName, price, formData) {
             const orderId = generateOrderId();
             const orderData = saveFormData(formData, productName, price, orderId);
-            
-            const paymentWidget = PaymentWidget(TOSS_CLIENT_KEY, PaymentWidget.ANONYMOUS);
-            
+
             const successParams = new URLSearchParams({
                 name: orderData.name || '',
                 phone: orderData.phone || '',
@@ -1735,14 +1733,15 @@
                 productName: productName
             });
 
-            paymentWidget.requestPayment({
+            const tossPayments = TossPayments(TOSS_CLIENT_KEY);
+            tossPayments.requestPayment('카드', {
+                amount: price,
                 orderId: orderId,
                 orderName: productName,
                 customerName: orderData.name,
                 customerMobilePhone: orderData.phone.replace(/-/g, ''),
                 successUrl: `${window.location.origin}/api/confirm?${successParams.toString()}`,
-                failUrl: window.location.origin + '/?payment=fail',
-                amount: price
+                failUrl: window.location.origin + '/?payment=fail'
             });
         }
 
