@@ -1,4 +1,4 @@
-const TOSS_SECRET_KEY = 'test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6';
+const TOSS_SECRET_KEY = process.env.TOSS_SECRET_KEY;
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
 
 module.exports = async (req, res) => {
