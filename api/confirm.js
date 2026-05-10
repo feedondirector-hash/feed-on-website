@@ -1,8 +1,7 @@
 const TOSS_SECRET_KEY = process.env.TOSS_SECRET_KEY;
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
 
 module.exports = async (req, res) => {
-    const { orderId, paymentKey, amount, name, phone, instagram, productName } = req.query;
+    const { orderId, paymentKey, amount } = req.query;
 
     if (!orderId || !paymentKey || !amount) {
         return res.redirect('/?payment=fail&reason=missing_params');
@@ -15,11 +14,7 @@ module.exports = async (req, res) => {
                 'Authorization': 'Basic ' + Buffer.from(TOSS_SECRET_KEY + ':').toString('base64'),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                orderId,
-                paymentKey,
-                amount: parseInt(amount)
-            })
+            body: JSON.stringify({ orderId, paymentKey, amount: parseInt(amount) })
         });
 
         const paymentResult = await confirmResponse.json();
@@ -29,25 +24,7 @@ module.exports = async (req, res) => {
             return res.redirect(`/?payment=fail&reason=${encodeURIComponent(paymentResult.code || 'confirm_failed')}`);
         }
 
-        // 스프레드시트 저장 (실패해도 결제 성공으로 진행)
-        try {
-            const gasData = new URLSearchParams({
-                name: name || '',
-                phone: phone || '',
-                instagram: instagram || '',
-                main_concern: `[결제완료] 상품: ${productName || paymentResult.orderName} / 금액: ${paymentResult.totalAmount}원 / 주문ID: ${orderId}`
-            });
-
-            await fetch(GAS_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: gasData.toString()
-            });
-        } catch (gasError) {
-            console.error('스프레드시트 저장 실패:', gasError);
-        }
-
-        return res.redirect(`/?payment=success&orderId=${orderId}`);
+        return res.redirect(`/?payment=success&orderId=${orderId}&amount=${paymentResult.totalAmount}`);
 
     } catch (error) {
         console.error('결제 처리 오류:', error);

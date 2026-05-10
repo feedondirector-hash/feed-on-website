@@ -1727,6 +1727,7 @@
 
     <script>
         const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxyLD-u00HIQ8UT6C5JVIu1pi-XkhLLxWEOHoyOJHGRDSd3GaY9xxWWYqRU5mp-xRiH/exec';
         const tossPayments = TossPayments(TOSS_CLIENT_KEY);
 
         const PRODUCTS = {
@@ -1805,20 +1806,13 @@
 
             const { widgets, orderMeta, type } = activeWidgets;
             const product = PRODUCTS[type];
-            const orderId = 'FEEDON-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            const successParams = new URLSearchParams({
-                name: orderMeta.name,
-                phone: orderMeta.phone,
-                instagram: orderMeta.instagram,
-                productName: product.name
-            });
 
             try {
                 await widgets.requestPayment({
-                    orderId: orderId,
+                    orderId: orderMeta.orderId,
                     orderName: product.name,
                     customerName: orderMeta.name,
-                    successUrl: window.location.origin + '/api/confirm?' + successParams.toString(),
+                    successUrl: window.location.origin + '/api/confirm',
                     failUrl: window.location.origin + '/?payment=fail'
                 });
             } catch (err) {
@@ -1858,7 +1852,7 @@
             }
         });
 
-        // === 폼 제출 → 결제 팝업 오픈 ===
+        // === 폼 제출 → localStorage 저장 → 결제 팝업 오픈 ===
         function setupForm(type) {
             const form = document.getElementById(type + 'Form');
             if (!form) return;
@@ -1884,9 +1878,36 @@
                 });
                 if (!valid) return;
 
-                // 폼 모달 닫고 결제 팝업 열기
+                const product = PRODUCTS[type];
+                const orderId = 'FEEDON-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+
+                // 상품별 추가 정보 수집
+                const extraParts = [];
+                const reelsUrl = this.querySelector('[name="reels_url"]');
+                const date = this.querySelector('[name="date"]');
+                const time = this.querySelector('[name="time"]');
+                const startWeek = this.querySelector('[name="start_week"]');
+                const concern = this.querySelector('[name="concern"]');
+                if (reelsUrl && reelsUrl.value) extraParts.push('릴스: ' + reelsUrl.value);
+                if (date && date.value) extraParts.push('날짜: ' + date.value);
+                if (time && time.value) extraParts.push('시간: ' + time.value);
+                if (startWeek && startWeek.value) extraParts.push('시작: ' + startWeek.value);
+                if (concern && concern.value) extraParts.push('고민: ' + concern.value);
+
+                // 결제 전 localStorage에 임시 저장
+                localStorage.setItem('pendingOrder', JSON.stringify({
+                    orderId,
+                    productName: product.name,
+                    amount: product.price,
+                    name: name.value.trim(),
+                    phone: phone.value.trim(),
+                    instagram: instagram.value.trim(),
+                    extraInfo: extraParts.join(' / ')
+                }));
+
                 closeProductModal(type);
                 await openPaymentPopup(type, {
+                    orderId,
                     name: name.value.trim(),
                     phone: phone.value.trim(),
                     instagram: instagram.value.trim()
@@ -1897,13 +1918,44 @@
         ['reels', 'consult', 'coaching'].forEach(setupForm);
 
         // 결제 결과 처리
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', async function() {
             const urlParams = new URLSearchParams(window.location.search);
 
             if (urlParams.get('payment') === 'success') {
+                const orderId = urlParams.get('orderId');
+                const amount = urlParams.get('amount');
+
+                // localStorage에서 주문 데이터 읽기
+                const saved = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
+
+                // 결제 완료된 데이터만 GAS에 저장
+                if (saved.orderId === orderId) {
+                    try {
+                        await fetch(GAS_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams({
+                                orderId: orderId,
+                                productName: saved.productName || '',
+                                amount: amount || saved.amount || '',
+                                name: saved.name || '',
+                                phone: saved.phone || '',
+                                instagram: saved.instagram || '',
+                                extraInfo: saved.extraInfo || '',
+                                timestamp: new Date().toLocaleString('ko-KR'),
+                                status: '결제완료'
+                            }).toString()
+                        });
+                    } catch (e) {
+                        console.error('스프레드시트 저장 실패:', e);
+                    }
+                    localStorage.removeItem('pendingOrder');
+                }
+
                 document.getElementById('successModal').classList.add('active');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
+
             if (urlParams.get('payment') === 'fail') {
                 alert('결제가 취소되었거나 실패했습니다. 다시 시도해주세요.');
                 window.history.replaceState({}, document.title, window.location.pathname);
