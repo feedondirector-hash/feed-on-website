@@ -1047,6 +1047,38 @@
         }
         .floating-cta-btn:hover { background: var(--accent-dark); }
 
+        /* 모달 열릴 때 플로팅 CTA 숨김 */
+        .floating-cta.force-hide {
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transform: translateY(100%) !important;
+        }
+
+        /* ===== 임시저장 안내 ===== */
+        .draft-notice {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: #fff8f0;
+            border: 1px solid var(--border-accent);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .draft-notice.show { display: flex; }
+        .draft-notice-clear {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
         /* ===== 결제 팝업 ===== */
         .payment-popup-overlay {
             display: none;
@@ -1339,6 +1371,10 @@
                 </div>
 
                 <form id="reelsForm" class="modal-form">
+                    <div class="draft-notice" id="draftNotice-reels">
+                        📝 이전에 입력한 내용을 불러왔어요.
+                        <button class="draft-notice-clear" type="button" onclick="clearDraftAndForm('reels')">초기화</button>
+                    </div>
                     <div class="form-group">
                         <label class="form-label">이름</label>
                         <input type="text" name="name" class="form-input" placeholder="성함" required>
@@ -1406,6 +1442,10 @@
                 </div>
 
                 <form id="consultForm" class="modal-form">
+                    <div class="draft-notice" id="draftNotice-consult">
+                        📝 이전에 입력한 내용을 불러왔어요.
+                        <button class="draft-notice-clear" type="button" onclick="clearDraftAndForm('consult')">초기화</button>
+                    </div>
                     <div class="form-group">
                         <label class="form-label">이름</label>
                         <input type="text" name="name" class="form-input" placeholder="성함" required>
@@ -1487,6 +1527,10 @@
                 </div>
 
                 <form id="coachingForm" class="modal-form">
+                    <div class="draft-notice" id="draftNotice-coaching">
+                        📝 이전에 입력한 내용을 불러왔어요.
+                        <button class="draft-notice-clear" type="button" onclick="clearDraftAndForm('coaching')">초기화</button>
+                    </div>
                     <div class="form-group">
                         <label class="form-label">이름</label>
                         <input type="text" name="name" class="form-input" placeholder="성함" required>
@@ -1653,13 +1697,13 @@
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="modal-icon">✓</div>
-            <h4 class="modal-title">신청이 완료되었습니다!</h4>
+            <h4 class="modal-title">결제가 완료되었습니다!</h4>
             <p class="modal-text">
-                <strong>24시간 내</strong>로 카카오톡으로 연락드릴게요.<br>
-                빠른 상담을 원하시면 아래 버튼을 눌러주세요.
+                <strong>24시간 내</strong>로 먼저 연락드릴게요.<br>
+                추가 요청사항이나 전달할 내용이 있으시면<br>아래로 편하게 연락 주세요.
             </p>
             <a href="https://pf.kakao.com/_FxiAIX/chat" target="_blank" class="kakao-channel-btn">
-                💬 카카오톡으로 문의하기
+                💬 카카오톡 채널 바로가기
             </a>
             <button class="modal-close" onclick="closeModal()">닫기</button>
         </div>
@@ -1748,12 +1792,69 @@
         // 현재 열린 결제 팝업의 widgets 인스턴스
         let activeWidgets = null;
 
+        // === 임시저장 (30분 TTL) ===
+        const DRAFT_TTL = 30 * 60 * 1000;
+        const draftTimers = {};
+
+        function saveDraft(type, form) {
+            const data = { savedAt: Date.now() };
+            form.querySelectorAll('.form-input').forEach(el => {
+                if (el.name) data[el.name] = el.value;
+            });
+            localStorage.setItem('draft_' + type, JSON.stringify(data));
+        }
+
+        function loadDraft(type, form) {
+            try {
+                const raw = localStorage.getItem('draft_' + type);
+                if (!raw) return false;
+                const data = JSON.parse(raw);
+                if (Date.now() - data.savedAt > DRAFT_TTL) {
+                    localStorage.removeItem('draft_' + type);
+                    return false;
+                }
+                let restored = false;
+                form.querySelectorAll('.form-input').forEach(el => {
+                    if (el.name && data[el.name]) {
+                        el.value = data[el.name];
+                        restored = true;
+                    }
+                });
+                return restored;
+            } catch(e) {
+                return false;
+            }
+        }
+
+        function clearDraft(type) {
+            localStorage.removeItem('draft_' + type);
+        }
+
+        function clearDraftAndForm(type) {
+            clearDraft(type);
+            const form = document.getElementById(type + 'Form');
+            if (form) form.reset();
+            const notice = document.getElementById('draftNotice-' + type);
+            if (notice) notice.classList.remove('show');
+        }
+
         // === 상품 모달 열기/닫기 ===
         function openProductModal(type) {
             const modal = document.getElementById(type + 'Modal');
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+            }
+            // 플로팅 CTA 숨김
+            const cta = document.getElementById('floatingCta');
+            if (cta) cta.classList.add('force-hide');
+
+            // 임시저장 복구
+            const form = document.getElementById(type + 'Form');
+            if (form) {
+                const restored = loadDraft(type, form);
+                const notice = document.getElementById('draftNotice-' + type);
+                if (notice) notice.classList.toggle('show', restored);
             }
         }
 
@@ -1763,6 +1864,9 @@
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             }
+            // 플로팅 CTA 복구
+            const cta = document.getElementById('floatingCta');
+            if (cta) cta.classList.remove('force-hide');
         }
 
         // === 결제 팝업 ===
@@ -1868,6 +1972,20 @@
             const form = document.getElementById(type + 'Form');
             if (!form) return;
 
+            // 입력 시 자동 임시저장 (500ms 디바운스)
+            form.querySelectorAll('.form-input').forEach(el => {
+                el.addEventListener('input', () => {
+                    clearTimeout(draftTimers[type]);
+                    draftTimers[type] = setTimeout(() => saveDraft(type, form), 500);
+                });
+                // 모바일 키보드 올라올 때 인풋이 가려지지 않도록 스크롤
+                el.addEventListener('focus', () => {
+                    setTimeout(() => {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
+
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
 
@@ -1916,6 +2034,7 @@
                     extraInfo: extraParts.join(' / ')
                 }));
 
+                clearDraft(type); // 결제 진행 시 임시저장 삭제
                 closeProductModal(type);
                 await openPaymentPopup(type, {
                     orderId,
