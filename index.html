@@ -1342,14 +1342,17 @@
                     <div class="form-group">
                         <label class="form-label">이름</label>
                         <input type="text" name="name" class="form-input" placeholder="성함" required>
+                        <span class="form-error">이름을 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">연락처</label>
                         <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                        <span class="form-error">연락처를 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">인스타그램 계정</label>
                         <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                        <span class="form-error">인스타그램 계정을 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">피드백 받을 릴스 URL</label>
@@ -1406,14 +1409,17 @@
                     <div class="form-group">
                         <label class="form-label">이름</label>
                         <input type="text" name="name" class="form-input" placeholder="성함" required>
+                        <span class="form-error">이름을 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">연락처</label>
                         <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                        <span class="form-error">연락처를 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">인스타그램 계정</label>
                         <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                        <span class="form-error">인스타그램 계정을 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">희망 날짜</label>
@@ -1484,14 +1490,17 @@
                     <div class="form-group">
                         <label class="form-label">이름</label>
                         <input type="text" name="name" class="form-input" placeholder="성함" required>
+                        <span class="form-error">이름을 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">연락처</label>
                         <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
+                        <span class="form-error">연락처를 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">인스타그램 계정</label>
                         <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
+                        <span class="form-error">인스타그램 계정을 입력해주세요.</span>
                     </div>
                     <div class="form-group">
                         <label class="form-label">시작 희망 주차</label>
@@ -1774,6 +1783,7 @@
             loadingEl.textContent = '결제 수단 불러오는 중...';
 
             popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
 
             // widgets 생성 및 렌더링
             const widgets = tossPayments.widgets({ customerKey: TossPayments.ANONYMOUS });
@@ -1795,6 +1805,7 @@
 
         function closePaymentPopup() {
             document.getElementById('paymentPopup').classList.remove('active');
+            document.body.style.overflow = '';
             activeWidgets = null;
         }
 
