@@ -28,8 +28,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <!-- 토스페이먼츠 SDK -->
-    <script src="https://js.tosspayments.com/v1"></script>
+    <!-- 토스페이먼츠 결제위젯 SDK v2 -->
+    <script src="https://js.tosspayments.com/v2/standard"></script>
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -1047,6 +1047,66 @@
         }
         .floating-cta-btn:hover { background: var(--accent-dark); }
 
+        /* ===== 결제 팝업 ===== */
+        .payment-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .payment-popup-overlay.active { display: flex; }
+        .payment-popup {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+            animation: modalSlideUp 0.3s ease;
+        }
+        .payment-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .payment-popup-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .payment-popup-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .payment-popup-close {
+            flex-shrink: 0;
+            width: 32px; height: 32px;
+            background: var(--bg-secondary);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .payment-popup-loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
         /* ===== 반응형 ===== */
         @media (min-width: 768px) {
             .hero { padding: 100px 40px 80px; }
@@ -1564,6 +1624,22 @@
         <p class="footer-copy">© 2026 FEED:ON. All rights reserved.</p>
     </footer>
 
+    <!-- 결제 팝업 -->
+    <div class="payment-popup-overlay" id="paymentPopup">
+        <div class="payment-popup">
+            <div class="payment-popup-header">
+                <div>
+                    <div class="payment-popup-name" id="popupProductName"></div>
+                    <div class="payment-popup-price" id="popupProductPrice"></div>
+                </div>
+                <button class="payment-popup-close" onclick="closePaymentPopup()">×</button>
+            </div>
+            <div id="payment-method-widget"><div class="payment-popup-loading">결제 수단 불러오는 중...</div></div>
+            <div id="payment-agreement-widget"></div>
+            <button class="btn-payment" id="popupConfirmBtn" style="margin-top:16px; width:100%;">결제 완료하기</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="modal-icon">✓</div>
@@ -1649,10 +1725,21 @@
     </div>
 
     <script>
+        const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+        const tossPayments = TossPayments(TOSS_CLIENT_KEY);
+
+        const PRODUCTS = {
+            reels:    { name: '릴스 피드백',      price: 50000 },
+            consult:  { name: '1시간 계정 상담',  price: 70000 },
+            coaching: { name: '4주 밀착 코칭',    price: 340000 }
+        };
+
+        // 현재 열린 결제 팝업의 widgets 인스턴스
+        let activeWidgets = null;
+
         // === 상품 모달 열기/닫기 ===
         function openProductModal(type) {
-            const modalId = type + 'Modal';
-            const modal = document.getElementById(modalId);
+            const modal = document.getElementById(type + 'Modal');
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -1660,13 +1747,87 @@
         }
 
         function closeProductModal(type) {
-            const modalId = type + 'Modal';
-            const modal = document.getElementById(modalId);
+            const modal = document.getElementById(type + 'Modal');
             if (modal) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             }
         }
+
+        // === 결제 팝업 ===
+        async function openPaymentPopup(type, orderMeta) {
+            const product = PRODUCTS[type];
+            const popup = document.getElementById('paymentPopup');
+
+            // 팝업 헤더 업데이트
+            document.getElementById('popupProductName').textContent = product.name;
+            document.getElementById('popupProductPrice').textContent = product.price.toLocaleString() + '원';
+
+            // 위젯 컨테이너 초기화
+            document.getElementById('payment-method-widget').innerHTML = '<div class="payment-popup-loading">결제 수단 불러오는 중...</div>';
+            document.getElementById('payment-agreement-widget').innerHTML = '';
+
+            popup.classList.add('active');
+
+            // widgets 생성 및 렌더링
+            const widgets = tossPayments.widgets({ customerKey: TossPayments.ANONYMOUS });
+            activeWidgets = { widgets, orderMeta, type };
+
+            try {
+                await widgets.setAmount({ currency: 'KRW', value: product.price });
+                await Promise.all([
+                    widgets.renderPaymentMethods({ selector: '#payment-method-widget', variantKey: 'DEFAULT' }),
+                    widgets.renderAgreement({ selector: '#payment-agreement-widget', variantKey: 'AGREEMENT' })
+                ]);
+            } catch (e) {
+                console.error('위젯 렌더 실패:', e);
+                document.getElementById('payment-method-widget').innerHTML = '<div class="payment-popup-loading" style="color:#dc3545;">결제 수단 로드에 실패했습니다. 새로고침 후 다시 시도해주세요.</div>';
+            }
+        }
+
+        function closePaymentPopup() {
+            document.getElementById('paymentPopup').classList.remove('active');
+            activeWidgets = null;
+        }
+
+        // 결제 완료하기 버튼
+        document.getElementById('popupConfirmBtn').addEventListener('click', async function () {
+            if (!activeWidgets) return;
+            this.disabled = true;
+            this.textContent = '처리 중...';
+
+            const { widgets, orderMeta, type } = activeWidgets;
+            const product = PRODUCTS[type];
+            const orderId = 'FEEDON-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            const successParams = new URLSearchParams({
+                name: orderMeta.name,
+                phone: orderMeta.phone,
+                instagram: orderMeta.instagram,
+                productName: product.name
+            });
+
+            try {
+                await widgets.requestPayment({
+                    orderId: orderId,
+                    orderName: product.name,
+                    customerName: orderMeta.name,
+                    successUrl: window.location.origin + '/api/confirm?' + successParams.toString(),
+                    failUrl: window.location.origin + '/?payment=fail'
+                });
+            } catch (err) {
+                console.error('결제 오류:', err);
+                if (err.code !== 'USER_CANCEL') {
+                    alert('결제 중 오류가 발생했습니다. 다시 시도해주세요.');
+                }
+                this.disabled = false;
+                this.textContent = '결제 완료하기';
+            }
+        });
+
+        // 팝업 바깥 클릭 시 닫기
+        document.getElementById('paymentPopup').addEventListener('click', function(e) {
+            if (e.target === this) closePaymentPopup();
+        });
 
         // 모달 바깥 클릭 시 닫기
         document.querySelectorAll('.product-modal-overlay').forEach(overlay => {
@@ -1681,141 +1842,63 @@
         // ESC 키로 닫기
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                document.querySelectorAll('.product-modal-overlay.active').forEach(modal => {
-                    modal.classList.remove('active');
+                if (document.getElementById('paymentPopup').classList.contains('active')) {
+                    closePaymentPopup();
+                    return;
+                }
+                document.querySelectorAll('.product-modal-overlay.active').forEach(m => {
+                    m.classList.remove('active');
                 });
                 document.body.style.overflow = '';
             }
         });
 
-        // === 토스페이먼츠 결제 연동 ===
-        const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwS7eLwNS5viaQnW9VB5wOJ2ILQYd_4nf0aYgjlYrowkXcf0KC6cZdVVbpF6hYO3pzE/exec';
-
-        // 주문 ID 생성
-        function generateOrderId() {
-            return 'FEEDON_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        }
-
-        // 폼 데이터 저장 (결제 전)
-        function saveFormData(formData, productName, price, orderId) {
-            const data = {
-                orderId: orderId,
-                productName: productName,
-                price: price,
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                instagram: formData.get('instagram'),
-                extraData: {}
-            };
-            
-            // 상품별 추가 데이터
-            if (formData.get('reels_url')) data.extraData.reels_url = formData.get('reels_url');
-            if (formData.get('date')) data.extraData.date = formData.get('date');
-            if (formData.get('time')) data.extraData.time = formData.get('time');
-            if (formData.get('start_week')) data.extraData.start_week = formData.get('start_week');
-            if (formData.get('concern')) data.extraData.concern = formData.get('concern');
-            
-            // localStorage에 임시 저장 (결제 승인 후 스프레드시트 저장)
-            localStorage.setItem('pendingOrder', JSON.stringify(data));
-            return data;
-        }
-
-        // 결제 요청
-        function requestPayment(productName, price, formData) {
-            const orderId = generateOrderId();
-            const orderData = saveFormData(formData, productName, price, orderId);
-
-            const successParams = new URLSearchParams({
-                name: orderData.name || '',
-                phone: orderData.phone || '',
-                instagram: orderData.instagram || '',
-                productName: productName
-            });
-
-            const tossPayments = TossPayments(TOSS_CLIENT_KEY);
-            tossPayments.requestPayment('카드', {
-                amount: price,
-                orderId: orderId,
-                orderName: productName,
-                customerName: orderData.name,
-                successUrl: `${window.location.origin}/api/confirm?${successParams.toString()}`,
-                failUrl: window.location.origin + '/?payment=fail'
-            });
-        }
-
-        // 폼 제출 처리
-        function handleFormSubmit(formId, productName, price) {
-            const form = document.getElementById(formId);
+        // === 폼 제출 → 결제 팝업 오픈 ===
+        function setupForm(type) {
+            const form = document.getElementById(type + 'Form');
             if (!form) return;
 
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
                 const submitBtn = this.querySelector('.btn-payment');
                 if (!submitBtn || submitBtn.disabled) return;
-                
-                // 폼 검증
+
                 const name = this.querySelector('input[name="name"]');
                 const phone = this.querySelector('input[name="phone"]');
                 const instagram = this.querySelector('input[name="instagram"]');
-                
+
                 let valid = true;
-                if (!name.value.trim()) { name.closest('.form-group').classList.add('error'); valid = false; }
-                else { name.closest('.form-group').classList.remove('error'); }
-                
-                if (!phone.value.trim()) { phone.closest('.form-group').classList.add('error'); valid = false; }
-                else { phone.closest('.form-group').classList.remove('error'); }
-                
-                if (!instagram.value.trim()) { instagram.closest('.form-group').classList.add('error'); valid = false; }
-                else { instagram.closest('.form-group').classList.remove('error'); }
-                
+                [name, phone, instagram].forEach(input => {
+                    if (!input.value.trim()) {
+                        input.closest('.form-group').classList.add('error');
+                        valid = false;
+                    } else {
+                        input.closest('.form-group').classList.remove('error');
+                    }
+                });
                 if (!valid) return;
-                
-                submitBtn.disabled = true;
-                submitBtn.textContent = '결제창 여는 중...';
-                submitBtn.style.opacity = '0.6';
-                
-                // 폼 데이터 수집
-                const formData = new FormData(this);
-                
-                // 토스페이먼츠 결제 요청
-                try {
-                    requestPayment(productName, price, formData);
-                } catch (error) {
-                    console.error('결제 요청 실패:', error);
-                    alert('결제 요청 중 오류가 발생했습니다. 다시 시도해주세요.');
-                }
-                
-                // 버튼 복구 (결제창 열리면 페이지는 그대로)
-                setTimeout(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = '결제하기';
-                    submitBtn.style.opacity = '1';
-                }, 1000);
+
+                // 폼 모달 닫고 결제 팝업 열기
+                closeProductModal(type);
+                await openPaymentPopup(type, {
+                    name: name.value.trim(),
+                    phone: phone.value.trim(),
+                    instagram: instagram.value.trim()
+                });
             });
         }
 
-        // 각 폼에 이벤트 연결
-        handleFormSubmit('reelsForm', '릴스 피드백', 50000);
-        handleFormSubmit('consultForm', '1시간 계정 상담', 70000);
-        handleFormSubmit('coachingForm', '4주 밀착 코칭', 340000);
+        ['reels', 'consult', 'coaching'].forEach(setupForm);
 
-        // 결제 결과 처리 (페이지 로드 시)
+        // 결제 결과 처리
         window.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // 결제 성공
+
             if (urlParams.get('payment') === 'success') {
-                const successModal = document.getElementById('successModal');
-                if (successModal) {
-                    successModal.classList.add('active');
-                }
-                // URL 파라미터 제거
+                document.getElementById('successModal').classList.add('active');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
-            
-            // 결제 실패
             if (urlParams.get('payment') === 'fail') {
                 alert('결제가 취소되었거나 실패했습니다. 다시 시도해주세요.');
                 window.history.replaceState({}, document.title, window.location.pathname);
@@ -1842,11 +1925,9 @@
         }
 
         function toggleFaq(el) {
-            const item = el.closest('.faq-item');
-            item.classList.toggle('open');
+            el.closest('.faq-item').classList.toggle('open');
         }
 
-        // 이용약관/개인정보처리방침 모달
         function openTermsModal() {
             document.getElementById('termsModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1863,8 +1944,7 @@
             document.getElementById('privacyModal').classList.remove('active');
             document.body.style.overflow = '';
         }
-        
-        // 약관 모달 바깥 클릭 시 닫기
+
         document.querySelectorAll('.terms-modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', function(e) {
                 if (e.target === this) {
@@ -1885,10 +1965,7 @@
                 const footerTop = footerSection.offsetTop;
                 const scrollY = window.scrollY;
                 const windowHeight = window.innerHeight;
-                const isPast = scrollY > heroBottom - 100;
-                const isBefore = scrollY + windowHeight < footerTop + 100;
-
-                if (isPast && isBefore) {
+                if (scrollY > heroBottom - 100 && scrollY + windowHeight < footerTop + 100) {
                     floatingCta.classList.add('visible');
                 } else {
                     floatingCta.classList.remove('visible');
@@ -1898,37 +1975,33 @@
             handleScroll();
         }
 
-        // 슬라이더 스크롤
+        // 슬라이더 드래그
         const sliderContainer = document.querySelector('.proof-slider-container');
         if (sliderContainer) {
             let isDown = false, startX, scrollLeft, lastX, lastTime, velocity = 0, momentumID;
-            sliderContainer.addEventListener('contextmenu', (e) => e.preventDefault());
-            sliderContainer.addEventListener('mousedown', (e) => {
+            sliderContainer.addEventListener('contextmenu', e => e.preventDefault());
+            sliderContainer.addEventListener('mousedown', e => {
                 isDown = true;
                 sliderContainer.style.scrollBehavior = 'auto';
                 startX = e.pageX - sliderContainer.offsetLeft;
                 scrollLeft = sliderContainer.scrollLeft;
-                lastX = e.pageX;
-                lastTime = Date.now();
-                velocity = 0;
+                lastX = e.pageX; lastTime = Date.now(); velocity = 0;
                 cancelAnimationFrame(momentumID);
             });
-            sliderContainer.addEventListener('mouseleave', () => { if(isDown){ isDown = false; applyMomentum(); }});
-            sliderContainer.addEventListener('mouseup', () => { if(isDown){ isDown = false; applyMomentum(); }});
-            sliderContainer.addEventListener('mousemove', (e) => {
+            sliderContainer.addEventListener('mouseleave', () => { if (isDown) { isDown = false; applyMomentum(); } });
+            sliderContainer.addEventListener('mouseup', () => { if (isDown) { isDown = false; applyMomentum(); } });
+            sliderContainer.addEventListener('mousemove', e => {
                 if (!isDown) return;
                 e.preventDefault();
-                const x = e.pageX - sliderContainer.offsetLeft;
-                const walk = (x - startX) * 2.5; 
-                sliderContainer.scrollLeft = scrollLeft - walk;
-                const now = Date.now(), dt = now - lastTime;
+                sliderContainer.scrollLeft = scrollLeft - (e.pageX - sliderContainer.offsetLeft - startX) * 2.5;
+                const dt = Date.now() - lastTime;
                 if (dt > 0) velocity = (e.pageX - lastX) / dt;
-                lastX = e.pageX; lastTime = now;
+                lastX = e.pageX; lastTime = Date.now();
             });
             function applyMomentum() {
                 if (Math.abs(velocity) > 0.1) {
                     sliderContainer.scrollLeft -= velocity * 16;
-                    velocity *= 0.95; 
+                    velocity *= 0.95;
                     momentumID = requestAnimationFrame(applyMomentum);
                 } else {
                     sliderContainer.style.scrollBehavior = 'smooth';
