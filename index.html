@@ -1739,7 +1739,6 @@
                 orderId: orderId,
                 orderName: productName,
                 customerName: orderData.name,
-                customerMobilePhone: orderData.phone.replace(/-/g, ''),
                 successUrl: `${window.location.origin}/api/confirm?${successParams.toString()}`,
                 failUrl: window.location.origin + '/?payment=fail'
             });
