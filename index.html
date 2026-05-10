@@ -1634,7 +1634,8 @@
                 </div>
                 <button class="payment-popup-close" onclick="closePaymentPopup()">×</button>
             </div>
-            <div id="payment-method-widget"><div class="payment-popup-loading">결제 수단 불러오는 중...</div></div>
+            <div id="payment-loading" class="payment-popup-loading">결제 수단 불러오는 중...</div>
+            <div id="payment-method-widget"></div>
             <div id="payment-agreement-widget"></div>
             <button class="btn-payment" id="popupConfirmBtn" style="margin-top:16px; width:100%;">결제 완료하기</button>
         </div>
@@ -1764,8 +1765,12 @@
             document.getElementById('popupProductPrice').textContent = product.price.toLocaleString() + '원';
 
             // 위젯 컨테이너 초기화
-            document.getElementById('payment-method-widget').innerHTML = '<div class="payment-popup-loading">결제 수단 불러오는 중...</div>';
+            document.getElementById('payment-method-widget').innerHTML = '';
             document.getElementById('payment-agreement-widget').innerHTML = '';
+            const loadingEl = document.getElementById('payment-loading');
+            loadingEl.style.display = 'block';
+            loadingEl.style.color = '';
+            loadingEl.textContent = '결제 수단 불러오는 중...';
 
             popup.classList.add('active');
 
@@ -1779,9 +1784,11 @@
                     widgets.renderPaymentMethods({ selector: '#payment-method-widget', variantKey: 'DEFAULT' }),
                     widgets.renderAgreement({ selector: '#payment-agreement-widget', variantKey: 'AGREEMENT' })
                 ]);
+                loadingEl.style.display = 'none';
             } catch (e) {
                 console.error('위젯 렌더 실패:', e);
-                document.getElementById('payment-method-widget').innerHTML = '<div class="payment-popup-loading" style="color:#dc3545;">결제 수단 로드에 실패했습니다. 새로고침 후 다시 시도해주세요.</div>';
+                loadingEl.style.color = '#dc3545';
+                loadingEl.textContent = '결제 수단 로드에 실패했습니다. 새로고침 후 다시 시도해주세요.';
             }
         }
 
@@ -1815,10 +1822,8 @@
                     failUrl: window.location.origin + '/?payment=fail'
                 });
             } catch (err) {
-                console.error('결제 오류:', err);
-                if (err.code !== 'USER_CANCEL') {
-                    alert('결제 중 오류가 발생했습니다. 다시 시도해주세요.');
-                }
+                // 위젯이 자체적으로 검증 메시지를 표시하므로 별도 alert 없음
+                console.error('결제 오류:', err.code, err.message);
                 this.disabled = false;
                 this.textContent = '결제 완료하기';
             }
