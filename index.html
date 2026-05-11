@@ -1476,6 +1476,7 @@
                             <option value="19:00">오후 7:00</option>
                             <option value="20:00">오후 8:00</option>
                         </select>
+                        <span class="form-error">이미 마감된 시간입니다. 다른 시간을 선택해주세요.</span>
                     </div>
                     <button type="submit" class="btn-payment">결제하기</button>
                     <p class="payment-notice">결제 후 확정 안내를 보내드려요.</p>
@@ -1936,6 +1937,13 @@
         function closePaymentPopup(skipHistory = false) {
             document.getElementById('paymentPopup').classList.remove('active');
             document.body.style.overflow = '';
+            if (activeWidgets) {
+                const form = document.getElementById(activeWidgets.type + 'Form');
+                if (form) {
+                    const btn = form.querySelector('.btn-payment');
+                    if (btn) { btn.disabled = false; btn.textContent = '결제하기'; }
+                }
+            }
             activeWidgets = null;
             if (!skipHistory) history.back();
         }
@@ -2053,6 +2061,9 @@
                 const submitBtn = this.querySelector('.btn-payment');
                 if (!submitBtn || submitBtn.disabled) return;
 
+                submitBtn.disabled = true;
+                submitBtn.textContent = '확인 중...';
+
                 const name = this.querySelector('input[name="name"]');
                 const phone = this.querySelector('input[name="phone"]');
                 const instagram = this.querySelector('input[name="instagram"]');
@@ -2066,7 +2077,11 @@
                         input.closest('.form-group').classList.remove('error');
                     }
                 });
-                if (!valid) return;
+                if (!valid) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '결제하기';
+                    return;
+                }
 
                 // 계정 상담: 선택한 시간이 마감됐는지 재확인
                 if (type === 'consult') {
@@ -2076,6 +2091,10 @@
                         const all = await fetchBookedSlots();
                         if ((all[dateEl.value] || []).includes(timeEl.value)) {
                             await updateTimeSlots(dateEl.value);
+                            const timeGroup = timeEl.closest('.form-group');
+                            if (timeGroup) timeGroup.classList.add('error');
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = '결제하기';
                             return;
                         }
                     }
