@@ -1789,6 +1789,7 @@
     <script>
         const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbxyLD-u00HIQ8UT6C5JVIu1pi-XkhLLxWEOHoyOJHGRDSd3GaY9xxWWYqRU5mp-xRiH/exec';
+        const SCHEDULE_GAS_URL = 'https://script.google.com/macros/s/AKfycbzdar7WVw95nWJj3GRm1UD_plrbNmijATaewzPJwquXilh9xU31FvFyFg6SI-MFfg_mrg/exec';
         const tossPayments = TossPayments(TOSS_CLIENT_KEY);
 
         const PRODUCTS = {
@@ -2131,6 +2132,19 @@
                     } catch (e) {
                         console.error('스프레드시트 저장 실패:', e);
                     }
+                    // 계정 상담이면 예약현황 시트 자동 체크
+                    if (saved.productName === '계정 상담' && saved.extraInfo) {
+                        const dateMatch = saved.extraInfo.match(/날짜: (\d{4}-\d{2}-\d{2})/);
+                        const timeMatch = saved.extraInfo.match(/시간: (\d{2}:\d{2})/);
+                        if (dateMatch && timeMatch) {
+                            fetch(SCHEDULE_GAS_URL, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: new URLSearchParams({ date: dateMatch[1], time: timeMatch[1] }).toString()
+                            }).catch(() => {});
+                        }
+                    }
+
                     localStorage.removeItem('pendingOrder');
                 }
 
@@ -2201,9 +2215,64 @@
             }
         }
 
-        // 계정 상담 날짜 - 오늘 이후만 선택 가능
+        // ===== 계정 상담 날짜/시간 =====
+        const TIME_LABELS = {
+            '10:00': '오전 10:00', '11:00': '오전 11:00',
+            '14:00': '오후 2:00',  '15:00': '오후 3:00',
+            '16:00': '오후 4:00',  '17:00': '오후 5:00',
+            '19:00': '오후 7:00',  '20:00': '오후 8:00'
+        };
+
+        function getLocalDateStr(d) {
+            return d.getFullYear() + '-' +
+                   String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                   String(d.getDate()).padStart(2, '0');
+        }
+
+        // 예약 현황 캐시 (5분 TTL)
+        let _slotCache = null, _slotCacheAt = 0;
+
+        async function fetchBookedSlots() {
+            if (_slotCache && Date.now() - _slotCacheAt < 5 * 60 * 1000) return _slotCache;
+            try {
+                const res = await fetch(SCHEDULE_GAS_URL);
+                _slotCache = await res.json();
+                _slotCacheAt = Date.now();
+            } catch (e) {
+                _slotCache = _slotCache || {};
+            }
+            return _slotCache;
+        }
+
+        async function updateTimeSlots(dateStr) {
+            const timeSelect = document.querySelector('#consultForm [name="time"]');
+            if (!timeSelect) return;
+            const all = await fetchBookedSlots();
+            const booked = new Set(all[dateStr] || []);
+            timeSelect.querySelectorAll('option').forEach(opt => {
+                if (!opt.value) return;
+                if (booked.has(opt.value)) {
+                    opt.disabled = true;
+                    opt.textContent = (TIME_LABELS[opt.value] || opt.value) + ' (마감)';
+                } else {
+                    opt.disabled = false;
+                    opt.textContent = TIME_LABELS[opt.value] || opt.value;
+                }
+            });
+            if (booked.has(timeSelect.value)) timeSelect.value = '';
+        }
+
+        // 날짜 선택 — 로컬 타임존 기준 오늘부터
         const dateInput = document.querySelector('#consultForm [name="date"]');
-        if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+        if (dateInput) {
+            dateInput.min = getLocalDateStr(new Date());
+            dateInput.addEventListener('change', function() {
+                updateTimeSlots(this.value);
+            });
+        }
+
+        // 페이지 로드 후 백그라운드에서 예약 현황 미리 불러오기
+        setTimeout(() => fetchBookedSlots(), 800);
 
         function toggleFaq(el) {
             el.closest('.faq-item').classList.toggle('open');
