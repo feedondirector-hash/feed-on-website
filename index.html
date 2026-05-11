@@ -1598,7 +1598,6 @@
         <div class="faq-container">
             <div class="section-label">FAQ</div>
             <h2 class="section-title">자주 묻는 <span>질문</span></h2>
-            <p class="section-desc"></p>
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
@@ -1632,11 +1631,11 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 1시간 상담과 4주 코칭의 차이가 뭔가요?</span>
+                    <span> → 계정 상담과 4주 코칭의 차이가 뭔가요?</span>
                     <span class="arrow">▼</span>
                 </div>
                 <div class="faq-a">
-                    <p class="faq-a-text">1시간 상담은 "뭘 해야 하는지" 방향을 잡아드리는 거예요. 4주 코칭은 그 방향대로 "같이 만들어가는" 과정입니다. 혼자 실행할 수 있으면 상담만, 옆에서 봐줬으면 하면 코칭까지.</p>
+                    <p class="faq-a-text">계정 상담은 "뭘 해야 하는지" 방향을 잡아드리는 거예요. 4주 코칭은 그 방향대로 "같이 만들어가는" 과정입니다. 혼자 실행할 수 있으면 상담만, 옆에서 봐줬으면 하면 코칭까지.</p>
                 </div>
             </div>
 
@@ -1695,6 +1694,7 @@
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="modal-icon">✓</div>
+            <p id="successProductName" style="font-size:13px; color:var(--text-muted); margin-bottom:6px;"></p>
             <h4 class="modal-title">결제가 완료되었습니다!</h4>
             <p class="modal-text">
                 <strong>24시간 내</strong>로 먼저 연락드릴게요.<br>
@@ -1704,6 +1704,16 @@
                 💬 카카오톡 채널 바로가기
             </a>
             <button class="modal-close" onclick="closeModal()">닫기</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="failModal">
+        <div class="modal">
+            <div class="modal-icon" style="background:#dc3545;">✕</div>
+            <h4 class="modal-title">결제에 실패했습니다</h4>
+            <p class="modal-text">결제가 취소되었거나 오류가 발생했습니다.<br>다시 시도해주세요.</p>
+            <a href="#products" class="btn-payment" style="display:block; text-decoration:none; text-align:center; margin-bottom:10px;" onclick="closeFailModal()">다시 시도하기</a>
+            <button class="modal-close" onclick="closeFailModal()">닫기</button>
         </div>
     </div>
 
@@ -1724,7 +1734,7 @@
                 <h4>제2조 (서비스 내용)</h4>
                 <p>회사는 다음과 같은 서비스를 제공합니다.<br>
                 - 릴스 피드백 서비스<br>
-                - 1시간 계정 상담 서비스<br>
+                - 계정 상담 서비스<br>
                 - 4주 밀착 코칭 서비스</p>
                 
                 <h4>제3조 (결제 및 환불)</h4>
@@ -1906,7 +1916,7 @@
             } catch (e) {
                 console.error('위젯 렌더 실패:', e);
                 loadingEl.style.color = '#dc3545';
-                loadingEl.textContent = '결제 수단 로드에 실패했습니다. 새로고침 후 다시 시도해주세요.';
+                loadingEl.innerHTML = '결제 수단을 불러오지 못했습니다.<br><button onclick="retryPaymentWidget()" style="margin-top:12px; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">다시 시도</button>';
             }
         }
 
@@ -1989,6 +1999,26 @@
         function setupForm(type) {
             const form = document.getElementById(type + 'Form');
             if (!form) return;
+
+            // 전화번호 자동 하이픈
+            const phoneInput = form.querySelector('input[name="phone"]');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function() {
+                    const digits = this.value.replace(/\D/g, '').slice(0, 11);
+                    if (digits.length <= 3) this.value = digits;
+                    else if (digits.length <= 7) this.value = digits.slice(0,3) + '-' + digits.slice(3);
+                    else this.value = digits.slice(0,3) + '-' + digits.slice(3,7) + '-' + digits.slice(7);
+                });
+            }
+
+            // 인스타그램 @ 자동 prefix
+            const instaInput = form.querySelector('input[name="instagram"]');
+            if (instaInput) {
+                instaInput.addEventListener('blur', function() {
+                    const val = this.value.trim();
+                    if (val && !val.startsWith('@')) this.value = '@' + val;
+                });
+            }
 
             // 입력 시 자동 임시저장 (500ms 디바운스)
             form.querySelectorAll('.form-input').forEach(el => {
@@ -2078,6 +2108,10 @@
 
                 // 결제 완료된 데이터만 GAS에 저장
                 if (saved.orderId === orderId) {
+                    // 성공 모달에 상품명 표시
+                    const productNameEl = document.getElementById('successProductName');
+                    if (productNameEl && saved.productName) productNameEl.textContent = saved.productName;
+
                     try {
                         await fetch(GAS_URL, {
                             method: 'POST',
@@ -2105,7 +2139,7 @@
             }
 
             if (urlParams.get('payment') === 'fail') {
-                alert('결제가 취소되었거나 실패했습니다. 다시 시도해주세요.');
+                document.getElementById('failModal').classList.add('active');
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
         });
@@ -2128,6 +2162,48 @@
                 if (e.target === this) closeModal();
             });
         }
+
+        function closeFailModal() {
+            const m = document.getElementById('failModal');
+            if (m) m.classList.remove('active');
+        }
+        const failModal = document.getElementById('failModal');
+        if (failModal) {
+            failModal.addEventListener('click', function(e) {
+                if (e.target === this) closeFailModal();
+            });
+        }
+
+        async function retryPaymentWidget() {
+            if (!activeWidgets) return;
+            const { orderMeta, type } = activeWidgets;
+            const product = PRODUCTS[type];
+            document.getElementById('payment-method-widget').innerHTML = '';
+            document.getElementById('payment-agreement-widget').innerHTML = '';
+            const loadingEl = document.getElementById('payment-loading');
+            loadingEl.style.display = 'block';
+            loadingEl.style.color = '';
+            loadingEl.textContent = '결제 수단 불러오는 중...';
+
+            const widgets = tossPayments.widgets({ customerKey: TossPayments.ANONYMOUS });
+            activeWidgets.widgets = widgets;
+
+            try {
+                await widgets.setAmount({ currency: 'KRW', value: product.price });
+                await Promise.all([
+                    widgets.renderPaymentMethods({ selector: '#payment-method-widget', variantKey: 'DEFAULT' }),
+                    widgets.renderAgreement({ selector: '#payment-agreement-widget', variantKey: 'AGREEMENT' })
+                ]);
+                loadingEl.style.display = 'none';
+            } catch (e) {
+                loadingEl.style.color = '#dc3545';
+                loadingEl.innerHTML = '결제 수단을 불러오지 못했습니다.<br><button onclick="retryPaymentWidget()" style="margin-top:12px; padding:10px 20px; background:var(--accent); color:white; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">다시 시도</button>';
+            }
+        }
+
+        // 계정 상담 날짜 - 오늘 이후만 선택 가능
+        const dateInput = document.querySelector('#consultForm [name="date"]');
+        if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
 
         function toggleFaq(el) {
             el.closest('.faq-item').classList.toggle('open');
