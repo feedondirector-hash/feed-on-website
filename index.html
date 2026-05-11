@@ -1867,6 +1867,11 @@
                 const restored = loadDraft(type, form);
                 const notice = document.getElementById('draftNotice-' + type);
                 if (notice) notice.classList.toggle('show', restored);
+                // 계정 상담: 날짜가 복구됐으면 마감 현황도 즉시 반영
+                if (type === 'consult' && restored) {
+                    const restoredDate = form.querySelector('[name="date"]');
+                    if (restoredDate && restoredDate.value) updateTimeSlots(restoredDate.value);
+                }
             }
         }
 
