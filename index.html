@@ -1870,7 +1870,13 @@
                 // 계정 상담: 날짜가 복구됐으면 마감 현황도 즉시 반영
                 if (type === 'consult' && restored) {
                     const restoredDate = form.querySelector('[name="date"]');
-                    if (restoredDate && restoredDate.value) updateTimeSlots(restoredDate.value);
+                    if (restoredDate && restoredDate.value) {
+                        const submitBtn = form.querySelector('.btn-payment');
+                        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '예약 확인 중...'; }
+                        updateTimeSlots(restoredDate.value).finally(() => {
+                            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '결제하기'; }
+                        });
+                    }
                 }
             }
         }
@@ -2060,6 +2066,19 @@
                     }
                 });
                 if (!valid) return;
+
+                // 계정 상담: 선택한 시간이 마감됐는지 재확인
+                if (type === 'consult') {
+                    const dateEl = this.querySelector('[name="date"]');
+                    const timeEl = this.querySelector('[name="time"]');
+                    if (dateEl && timeEl && dateEl.value && timeEl.value) {
+                        const all = await fetchBookedSlots();
+                        if ((all[dateEl.value] || []).includes(timeEl.value)) {
+                            await updateTimeSlots(dateEl.value);
+                            return;
+                        }
+                    }
+                }
 
                 const product = PRODUCTS[type];
                 const orderId = 'FEEDON-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
