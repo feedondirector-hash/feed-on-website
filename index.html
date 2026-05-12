@@ -400,26 +400,226 @@
             right: 16px;
             width: 36px;
             height: 36px;
-            background: var(--bg-secondary);
+            background: rgba(255,255,255,0.15);
             border: none;
             border-radius: 50%;
             font-size: 24px;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.85);
             cursor: pointer;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            backdrop-filter: blur(4px);
         }
         .modal-close-btn:hover {
-            background: var(--text-primary);
+            background: rgba(255,255,255,0.28);
             color: white;
         }
-        
+
+        /* ===== 모달 스토리 히어로 ===== */
+        .modal-hero {
+            background: #1a1a1a;
+            min-height: 220px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 360px; height: 250px;
+            background: radial-gradient(ellipse at center, rgba(245,133,41,0.18) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 가로 스토리 장면 공통 */
+        .modal-scene {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            padding: 24px 28px 44px;
+            position: relative;
+            z-index: 1;
+        }
+        .scene-quokka {
+            width: 130px; height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 26px rgba(245,133,41,0.38));
+            animation: quokkaFloat 3.5s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        .scene-char {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .scene-bubble {
+            background: white;
+            color: #1a1a1a;
+            font-size: 11.5px;
+            font-weight: 700;
+            line-height: 1.55;
+            padding: 8px 12px;
+            border-radius: 14px 14px 14px 3px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+
+        /* 폰 프롭 (릴스 피드백) */
+        .scene-prop-phone {
+            width: 60px; height: 102px;
+            background: rgba(255,255,255,0.07);
+            border: 1.5px solid rgba(255,255,255,0.18);
+            border-radius: 12px;
+            padding: 8px 6px 6px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .scene-phone-notch {
+            width: 18px; height: 3px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 2px;
+            margin: 0 auto 5px;
+        }
+        .scene-phone-screen {
+            flex: 1;
+            background: rgba(255,255,255,0.04);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 5px;
+            gap: 4px;
+        }
+        .scene-reel-icon {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: rgba(245,133,41,0.25);
+            border: 1.5px solid rgba(245,133,41,0.45);
+            font-size: 9px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent);
+            margin: 0 auto 2px;
+        }
+        .scene-reel-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.22);
+            border-radius: 2px;
+        }
+        .scene-reel-bar.orange { background: var(--accent); opacity: 0.55; }
+        .scene-reel-bar.short { width: 55%; }
+
+        /* 인스타 프로필 프롭 (계정 상담) */
+        .scene-prop-profile {
+            width: 98px;
+            background: rgba(255,255,255,0.07);
+            border: 1.5px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 10px 8px;
+            flex-shrink: 0;
+        }
+        .scene-profile-top {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .scene-profile-avatar {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(245,133,41,0.5), rgba(245,133,41,0.15));
+            border: 1.5px solid rgba(245,133,41,0.35);
+            flex-shrink: 0;
+        }
+        .scene-name-lines { display: flex; flex-direction: column; gap: 3px; }
+        .scene-name-bar {
+            height: 4px; width: 42px;
+            background: rgba(255,255,255,0.25); border-radius: 2px;
+        }
+        .scene-name-bar.sub { width: 26px; background: rgba(255,255,255,0.1); }
+        .scene-profile-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .scene-stat-col { text-align: center; }
+        .scene-stat-val {
+            font-size: 10px; font-weight: 800;
+            color: rgba(255,255,255,0.75);
+            display: block;
+        }
+        .scene-stat-lbl { font-size: 7.5px; color: rgba(255,255,255,0.3); }
+        .scene-chart-rows { display: flex; flex-direction: column; gap: 4px; }
+        .scene-chart-row { display: flex; align-items: center; gap: 4px; }
+        .scene-chart-lbl {
+            font-size: 7px; color: rgba(255,255,255,0.3);
+            width: 14px; flex-shrink: 0;
+        }
+        .scene-chart-track {
+            flex: 1; height: 4px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 2px; overflow: hidden;
+        }
+        .scene-chart-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px; opacity: 0.6;
+        }
+
+        /* 4주 캘린더 프롭 (밀착 코칭) */
+        .scene-prop-calendar {
+            width: 98px;
+            background: rgba(255,255,255,0.07);
+            border: 1.5px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 9px 8px;
+            flex-shrink: 0;
+        }
+        .scene-cal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 9px; letter-spacing: 2px;
+            color: var(--accent); text-align: center;
+            margin-bottom: 7px; opacity: 0.9;
+        }
+        .scene-cal-rows { display: flex; flex-direction: column; gap: 5px; }
+        .scene-cal-row { display: flex; align-items: center; gap: 5px; }
+        .scene-week-tag {
+            font-size: 7.5px; color: rgba(255,255,255,0.3);
+            width: 14px; flex-shrink: 0;
+        }
+        .scene-dots { display: flex; gap: 3px; }
+        .scene-dot {
+            width: 9px; height: 9px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+        }
+        .scene-dot.done { background: var(--accent); opacity: 0.75; }
+        .scene-dot.active {
+            background: rgba(245,133,41,0.3);
+            border: 1px solid rgba(245,133,41,0.6);
+        }
+
+        /* 흰 카드 — Rising Card over hero */
         .modal-form-section {
+            background: #fff;
+            border-radius: 28px 28px 0 0;
+            margin-top: -28px;
             padding: 32px 24px;
-            background: linear-gradient(to bottom, #fff9f5, #fff);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 -8px 28px rgba(0,0,0,0.13);
             border-bottom: 1px solid var(--border-subtle);
         }
         
@@ -1634,7 +1834,25 @@
     <div class="product-modal-overlay" id="reelsModal">
         <div class="product-modal">
             <button class="modal-close-btn" onclick="closeProductModal('reels')">×</button>
-            
+
+            <div class="modal-hero">
+                <div class="modal-scene">
+                    <div class="scene-prop-phone">
+                        <div class="scene-phone-notch"></div>
+                        <div class="scene-phone-screen">
+                            <div class="scene-reel-icon">▶</div>
+                            <div class="scene-reel-bar orange"></div>
+                            <div class="scene-reel-bar short"></div>
+                            <div class="scene-reel-bar"></div>
+                        </div>
+                    </div>
+                    <div class="scene-char">
+                        <div class="scene-bubble">훅이 약해요! ✏️<br>첫 3초가 핵심이에요</div>
+                        <img src="quokka_glasses.png" class="scene-quokka" alt="릴스 피드백 쿼카" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
             <div class="modal-form-section">
                 <div class="modal-product-header">
                     <span class="modal-badge">1회</span>
@@ -1705,7 +1923,53 @@
     <div class="product-modal-overlay" id="consultModal">
         <div class="product-modal">
             <button class="modal-close-btn" onclick="closeProductModal('consult')">×</button>
-            
+
+            <div class="modal-hero">
+                <div class="modal-scene">
+                    <div class="scene-prop-profile">
+                        <div class="scene-profile-top">
+                            <div class="scene-profile-avatar"></div>
+                            <div class="scene-name-lines">
+                                <div class="scene-name-bar"></div>
+                                <div class="scene-name-bar sub"></div>
+                            </div>
+                        </div>
+                        <div class="scene-profile-stats">
+                            <div class="scene-stat-col">
+                                <span class="scene-stat-val">124</span>
+                                <span class="scene-stat-lbl">게시물</span>
+                            </div>
+                            <div class="scene-stat-col">
+                                <span class="scene-stat-val">830</span>
+                                <span class="scene-stat-lbl">팔로워</span>
+                            </div>
+                            <div class="scene-stat-col">
+                                <span class="scene-stat-val">0.3%</span>
+                                <span class="scene-stat-lbl">반응률</span>
+                            </div>
+                        </div>
+                        <div class="scene-chart-rows">
+                            <div class="scene-chart-row">
+                                <span class="scene-chart-lbl">도달</span>
+                                <div class="scene-chart-track"><div class="scene-chart-fill" style="width:35%"></div></div>
+                            </div>
+                            <div class="scene-chart-row">
+                                <span class="scene-chart-lbl">저장</span>
+                                <div class="scene-chart-track"><div class="scene-chart-fill" style="width:18%"></div></div>
+                            </div>
+                            <div class="scene-chart-row">
+                                <span class="scene-chart-lbl">팔로</span>
+                                <div class="scene-chart-track"><div class="scene-chart-fill" style="width:8%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scene-char">
+                        <div class="scene-bubble">여기서 막히고 있네요 🔍<br>방향이 문제예요</div>
+                        <img src="quokka_doctor.png" class="scene-quokka" alt="계정 상담 쿼카" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
             <div class="modal-form-section">
                 <div class="modal-product-header">
                     <span class="modal-badge popular">인기</span>
@@ -1791,7 +2055,49 @@
     <div class="product-modal-overlay" id="coachingModal">
         <div class="product-modal">
             <button class="modal-close-btn" onclick="closeProductModal('coaching')">×</button>
-            
+
+            <div class="modal-hero">
+                <div class="modal-scene">
+                    <div class="scene-prop-calendar">
+                        <div class="scene-cal-title">4 WEEKS</div>
+                        <div class="scene-cal-rows">
+                            <div class="scene-cal-row">
+                                <span class="scene-week-tag">1주</span>
+                                <div class="scene-dots">
+                                    <div class="scene-dot done"></div><div class="scene-dot done"></div>
+                                    <div class="scene-dot done"></div><div class="scene-dot done"></div><div class="scene-dot done"></div>
+                                </div>
+                            </div>
+                            <div class="scene-cal-row">
+                                <span class="scene-week-tag">2주</span>
+                                <div class="scene-dots">
+                                    <div class="scene-dot done"></div><div class="scene-dot done"></div>
+                                    <div class="scene-dot done"></div><div class="scene-dot active"></div><div class="scene-dot"></div>
+                                </div>
+                            </div>
+                            <div class="scene-cal-row">
+                                <span class="scene-week-tag">3주</span>
+                                <div class="scene-dots">
+                                    <div class="scene-dot"></div><div class="scene-dot"></div>
+                                    <div class="scene-dot"></div><div class="scene-dot"></div><div class="scene-dot"></div>
+                                </div>
+                            </div>
+                            <div class="scene-cal-row">
+                                <span class="scene-week-tag">4주</span>
+                                <div class="scene-dots">
+                                    <div class="scene-dot"></div><div class="scene-dot"></div>
+                                    <div class="scene-dot"></div><div class="scene-dot"></div><div class="scene-dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scene-char">
+                        <div class="scene-bubble">2주차도 완료! 💪<br>이제 반이에요</div>
+                        <img src="quokka_coach.png" class="scene-quokka" alt="코칭 쿼카" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
             <div class="modal-form-section">
                 <div class="modal-product-header">
                     <span class="modal-badge">4주</span>
