@@ -59,8 +59,13 @@
             --border-accent: rgba(245, 133, 41, 0.25);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; }
+        img, video, iframe, embed { max-width: 100%; }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background: var(--bg-primary);
@@ -68,6 +73,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             width: 100%;
+            position: relative;
         }
 
         .section-label {
@@ -100,15 +106,17 @@
             padding: 80px 20px 60px;
             text-align: center;
             overflow: hidden;
+            width: 100%;
+            contain: paint;
         }
         .hero::before {
             content: '';
             position: absolute;
             top: -200px; left: 50%;
             transform: translateX(-50%);
-            width: 700px; height: 500px;
+            width: min(700px, 80vw); height: 500px;
             background: var(--accent);
-            filter: blur(160px);
+            filter: blur(120px);
             opacity: 0.12;
             pointer-events: none;
         }
@@ -242,8 +250,8 @@
         .product-cards {
             display: flex;
             flex-direction: column;
-            gap: 60px;
-            padding: 44px 20px 30px;
+            gap: 84px;
+            padding: 64px 20px 30px;
         }
 
         .product-card {
@@ -252,7 +260,7 @@
             background: var(--bg-card);
             border: 2px solid var(--border-subtle);
             border-radius: 20px;
-            padding: 60px 24px 28px;
+            padding: 84px 24px 28px;
             overflow: visible;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -1242,15 +1250,15 @@
             gap: 12px;
         }
         .hero-quokka {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 38% 32%, #c49560, #8b5e2e);
-            border: 4px solid #fff;
-            box-shadow: 0 8px 32px rgba(139,94,46,0.22), 0 0 0 8px rgba(245,133,41,0.09);
+            width: 160px;
+            height: 160px;
             transform: rotate(-3deg);
             animation: quokkaFloat 3.5s ease-in-out infinite;
             flex-shrink: 0;
+            filter: drop-shadow(0 8px 24px rgba(139,94,46,0.28));
+        }
+        @media (min-width: 768px) {
+            .hero-quokka { width: 200px; height: 200px; }
         }
         @keyframes quokkaFloat {
             0%, 100% { transform: rotate(-3deg) translateY(0px); }
@@ -1290,7 +1298,7 @@
         /* 상품 카드 쿼카 */
         .card-quokka-wrap {
             position: absolute;
-            top: -44px;
+            top: -58px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -1300,13 +1308,17 @@
             z-index: 2;
         }
         .card-quokka {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 38% 32%, #c49560, #8b5e2e);
-            border: 3px solid #fff;
-            box-shadow: 0 4px 16px rgba(139,94,46,0.2);
+            width: 116px;
+            height: 116px;
             transition: transform 0.3s ease;
+            filter: drop-shadow(0 4px 10px rgba(139,94,46,0.22));
+        }
+        .hero-quokka img,
+        .card-quokka img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
         .product-card:hover .card-quokka {
             transform: rotate(8deg) scale(1.07);
@@ -1321,58 +1333,145 @@
             white-space: nowrap;
             letter-spacing: 0.3px;
         }
+
+        /* ===== 히어로 말풍선 (A) ===== */
+        .hero-quokka-comic {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+        .hero-speech-bubble {
+            position: relative;
+            background: #fff;
+            border: 2px solid rgba(245,133,41,0.22);
+            border-radius: 16px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            max-width: 200px;
+            text-align: left;
+            line-height: 1.6;
+        }
+        /* 왼쪽 꼬리 (쿼카 방향) */
+        .hero-speech-bubble::before {
+            content: '';
+            position: absolute;
+            left: -11px; top: 40%;
+            transform: translateY(-50%);
+            width: 0; height: 0;
+            border-top: 9px solid transparent;
+            border-bottom: 9px solid transparent;
+            border-right: 11px solid rgba(245,133,41,0.22);
+        }
+        .hero-speech-bubble::after {
+            content: '';
+            position: absolute;
+            left: -8px; top: 40%;
+            transform: translateY(-50%);
+            width: 0; height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 8px solid #fff;
+        }
+        @media (max-width: 767px) {
+            .hero-quokka-section .hero-quokka { width: 110px; height: 110px; }
+            .hero-speech-bubble { max-width: 160px; font-size: 13px; padding: 10px 12px; }
+        }
+        @media (min-width: 768px) {
+            .hero-speech-bubble { max-width: 240px; }
+        }
+
+        /* ===== 고민 섹션 쿼카 (B) ===== */
+        .pain-quokka-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .pain-quokka-img {
+            width: 88px;
+            height: 88px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 4px 10px rgba(139,94,46,0.18));
+            transform: rotate(-8deg);
+        }
+        .pain-quokka-img img {
+            width: 100%; height: 100%; object-fit: contain; display: block;
+        }
+        .pain-quokka-speech {
+            position: relative;
+            background: #fff;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .pain-quokka-speech::before {
+            content: '';
+            position: absolute;
+            left: -9px; top: 50%;
+            transform: translateY(-50%);
+            width: 0; height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 9px solid var(--border-subtle);
+        }
+        .pain-quokka-speech::after {
+            content: '';
+            position: absolute;
+            left: -6px; top: 50%;
+            transform: translateY(-50%);
+            width: 0; height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 7px solid #fff;
+        }
+
+        /* ===== 다크 상품 섹션 ===== */
+        /* 위 섹션(--bg-secondary) 색에서 부드럽게 어두워지는 그라디언트 */
+        .products { background: linear-gradient(to bottom, var(--bg-secondary) 0px, #1a1a1a 110px); }
+        .products .section-title { color: #fff; }
+        .products .section-desc { color: rgba(255,255,255,0.5); }
+        .product-card { background: #2c2c2e; border-color: rgba(255,255,255,0.08); }
+        .product-card.featured {
+            background: linear-gradient(to bottom, #2d1f0e, #2c2c2e);
+            border-color: var(--accent);
+        }
+        .product-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(0,0,0,0.45); }
+        .product-title { color: #fff; }
+        .product-desc { color: rgba(255,255,255,0.58); }
+        .product-badge { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+        .product-badge.popular { background: var(--accent); color: #fff; }
+        .product-btn { background: rgba(255,255,255,0.12); color: #fff; }
+        .product-btn:hover { background: rgba(255,255,255,0.2); }
+        .product-card.featured .product-btn { background: var(--accent); }
+        .product-card.featured .product-btn:hover { background: var(--accent-dark); }
+        .products .card-quokka { filter: drop-shadow(0 6px 20px rgba(245,133,41,0.3)); }
     </style>
 </head>
 <body>
 
-    <section class="proof-slider-section">
-        <div class="proof-header">
-            <div class="section-label">PROVEN RESULTS</div>
-            <h2 class="section-title">운이 아닙니다.<br><span>방향이 만든 당연한 결과</span>입니다.</h2>
-            <p class="section-desc">데이터는 거짓말을 하지 않습니다. 숫자 뒤에 숨겨진 진짜 가치를 확인해 보세요. (옆으로 밀어보기 →)</p>
-        </div>
-
-        <div class="proof-slider-container">
-            <div class="proof-slide-item">
-                <img src="insight1.jpg" alt="도달률 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight2.png" alt="저장 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight3.png" alt="공유 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight4.png" alt="프로필 방문 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight5.png" alt="비팔로워 노출 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight6.png" alt="시청 시간 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight7.png" alt="팔로워 전환 지표">
-            </div>
-            <div class="proof-slide-item">
-                <img src="insight8.png" alt="팔로워 전환 지표">
-            </div>
-        </div>
-    </section>
-
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-quokka-section">
-                <div class="hero-quokka-wrapper">
-                    <span class="hero-deco-star">✦</span>
-                    <div class="hero-quokka"></div>
-                    <span class="hero-deco-star">✦</span>
+                <div class="hero-quokka-comic">
+                    <div class="hero-quokka-wrapper">
+                        <span class="hero-deco-star">✦</span>
+                        <!-- ★ 히어로 쿼카: 아래 div 안에 <img src="파일명.png" alt="피드온 쿼카"> 추가 -->
+                        <div class="hero-quokka"><img src="quokka_main.png" alt="피드온 쿼카" onerror="this.style.display='none'"></div>
+                    </div>
+                    <div class="hero-speech-bubble">
+                        막막한 인스타, 저랑 같이 풀어봐요! 🐾
+                    </div>
                 </div>
-                <div class="hero-quokka-tag">✨ 피드온 대표 쿼카</div>
-            </div>
-            <div class="hero-brand">
-                <div class="hero-logo">FEED<em>:</em>ON</div>
-                <div class="hero-sub">INSTAGRAM DIRECTING</div>
+                <div class="hero-quokka-tag">인스타 고민 해결사 🎯</div>
             </div>
 
             <h1 class="hero-headline">
@@ -1382,7 +1481,7 @@
 
             <p class="hero-desc">
                 알고리즘, 릴스 대본, 터지는 프로필 세팅까지.<br>
-                더 이상 혼자 뇌피셜로 삽질하지 마십시오. 정답을 찾아드립니다.
+                더 이상 혼자 뇌피셜로 삽질하지 마세요! 정답을 찾아드립니다.
             </p>
 
             <div class="hero-btns">
@@ -1396,6 +1495,16 @@
             <div class="section-label">CHECKLIST</div>
             <h2 class="section-title">딱 <span>3가지</span>만 체크해 보세요.</h2>
             <p class="section-desc">단 하나라도 해당된다면, 실력이 아니라 '방향'이 틀린 겁니다.</p>
+
+            <div class="pain-quokka-row">
+                <div class="pain-quokka-img">
+                    <!-- ★ 고민하는 쿼카: <img src="파일명.png" alt=""> 추가 -->
+                    <img src="quokka_worried.png" alt="" onerror="this.style.display='none'">
+                </div>
+                <div class="pain-quokka-speech">
+                    나도 이랬는데...<br>방향이 없었던 거예요 😢
+                </div>
+            </div>
 
             <div class="pain-list">
                 <div class="pain-item">
@@ -1423,8 +1532,8 @@
             <div class="product-cards">
                 <div class="product-card" onclick="openProductModal('reels')">
                     <div class="card-quokka-wrap">
-                        <div class="card-quokka"></div>
-                        <div class="card-quokka-label">🔍 분석가 쿼카</div>
+                        <!-- ★ 릴스 쿼카: div 안에 <img src="파일명.png" alt="..."> 추가 -->
+                        <div class="card-quokka"><img src="quokka_glasses.png" alt="분석가 쿼카" onerror="this.style.display='none'"></div>
                     </div>
                     <div class="product-badge">1회</div>
                     <div class="product-title">릴스 피드백</div>
@@ -1439,8 +1548,8 @@
 
                 <div class="product-card featured" onclick="openProductModal('consult')">
                     <div class="card-quokka-wrap">
-                        <div class="card-quokka"></div>
-                        <div class="card-quokka-label">🩺 진단가 쿼카</div>
+                        <!-- ★ 상담 쿼카: div 안에 <img src="파일명.png" alt="..."> 추가 -->
+                        <div class="card-quokka"><img src="quokka_doctor.png" alt="진단가 쿼카" onerror="this.style.display='none'"></div>
                     </div>
                     <div class="product-badge popular">인기</div>
                     <div class="product-title">계정 상담</div>
@@ -1455,8 +1564,8 @@
 
                 <div class="product-card" onclick="openProductModal('coaching')">
                     <div class="card-quokka-wrap">
-                        <div class="card-quokka"></div>
-                        <div class="card-quokka-label">🎯 코치 쿼카</div>
+                        <!-- ★ 코칭 쿼카: div 안에 <img src="파일명.png" alt="..."> 추가 -->
+                        <div class="card-quokka"><img src="quokka_coach.png" alt="코치 쿼카" onerror="this.style.display='none'"></div>
                     </div>
                     <div class="product-badge">4주</div>
                     <div class="product-title">밀착 코칭</div>
@@ -1764,6 +1873,41 @@
                 <div class="faq-a">
                     <p class="faq-a-text">오히려 초보일수록 효과가 커요. 잘못된 방향으로 삽질하기 전에 처음부터 제대로 시작할 수 있으니까요.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="proof-slider-section">
+        <div class="proof-header">
+            <div class="section-label">PROVEN RESULTS</div>
+            <h2 class="section-title">운이 아닙니다.<br><span>방향이 만든 당연한 결과</span>입니다.</h2>
+            <p class="section-desc">데이터는 거짓말을 하지 않습니다. 숫자 뒤에 숨겨진 진짜 가치를 확인해 보세요. (옆으로 밀어보기 →)</p>
+        </div>
+
+        <div class="proof-slider-container">
+            <div class="proof-slide-item">
+                <img src="insight1.jpg" alt="도달률 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight2.png" alt="저장 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight3.png" alt="공유 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight4.png" alt="프로필 방문 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight5.png" alt="비팔로워 노출 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight6.png" alt="시청 시간 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight7.png" alt="팔로워 전환 지표">
+            </div>
+            <div class="proof-slide-item">
+                <img src="insight8.png" alt="팔로워 전환 지표">
             </div>
         </div>
     </section>
