@@ -191,8 +191,10 @@
 
         /* ===== 고민 섹션 ===== */
         .pain {
-            padding: 80px 20px;
-            background: var(--bg-secondary);
+            padding: 80px 20px 160px;
+            background: linear-gradient(to bottom, var(--bg-primary) 0px, var(--bg-secondary) 100px);
+            position: relative;
+            z-index: 0;
         }
         .pain-container {
             max-width: 560px;
@@ -583,10 +585,15 @@
             .step-card:last-child { margin-right: 0; }
         }
 
-        /* ===== FAQ ===== */
+        /* ===== FAQ — 다크 products 위로 떠오르는 Rising Card ===== */
         .faq {
-            padding: 80px 20px;
+            padding: 100px 20px 80px;
             background: var(--bg-secondary);
+            position: relative;
+            z-index: 3;
+            margin-top: -56px;
+            border-radius: 36px 36px 0 0;
+            box-shadow: 0 -16px 48px rgba(0,0,0,0.18), 0 -4px 14px rgba(0,0,0,0.10);
         }
         .faq-container {
             max-width: 600px;
@@ -1175,9 +1182,16 @@
 
         /* 슬라이더 증거 섹션 */
         .proof-slider-section {
-            padding: 80px 0 100px;
+            padding: 80px 0 0;
             background: var(--bg-secondary);
             overflow: hidden;
+        }
+        /* proof-slider → footer 이음 */
+        .proof-slider-section::after {
+            content: '';
+            display: block;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary));
         }
         .proof-header {
             max-width: 700px;
@@ -1228,7 +1242,7 @@
             pointer-events: none;
         }
         @media (min-width: 768px) {
-            .proof-slider-section { padding: 120px 0 140px; }
+            .proof-slider-section { padding: 120px 0 40px; }
             .proof-header { margin: 0 auto 70px; max-width: 900px; }
             .proof-slide-item { max-width: 350px; border-radius: 24px; }
         }
@@ -1434,9 +1448,31 @@
             border-right: 7px solid #fff;
         }
 
-        /* ===== 다크 상품 섹션 ===== */
-        /* 위 섹션(--bg-secondary) 색에서 부드럽게 어두워지는 그라디언트 */
-        .products { background: linear-gradient(to bottom, var(--bg-secondary) 0px, #1a1a1a 110px); }
+        /* ===== 다크 상품 섹션 — Rising Card ===== */
+        /* 이전 섹션 위로 떠오르는 효과 (그라디언트 없음) */
+        .products {
+            background: #1a1a1a;
+            position: relative;
+            z-index: 2;
+            margin-top: -40px;
+            border-radius: 36px 36px 0 0;
+            box-shadow: 0 -24px 60px rgba(0,0,0,0.45), 0 -4px 16px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        /* 중앙 오렌지 ambient glow */
+        .products::before {
+            content: '';
+            position: absolute;
+            bottom: 60px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 260px;
+            background: radial-gradient(ellipse at center, rgba(245,133,41,0.09) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* 중앙 오렌지 glow만 남김 — 하단 전환은 FAQ rising card가 담당 */
+        .products::after { display: none; }
+        .products-container { position: relative; z-index: 1; }
         .products .section-title { color: #fff; }
         .products .section-desc { color: rgba(255,255,255,0.5); }
         .product-card { background: #2c2c2e; border-color: rgba(255,255,255,0.08); }
@@ -1454,6 +1490,19 @@
         .product-card.featured .product-btn { background: var(--accent); }
         .product-card.featured .product-btn:hover { background: var(--accent-dark); }
         .products .card-quokka { filter: drop-shadow(0 6px 20px rgba(245,133,41,0.3)); }
+
+        /* 모바일 카드 중앙 진입 하이라이트 */
+        @media (max-width: 767px) {
+            .product-card { transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease; }
+            .product-card.in-view {
+                border-color: var(--accent) !important;
+                transform: translateY(-6px) !important;
+                box-shadow: 0 12px 36px rgba(245,133,41,0.22) !important;
+            }
+            .product-card.in-view .card-quokka {
+                transform: rotate(8deg) scale(1.08);
+            }
+        }
     </style>
 </head>
 <body>
@@ -1475,8 +1524,8 @@
             </div>
 
             <h1 class="hero-headline">
-                막막한 인스타 운영,<br>
-                <span>피드온이 모든 걸 알려드립니다.</span>
+                막막한 인스타 운영<br>
+                <span>피드온이 모든 걸 알려드립니다</span>
             </h1>
 
             <p class="hero-desc">
@@ -2613,6 +2662,7 @@
         const floatingCta = document.getElementById('floatingCta');
         const heroSection = document.querySelector('.hero');
         const footerSection = document.querySelector('.footer');
+        const productsSection = document.querySelector('.products');
 
         if (floatingCta && heroSection && footerSection) {
             function handleScroll() {
@@ -2620,15 +2670,50 @@
                 const footerTop = footerSection.offsetTop;
                 const scrollY = window.scrollY;
                 const windowHeight = window.innerHeight;
-                if (scrollY > heroBottom - 100 && scrollY + windowHeight < footerTop + 100) {
+
+                // 상품 섹션이 뷰포트와 겹치는지 체크
+                const inProducts = productsSection &&
+                    scrollY + windowHeight > productsSection.offsetTop + 60 &&
+                    scrollY < productsSection.offsetTop + productsSection.offsetHeight - 60;
+
+                if (scrollY > heroBottom - 100 && scrollY + windowHeight < footerTop + 100 && !inProducts) {
                     floatingCta.classList.add('visible');
                 } else {
                     floatingCta.classList.remove('visible');
                 }
             }
-            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('scroll', handleScroll, { passive: true });
             handleScroll();
         }
+
+        // 모바일 상품 카드 중앙 진입 자동 하이라이트
+        (function() {
+            const cards = document.querySelectorAll('.product-card');
+            if (!cards.length) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        cards.forEach(c => c.classList.remove('in-view'));
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, {
+                // 뷰포트 위아래 28% 제외 → 중간 44% 영역 진입 시 발동 (넉넉하게)
+                rootMargin: '-28% 0px -28% 0px',
+                threshold: 0
+            });
+
+            function bindObserver() {
+                if (window.innerWidth < 768) {
+                    cards.forEach(c => observer.observe(c));
+                } else {
+                    cards.forEach(c => { observer.unobserve(c); c.classList.remove('in-view'); });
+                }
+            }
+            bindObserver();
+            window.addEventListener('resize', bindObserver, { passive: true });
+        })();
 
         // 슬라이더 드래그
         const sliderContainer = document.querySelector('.proof-slider-container');
