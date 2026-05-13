@@ -112,9 +112,9 @@
             content: '';
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 120px;
+            height: 140px;
             background: linear-gradient(to bottom, transparent, var(--bg-primary));
-            z-index: 3;
+            z-index: 4;
             pointer-events: none;
         }
         .hero-bg-text {
@@ -1521,6 +1521,8 @@
             justify-content: center;
             margin-top: 48px;
             margin-bottom: -65px;
+            position: relative;
+            z-index: 10;
         }
         /* ===== 히어로 쿼카 카드 (B) ===== */
         .hero-quokka-card {
@@ -1563,7 +1565,7 @@
             height: min(420px, 98vw);
             transform: rotate(-3deg);
             animation: quokkaFloat 3.5s ease-in-out infinite;
-            filter: drop-shadow(0 16px 50px rgba(139,94,46,0.22));
+            filter: drop-shadow(0 -8px 30px rgba(139,94,46,0.18));
         }
         @media (min-width: 768px) {
             .hero-quokka { width: min(500px, 56vw); height: min(500px, 56vw); }
@@ -1830,10 +1832,9 @@
                 <a href="#products" class="hero-cta">서비스 보러가기 →</a>
             </div>
 
-            <div class="hero-quokka-section">
-                <div class="hero-quokka"><img src="quokka_main.png" alt="피드온 쿼카" onerror="this.style.display='none'"></div>
-            </div>
-
+        </div>
+        <div class="hero-quokka-section">
+            <div class="hero-quokka"><img src="quokka_main.png" alt="피드온 쿼카" onerror="this.style.display='none'"></div>
         </div>
     </section>
 
