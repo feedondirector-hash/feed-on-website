@@ -229,8 +229,8 @@
 
         /* ===== 고민 섹션 ===== */
         .pain {
-            padding: 80px 20px 160px;
-            background: linear-gradient(to bottom, var(--bg-primary) 0px, var(--bg-secondary) 100px);
+            padding: 80px 20px 120px;
+            background: var(--bg-primary);
             position: relative;
             z-index: 0;
         }
@@ -241,37 +241,74 @@
         .pain-list {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 10px;
+            margin-bottom: 36px;
         }
         .pain-item {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px 24px;
+            align-items: stretch;
             background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-primary);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
             transition: all 0.25s ease;
+            cursor: default;
         }
         .pain-item:hover {
             border-color: var(--border-accent);
-            box-shadow: 0 4px 16px rgba(245, 133, 41, 0.08);
-            transform: translateX(4px);
+            box-shadow: 0 6px 22px rgba(245,133,41,0.10);
+            transform: translateX(5px);
         }
-        .pain-icon {
+        .pain-num {
             flex-shrink: 0;
-            width: 36px; height: 36px;
-            background: #fff0f0;
-            border: 1px solid rgba(220,53,69,0.15);
-            border-radius: 10px;
+            width: 56px;
+            background: var(--bg-secondary);
+            border-right: 1.5px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            transition: all 0.25s;
+        }
+        .pain-item:hover .pain-num {
+            background: rgba(245,133,41,0.07);
+            color: var(--accent);
+        }
+        .pain-text {
+            flex: 1;
+            padding: 20px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.65;
+        }
+        .pain-check {
+            flex-shrink: 0;
+            width: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pain-check-box {
+            width: 22px; height: 22px;
+            border-radius: 7px;
+            border: 2px solid var(--border-subtle);
+            transition: all 0.22s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: transparent;
+        }
+        .pain-item:hover .pain-check-box {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
         }
 
         /* ===== 상품 섹션 ===== */
@@ -458,8 +495,8 @@
 
         /* ===== 모달 스토리 히어로 ===== */
         .modal-hero {
-            background: #1a1a1a;
-            min-height: 220px;
+            background: linear-gradient(150deg, #1e1410 0%, #141414 55%, #1a1a1a 100%);
+            min-height: 300px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -467,13 +504,22 @@
             position: relative;
             overflow: hidden;
         }
+        .modal-hero-tag {
+            position: absolute;
+            top: 20px; left: 24px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: rgba(245,133,41,0.65);
+            z-index: 2;
+        }
         .modal-hero::before {
             content: '';
             position: absolute;
-            bottom: 0; left: 50%;
+            bottom: -20px; left: 50%;
             transform: translateX(-50%);
-            width: 360px; height: 250px;
-            background: radial-gradient(ellipse at center, rgba(245,133,41,0.18) 0%, transparent 65%);
+            width: 420px; height: 280px;
+            background: radial-gradient(ellipse at center, rgba(245,133,41,0.22) 0%, transparent 65%);
             pointer-events: none;
             z-index: 0;
         }
@@ -490,9 +536,9 @@
             z-index: 1;
         }
         .scene-quokka {
-            width: 130px; height: 130px;
+            width: 160px; height: 160px;
             object-fit: contain;
-            filter: drop-shadow(0 8px 26px rgba(245,133,41,0.38));
+            filter: drop-shadow(0 10px 32px rgba(245,133,41,0.42));
             animation: quokkaFloat 3.5s ease-in-out infinite;
             flex-shrink: 0;
         }
@@ -651,95 +697,284 @@
 
         /* 흰 카드 — Rising Card over hero */
         .modal-form-section {
-            background: #fff;
+            background: linear-gradient(180deg, #fff 0%, #fffcf8 100%);
             border-radius: 28px 28px 0 0;
-            margin-top: -28px;
-            padding: 32px 24px;
+            margin-top: -32px;
+            padding: 28px 24px 32px;
             position: relative;
             z-index: 2;
             box-shadow: 0 -8px 28px rgba(0,0,0,0.13);
-            border-bottom: 1px solid var(--border-subtle);
         }
-        
         .modal-product-header {
-            text-align: center;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border-subtle);
             margin-bottom: 24px;
         }
+        .modal-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
         .modal-product-header h3 {
-            font-size: 24px;
-            font-weight: 800;
+            font-size: 26px;
+            font-weight: 900;
             color: var(--text-primary);
-            margin: 8px 0;
+            letter-spacing: -0.5px;
+            margin: 0 0 12px;
         }
         .modal-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             padding: 4px 12px;
             background: var(--bg-secondary);
-            color: var(--text-secondary);
-            font-size: 12px;
+            color: var(--text-muted);
+            font-size: 11px;
             font-weight: 700;
-            border-radius: 20px;
+            border-radius: 100px;
+            letter-spacing: 0.3px;
         }
         .modal-badge.popular {
             background: var(--accent);
             color: white;
         }
         .modal-price {
-            font-size: 28px;
-            font-weight: 800;
+            font-size: 32px;
+            font-weight: 900;
             color: var(--accent);
+            letter-spacing: -1px;
+            margin-bottom: 14px;
         }
-        
-        .modal-form .form-group {
-            margin-bottom: 16px;
+        .modal-benefits {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
         }
-        .modal-form .form-label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-        .modal-form .form-input {
-            width: 100%;
-            padding: 14px 16px;
+        .modal-benefit-item {
+            background: var(--bg-secondary);
             border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* ===== 스텝 인디케이터 ===== */
+        .modal-steps {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .modal-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+        .step-dot {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            background: white;
+            transition: all 0.2s;
+        }
+        .modal-step.done .step-dot { background: var(--accent); border-color: var(--accent); color: white; }
+        .modal-step.active .step-dot { border-color: var(--accent); border-width: 2px; color: var(--accent); }
+        .step-label {
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+        }
+        .modal-step.active .step-label { color: var(--accent); }
+        .modal-step.done .step-label { color: var(--accent); opacity: 0.7; }
+        .step-connector {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+            margin-bottom: 14px;
+        }
+
+        /* ===== 플로팅 레이블 ===== */
+        .float-group {
+            position: relative;
+            margin-bottom: 14px;
+        }
+        .float-group .form-input {
+            width: 100%;
+            padding: 22px 16px 8px;
+            background: #fff;
+            border: 1.5px solid rgba(0,0,0,0.10);
             border-radius: 12px;
             font-size: 15px;
-            transition: border-color 0.2s;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-primary);
             box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
         }
-        .modal-form .form-input:focus {
-            outline: none;
+        .float-group .form-input:focus {
             border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(245,133,41,0.12), 0 1px 4px rgba(0,0,0,0.04);
         }
-        .modal-form textarea.form-input {
-            resize: none;
+        .float-group .form-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: all 0.18s ease;
+            pointer-events: none;
+            font-weight: 500;
+            line-height: 1;
         }
-        .modal-form select.form-input {
+        .float-group .form-input:focus ~ .form-label,
+        .float-group:not(.always-float) .form-input:not(:placeholder-shown) ~ .form-label {
+            top: 9px;
+            transform: none;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.3px;
+        }
+        .float-group.always-float .form-label {
+            top: 9px;
+            transform: none;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+        .float-group.always-float .form-input:focus ~ .form-label,
+        .float-group.always-float.has-value .form-label { color: var(--accent); }
+        .float-group textarea.form-input { padding-top: 28px; min-height: 70px; resize: none; }
+        .float-group select.form-input {
             appearance: none;
-            background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 16px center;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-color: var(--bg-primary);
+        }
+        .float-group .form-error {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+        .float-group.error .form-input { border-color: #dc3545; }
+        .float-group.error .form-error { display: block; }
+
+        /* ===== 영수증 스타일 상품 카드 ===== */
+        .modal-receipt {
+            background: #fafaf8;
+            border: 1.5px solid rgba(0,0,0,0.09);
+            border-radius: 14px;
+            padding: 16px 18px 14px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-receipt::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--accent);
+        }
+        .modal-receipt-tag {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+        }
+        .modal-receipt-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .modal-receipt-name {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+        .modal-receipt-price {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+        .modal-receipt-sep {
+            border: none;
+            border-top: 1.5px dashed rgba(0,0,0,0.10);
+            margin: 0 0 12px;
+        }
+        .modal-receipt-benefits {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .modal-receipt-benefit {
+            background: white;
+            border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .form-section-heading {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
         
         .btn-payment {
             width: 100%;
-            padding: 16px 24px;
-            background: var(--accent);
+            padding: 17px 24px;
+            background: linear-gradient(135deg, #F58529 0%, #e07520 100%);
             color: white;
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 800;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 8px;
+            transition: all 0.25s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 18px rgba(245,133,41,0.32);
+            letter-spacing: 0.3px;
         }
         .btn-payment:hover {
-            background: var(--accent-dark);
+            background: linear-gradient(135deg, #e87c20 0%, #d06810 100%);
+            box-shadow: 0 6px 24px rgba(245,133,41,0.42);
+            transform: translateY(-1px);
         }
         .btn-payment:disabled {
             background: #ccc;
+            box-shadow: none;
             cursor: not-allowed;
+            transform: none;
         }
         
         .payment-notice {
@@ -750,38 +985,106 @@
         }
         
         .modal-detail-section {
-            padding: 24px;
+            padding: 0 20px 40px;
+            background: var(--bg-secondary);
         }
         .detail-block {
-            margin-bottom: 24px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 0;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
         }
-        .detail-block:last-child {
-            margin-bottom: 0;
+        .detail-block:last-child { margin-bottom: 0; }
+        .detail-block-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px 12px;
+            border-bottom: 1px solid var(--border-subtle);
+            background: #fafaf8;
         }
-        .detail-block h4 {
-            font-size: 15px;
-            font-weight: 700;
+        .detail-block-icon {
+            width: 30px; height: 30px;
+            border-radius: 9px;
+            background: rgba(245,133,41,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .detail-block-title {
+            font-size: 13px;
+            font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 12px;
+            letter-spacing: -0.2px;
         }
         .detail-block ul {
             list-style: none;
-            padding: 0;
+            padding: 4px 0 4px;
             margin: 0;
         }
         .detail-block li {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
-            padding: 6px 0;
-            padding-left: 20px;
+            padding: 9px 18px 9px 44px;
             position: relative;
             line-height: 1.5;
         }
+        .detail-block li + li {
+            border-top: 1px solid var(--border-subtle);
+        }
         .detail-block li::before {
-            content: "•";
+            content: '';
             position: absolute;
-            left: 0;
-            color: var(--accent);
+            left: 20px; top: 50%;
+            transform: translateY(-50%);
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+        /* 진행 방식 — 타임라인 스타일 */
+        .detail-flow {
+            padding: 8px 18px 12px;
+        }
+        .detail-flow-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            position: relative;
+            padding-bottom: 14px;
+        }
+        .detail-flow-step:last-child { padding-bottom: 0; }
+        .detail-flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 13px; top: 26px;
+            width: 1.5px;
+            bottom: 0;
+            background: rgba(245,133,41,0.18);
+        }
+        .detail-flow-num {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .detail-flow-text {
+            padding-top: 3px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
 
         /* ===== 폼 섹션 (삭제됨 - 모달로 이동) ===== */
@@ -839,30 +1142,75 @@
         }
         .faq-item {
             background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            margin-bottom: 12px;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 16px;
+            margin-bottom: 10px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .faq-item.open {
+            border-color: var(--border-accent);
+            box-shadow: 0 4px 20px rgba(245,133,41,0.10);
         }
         .faq-q {
-            padding: 20px 24px;
+            padding: 16px 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+        .faq-q:hover { background: rgba(245,133,41,0.03); }
+        .faq-q-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 9px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            transition: all 0.25s;
+        }
+        .faq-item.open .faq-q-badge {
+            background: var(--accent);
+            color: white;
+        }
+        .faq-q-text {
+            flex: 1;
             font-size: 15px;
             font-weight: 700;
             color: var(--text-primary);
-            cursor: pointer;
+            line-height: 1.45;
+            transition: color 0.2s;
+        }
+        .faq-item.open .faq-q-text { color: var(--accent); }
+        .faq-toggle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border-subtle);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            transition: all 0.2s ease;
-        }
-        .faq-q:hover { color: var(--accent); }
-        .faq-q .arrow {
-            font-size: 18px;
+            justify-content: center;
             color: var(--text-muted);
-            transition: transform 0.3s ease;
+            font-size: 17px;
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: all 0.25s;
         }
-        .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+        .faq-item.open .faq-toggle {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            transform: rotate(45deg);
+        }
         .faq-a {
             max-height: 0;
             overflow: hidden;
@@ -870,12 +1218,14 @@
         }
         .faq-item.open .faq-a {
             max-height: 300px;
-            padding: 0 24px 20px;
+            padding: 0 18px 18px 58px;
         }
         .faq-a-text {
             font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.8;
+            border-left: 2px solid rgba(245,133,41,0.28);
+            padding-left: 14px;
         }
 
         /* ===== 폼 섹션 ===== */
@@ -1593,8 +1943,8 @@
         .pkg-tag-brand {
             display: block;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 13px;
-            letter-spacing: 3px;
+            font-size: 18px;
+            letter-spacing: 4px;
             color: var(--accent);
             line-height: 1;
         }
@@ -1917,7 +2267,11 @@
         }
 
         .products {
-            background: #1a1a1a;
+            background: #141414;
+            background-image:
+                radial-gradient(ellipse at 18% 38%, rgba(245,133,41,0.10) 0%, transparent 46%),
+                radial-gradient(ellipse at 82% 62%, rgba(245,133,41,0.08) 0%, transparent 42%),
+                radial-gradient(ellipse at 50% 12%, rgba(200,110,40,0.07) 0%, transparent 48%);
             position: relative;
             z-index: 2;
             margin-top: -40px;
@@ -1925,43 +2279,61 @@
             box-shadow: 0 -24px 60px rgba(0,0,0,0.45), 0 -4px 16px rgba(0,0,0,0.25);
             overflow: hidden;
         }
-        /* 중앙 오렌지 ambient glow */
-        .products::before {
-            content: '';
-            position: absolute;
-            bottom: 60px; left: 50%;
-            transform: translateX(-50%);
-            width: 600px; height: 260px;
-            background: radial-gradient(ellipse at center, rgba(245,133,41,0.09) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        /* 중앙 오렌지 glow만 남김 — 하단 전환은 FAQ rising card가 담당 */
+        .products::before { display: none; }
         .products::after { display: none; }
         .products-container { position: relative; z-index: 1; }
         .products .section-title { color: #fff; }
-        .products .section-desc { color: rgba(255,255,255,0.5); }
-        .product-card { background: #2c2c2e; border-color: rgba(255,255,255,0.08); }
-        .product-card.featured {
-            background: linear-gradient(to bottom, #2d1f0e, #2c2c2e);
-            border-color: var(--accent);
+        .products .section-desc { color: rgba(255,255,255,0.45); }
+
+        /* 글래스모피즘 카드 */
+        .product-card {
+            background: rgba(255,255,255,0.055);
+            backdrop-filter: blur(14px) saturate(160%);
+            -webkit-backdrop-filter: blur(14px) saturate(160%);
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.07);
         }
-        .product-card:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(0,0,0,0.45); }
+        .product-card.featured {
+            background: rgba(245,133,41,0.10);
+            border-color: rgba(245,133,41,0.32);
+            box-shadow: 0 4px 28px rgba(245,133,41,0.18), inset 0 1px 0 rgba(255,255,255,0.07);
+        }
+        .product-card:hover {
+            border-color: rgba(245,133,41,0.45);
+            box-shadow: 0 8px 36px rgba(245,133,41,0.2);
+            transform: translateY(-4px);
+        }
+
+        /* 좌측 컬러 액센트 라인 */
+        .card-reels::before,
+        .card-consult::before,
+        .card-coaching::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 18px; bottom: 18px;
+            width: 3px;
+            border-radius: 0 3px 3px 0;
+        }
+        .card-reels::before { background: #6b9db8; box-shadow: 0 0 14px rgba(107,157,184,0.55); }
+        .card-consult::before { background: var(--accent); box-shadow: 0 0 14px rgba(245,133,41,0.65); }
+        .card-coaching::before { background: #c4956a; box-shadow: 0 0 14px rgba(196,149,106,0.55); }
+
+        .card-quokka-wrap { z-index: 3; }
         .product-title { color: #fff; }
         .product-desc { color: rgba(255,255,255,0.58); }
-        .product-badge { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+        .product-badge { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.65); }
         .product-badge.popular { background: var(--accent); color: #fff; }
-        .product-btn { background: rgba(255,255,255,0.12); color: #fff; }
-        .product-btn:hover { background: rgba(255,255,255,0.2); }
-        .product-card.featured .product-btn { background: var(--accent); }
+        .product-btn { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.12); }
+        .product-btn:hover { background: rgba(255,255,255,0.22); }
+        .product-card.featured .product-btn { background: var(--accent); border-color: transparent; }
         .product-card.featured .product-btn:hover { background: var(--accent-dark); }
-        .products .card-quokka { filter: drop-shadow(0 6px 20px rgba(245,133,41,0.3)); }
+        .products .card-quokka { filter: drop-shadow(0 6px 20px rgba(245,133,41,0.30)); }
 
         /* 모바일 카드 중앙 진입 하이라이트 */
         @media (max-width: 767px) {
             .product-card { transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease; }
             .product-card.in-view {
-                border-color: var(--accent) !important;
+                border-color: rgba(245,133,41,0.45) !important;
                 transform: translateY(-6px) !important;
                 box-shadow: 0 12px 36px rgba(245,133,41,0.22) !important;
             }
@@ -1984,9 +2356,9 @@
             </div>
 
             <div class="poster-text">
-                <h1 class="poster-headline">막막한 인스타 운영</h1>
+                <h1 class="poster-headline">인스타 방향부터<br>잡아드립니다</h1>
                 <div class="poster-divider"></div>
-                <p class="poster-sub">피드온이 해결합니다</p>
+                <p class="poster-sub">릴스편집 · 1:1컨설팅 · 집중코칭</p>
             </div>
 
             <div class="hero-btns">
@@ -2017,28 +2389,30 @@
             <h2 class="section-title">딱 <span>3가지</span>만 체크해 보세요.</h2>
             <p class="section-desc">단 하나라도 해당된다면, 실력이 아니라 '방향'이 틀린 겁니다.</p>
 
+            <div class="pain-list">
+                <div class="pain-item">
+                    <div class="pain-num">01</div>
+                    <div class="pain-text">3시간 편집해서 올렸는데, 조회수는 귀신같이 100~1000대에서 멈춘다.</div>
+                    <div class="pain-check"><div class="pain-check-box">✓</div></div>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-num">02</div>
+                    <div class="pain-text">좋아요는 찍히는데, 정작 내 제품/서비스 문의로 이어지진 않는다.</div>
+                    <div class="pain-check"><div class="pain-check-box">✓</div></div>
+                </div>
+                <div class="pain-item">
+                    <div class="pain-num">03</div>
+                    <div class="pain-text">남들은 인스타로 돈 번다는데, 나만 방법을 몰라 헛고생 중이다.</div>
+                    <div class="pain-check"><div class="pain-check-box">✓</div></div>
+                </div>
+            </div>
+
             <div class="pain-quokka-row">
                 <div class="pain-quokka-img">
-                    <!-- ★ 고민하는 쿼카: <img src="파일명.png" alt=""> 추가 -->
                     <img src="quokka_worried.png" alt="" onerror="this.style.display='none'">
                 </div>
                 <div class="pain-quokka-speech">
                     나도 이랬는데...<br>방향이 없었던 거예요 😢
-                </div>
-            </div>
-
-            <div class="pain-list">
-                <div class="pain-item">
-                    <div class="pain-icon">☑️</div>
-                    <span>3시간 편집해서 올렸는데, 조회수는 귀신같이 100~1000대에서 멈춘다.</span>
-                </div>
-                <div class="pain-item">
-                    <div class="pain-icon">☑️</div>
-                    <span>좋아요는 찍히는데, 정작 내 제품/서비스 문의로 이어지진 않는다.</span>
-                </div>
-                <div class="pain-item">
-                    <div class="pain-icon">☑️</div>
-                    <span>남들은 인스타로 돈 번다는데, 나만 방법을 몰라 헛고생 중이다.</span>
                 </div>
             </div>
         </div>
@@ -2051,9 +2425,8 @@
             <p class="section-desc">단계별로, 필요한 만큼만 선택하세요.</p>
 
             <div class="product-cards">
-                <div class="product-card" onclick="openProductModal('reels')">
+                <div class="product-card card-reels" onclick="openProductModal('reels')">
                     <div class="card-quokka-wrap">
-                        <!-- ★ 릴스 쿼카: div 안에 <img src="파일명.png" alt="..."> 추가 -->
                         <div class="card-quokka"><img src="quokka_glasses.png" alt="분석가 쿼카" onerror="this.style.display='none'"></div>
                     </div>
                     <div class="product-badge">1회</div>
@@ -2067,9 +2440,8 @@
                     <button class="product-btn">자세히 보기 →</button>
                 </div>
 
-                <div class="product-card featured" onclick="openProductModal('consult')">
+                <div class="product-card featured card-consult" onclick="openProductModal('consult')">
                     <div class="card-quokka-wrap">
-                        <!-- ★ 상담 쿼카: div 안에 <img src="파일명.png" alt="..."> 추가 -->
                         <div class="card-quokka"><img src="quokka_doctor.png" alt="진단가 쿼카" onerror="this.style.display='none'"></div>
                     </div>
                     <div class="product-badge popular">인기</div>
@@ -2083,9 +2455,8 @@
                     <button class="product-btn">자세히 보기 →</button>
                 </div>
 
-                <div class="product-card" onclick="openProductModal('coaching')">
+                <div class="product-card card-coaching" onclick="openProductModal('coaching')">
                     <div class="card-quokka-wrap">
-                        <!-- ★ 코칭 쿼카: div 안에 <img src="파일명.png" alt="..."> 추가 -->
                         <div class="card-quokka"><img src="quokka_coach.png" alt="코치 쿼카" onerror="this.style.display='none'"></div>
                     </div>
                     <div class="product-badge">4주</div>
@@ -2108,6 +2479,7 @@
             <button class="modal-close-btn" onclick="closeProductModal('reels')">×</button>
 
             <div class="modal-hero">
+                <div class="modal-hero-tag">REELS FEEDBACK</div>
                 <div class="modal-scene">
                     <div class="scene-prop-phone">
                         <div class="scene-phone-notch"></div>
@@ -2126,35 +2498,60 @@
             </div>
 
             <div class="modal-form-section">
-                <div class="modal-product-header">
-                    <span class="modal-badge">1회</span>
-                    <h3>릴스 피드백</h3>
-                    <div class="modal-price">20,000원</div>
+                <div class="modal-steps">
+                    <div class="modal-step done">
+                        <div class="step-dot">✓</div>
+                        <span class="step-label">서비스 선택</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="modal-step active">
+                        <div class="step-dot">2</div>
+                        <span class="step-label">정보 입력</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="modal-step">
+                        <div class="step-dot">3</div>
+                        <span class="step-label">결제</span>
+                    </div>
+                </div>
+                <div class="modal-receipt">
+                    <span class="modal-receipt-tag">REELS FEEDBACK · 1회</span>
+                    <div class="modal-receipt-row">
+                        <span class="modal-receipt-name">릴스 피드백</span>
+                        <span class="modal-receipt-price">20,000원</span>
+                    </div>
+                    <hr class="modal-receipt-sep">
+                    <div class="modal-receipt-benefits">
+                        <span class="modal-receipt-benefit">⚡ 24시간 내 피드백</span>
+                        <span class="modal-receipt-benefit">훅 + 편집 분석</span>
+                        <span class="modal-receipt-benefit">카카오톡 전달</span>
+                    </div>
                 </div>
 
                 <form id="reelsForm" class="modal-form">
+                    <p class="form-section-heading">정보 입력</p>
                     <div class="draft-notice" id="draftNotice-reels">
                         📝 이전에 입력한 내용을 불러왔어요.
                         <button class="draft-notice-clear" type="button" onclick="clearDraftAndForm('reels')">초기화</button>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="text" name="name" class="form-input" placeholder=" " required>
                         <label class="form-label">이름</label>
-                        <input type="text" name="name" class="form-input" placeholder="성함" required>
                         <span class="form-error">이름을 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="tel" name="phone" class="form-input" placeholder=" " required>
                         <label class="form-label">연락처</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
                         <span class="form-error">연락처를 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="text" name="instagram" class="form-input" placeholder=" " required>
                         <label class="form-label">인스타그램 계정</label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
                         <span class="form-error">인스타그램 계정을 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="url" name="reels_url" class="form-input" placeholder=" " required>
                         <label class="form-label">피드백 받을 릴스 URL</label>
-                        <input type="url" name="reels_url" class="form-input" placeholder="https://www.instagram.com/reel/..." required>
                     </div>
                     <button type="submit" class="btn-payment">결제하기</button>
                     <p class="payment-notice">결제 후 24시간 내 피드백을 보내드려요.</p>
@@ -2163,7 +2560,10 @@
 
             <div class="modal-detail-section">
                 <div class="detail-block">
-                    <h4>📌 이런 분들께 추천</h4>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🎯</div>
+                        <span class="detail-block-title">이런 분들께 추천</span>
+                    </div>
                     <ul>
                         <li>릴스를 올렸는데 반응이 없는 분</li>
                         <li>뭐가 문제인지 모르겠는 분</li>
@@ -2171,7 +2571,10 @@
                     </ul>
                 </div>
                 <div class="detail-block">
-                    <h4>📌 피드백 내용</h4>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">✏️</div>
+                        <span class="detail-block-title">피드백 내용</span>
+                    </div>
                     <ul>
                         <li>영상 구성 & 흐름 분석</li>
                         <li>훅(시작 3초) 개선점</li>
@@ -2180,12 +2583,24 @@
                     </ul>
                 </div>
                 <div class="detail-block">
-                    <h4>📌 진행 방식</h4>
-                    <ul>
-                        <li>결제 완료 후 릴스 분석</li>
-                        <li>24시간 내 카카오톡으로 피드백 전달</li>
-                        <li>추가 질문 1회 가능</li>
-                    </ul>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🚀</div>
+                        <span class="detail-block-title">진행 방식</span>
+                    </div>
+                    <div class="detail-flow">
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">1</div>
+                            <div class="detail-flow-text">결제 완료 후 릴스 URL 접수</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">2</div>
+                            <div class="detail-flow-text">24시간 내 카카오톡으로 피드백 전달</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">3</div>
+                            <div class="detail-flow-text">추가 질문 1회 가능</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2197,6 +2612,7 @@
             <button class="modal-close-btn" onclick="closeProductModal('consult')">×</button>
 
             <div class="modal-hero">
+                <div class="modal-hero-tag">ACCOUNT CONSULTING</div>
                 <div class="modal-scene">
                     <div class="scene-prop-profile">
                         <div class="scene-profile-top">
@@ -2243,40 +2659,64 @@
             </div>
 
             <div class="modal-form-section">
-                <div class="modal-product-header">
-                    <span class="modal-badge popular">인기</span>
-                    <h3>계정 상담</h3>
-                    <div class="modal-price">70,000원</div>
+                <div class="modal-steps">
+                    <div class="modal-step done">
+                        <div class="step-dot">✓</div>
+                        <span class="step-label">서비스 선택</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="modal-step active">
+                        <div class="step-dot">2</div>
+                        <span class="step-label">정보 입력</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="modal-step">
+                        <div class="step-dot">3</div>
+                        <span class="step-label">결제</span>
+                    </div>
+                </div>
+                <div class="modal-receipt">
+                    <span class="modal-receipt-tag">ACCOUNT CONSULTING · 인기</span>
+                    <div class="modal-receipt-row">
+                        <span class="modal-receipt-name">계정 상담</span>
+                        <span class="modal-receipt-price">70,000원</span>
+                    </div>
+                    <hr class="modal-receipt-sep">
+                    <div class="modal-receipt-benefits">
+                        <span class="modal-receipt-benefit">⚡ 60분 1:1 화상</span>
+                        <span class="modal-receipt-benefit">맞춤 계정 전략</span>
+                        <span class="modal-receipt-benefit">자료 제공</span>
+                    </div>
                 </div>
 
                 <form id="consultForm" class="modal-form">
+                    <p class="form-section-heading">정보 입력</p>
                     <div class="draft-notice" id="draftNotice-consult">
                         📝 이전에 입력한 내용을 불러왔어요.
                         <button class="draft-notice-clear" type="button" onclick="clearDraftAndForm('consult')">초기화</button>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="text" name="name" class="form-input" placeholder=" " required>
                         <label class="form-label">이름</label>
-                        <input type="text" name="name" class="form-input" placeholder="성함" required>
                         <span class="form-error">이름을 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="tel" name="phone" class="form-input" placeholder=" " required>
                         <label class="form-label">연락처</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
                         <span class="form-error">연락처를 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="text" name="instagram" class="form-input" placeholder=" " required>
                         <label class="form-label">인스타그램 계정</label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
                         <span class="form-error">인스타그램 계정을 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">희망 날짜</label>
+                    <div class="float-group always-float">
                         <input type="date" name="date" class="form-input" required>
+                        <label class="form-label">희망 날짜</label>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">희망 시간</label>
+                    <div class="float-group always-float">
                         <select name="time" class="form-input" required>
-                            <option value="">시간 선택</option>
+                            <option value="">선택</option>
                             <option value="10:00">오전 10:00</option>
                             <option value="11:00">오전 11:00</option>
                             <option value="14:00">오후 2:00</option>
@@ -2286,6 +2726,7 @@
                             <option value="19:00">오후 7:00</option>
                             <option value="20:00">오후 8:00</option>
                         </select>
+                        <label class="form-label">희망 시간</label>
                         <span class="form-error">이미 마감된 시간입니다. 다른 시간을 선택해주세요.</span>
                     </div>
                     <button type="submit" class="btn-payment">결제하기</button>
@@ -2295,7 +2736,10 @@
 
             <div class="modal-detail-section">
                 <div class="detail-block">
-                    <h4>📌 이런 분들께 추천</h4>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🎯</div>
+                        <span class="detail-block-title">이런 분들께 추천</span>
+                    </div>
                     <ul>
                         <li>계정 방향을 못 잡겠는 분</li>
                         <li>뭘 올려야 할지 막막한 분</li>
@@ -2303,7 +2747,10 @@
                     </ul>
                 </div>
                 <div class="detail-block">
-                    <h4>📌 상담 내용</h4>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🔍</div>
+                        <span class="detail-block-title">상담 내용</span>
+                    </div>
                     <ul>
                         <li>현재 계정 문제점 진단</li>
                         <li>경쟁 계정 분석</li>
@@ -2312,12 +2759,24 @@
                     </ul>
                 </div>
                 <div class="detail-block">
-                    <h4>📌 진행 방식</h4>
-                    <ul>
-                        <li>결제 후 사전 계정 분석</li>
-                        <li>예약 시간에 1시간 전화 상담</li>
-                        <li>상담 후 요약 정리본 전달</li>
-                    </ul>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🚀</div>
+                        <span class="detail-block-title">진행 방식</span>
+                    </div>
+                    <div class="detail-flow">
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">1</div>
+                            <div class="detail-flow-text">결제 후 사전 계정 분석</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">2</div>
+                            <div class="detail-flow-text">예약 시간에 1시간 전화 상담</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">3</div>
+                            <div class="detail-flow-text">상담 후 요약 정리본 전달</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2329,6 +2788,7 @@
             <button class="modal-close-btn" onclick="closeProductModal('coaching')">×</button>
 
             <div class="modal-hero">
+                <div class="modal-hero-tag">COACHING PROGRAM</div>
                 <div class="modal-scene">
                     <div class="scene-prop-calendar">
                         <div class="scene-cal-title">4 WEEKS</div>
@@ -2371,45 +2831,70 @@
             </div>
 
             <div class="modal-form-section">
-                <div class="modal-product-header">
-                    <span class="modal-badge">4주</span>
-                    <h3>밀착 코칭</h3>
-                    <div class="modal-price">340,000원</div>
+                <div class="modal-steps">
+                    <div class="modal-step done">
+                        <div class="step-dot">✓</div>
+                        <span class="step-label">서비스 선택</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="modal-step active">
+                        <div class="step-dot">2</div>
+                        <span class="step-label">정보 입력</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="modal-step">
+                        <div class="step-dot">3</div>
+                        <span class="step-label">결제</span>
+                    </div>
+                </div>
+                <div class="modal-receipt">
+                    <span class="modal-receipt-tag">COACHING PROGRAM · 4주</span>
+                    <div class="modal-receipt-row">
+                        <span class="modal-receipt-name">밀착 코칭</span>
+                        <span class="modal-receipt-price">340,000원</span>
+                    </div>
+                    <hr class="modal-receipt-sep">
+                    <div class="modal-receipt-benefits">
+                        <span class="modal-receipt-benefit">⚡ 4주 집중 케어</span>
+                        <span class="modal-receipt-benefit">주 2회 미팅</span>
+                        <span class="modal-receipt-benefit">피드 직접 세팅</span>
+                    </div>
                 </div>
 
                 <form id="coachingForm" class="modal-form">
+                    <p class="form-section-heading">정보 입력</p>
                     <div class="draft-notice" id="draftNotice-coaching">
                         📝 이전에 입력한 내용을 불러왔어요.
                         <button class="draft-notice-clear" type="button" onclick="clearDraftAndForm('coaching')">초기화</button>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="text" name="name" class="form-input" placeholder=" " required>
                         <label class="form-label">이름</label>
-                        <input type="text" name="name" class="form-input" placeholder="성함" required>
                         <span class="form-error">이름을 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="tel" name="phone" class="form-input" placeholder=" " required>
                         <label class="form-label">연락처</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="010-0000-0000" required>
                         <span class="form-error">연락처를 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group">
+                        <input type="text" name="instagram" class="form-input" placeholder=" " required>
                         <label class="form-label">인스타그램 계정</label>
-                        <input type="text" name="instagram" class="form-input" placeholder="@계정명" required>
                         <span class="form-error">인스타그램 계정을 입력해주세요.</span>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">시작 희망 주차</label>
+                    <div class="float-group always-float">
                         <select name="start_week" class="form-input" required>
-                            <option value="">주차 선택</option>
+                            <option value="">선택</option>
                             <option value="이번주">이번 주</option>
                             <option value="다음주">다음 주</option>
                             <option value="2주후">2주 후</option>
                             <option value="협의">협의 후 결정</option>
                         </select>
+                        <label class="form-label">시작 희망 주차</label>
                     </div>
-                    <div class="form-group">
+                    <div class="float-group always-float">
+                        <textarea name="concern" class="form-input" placeholder=" "></textarea>
                         <label class="form-label">현재 가장 큰 고민</label>
-                        <textarea name="concern" class="form-input" rows="2" placeholder="자유롭게 적어주세요"></textarea>
                     </div>
                     <button type="submit" class="btn-payment">결제하기</button>
                     <p class="payment-notice">결제 후 OT 일정을 잡아드려요.</p>
@@ -2418,7 +2903,10 @@
 
             <div class="modal-detail-section">
                 <div class="detail-block">
-                    <h4>📌 이런 분들께 추천</h4>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🎯</div>
+                        <span class="detail-block-title">이런 분들께 추천</span>
+                    </div>
                     <ul>
                         <li>방향은 알겠는데 실행이 막막한 분</li>
                         <li>혼자 하면 작심삼일인 분</li>
@@ -2426,7 +2914,10 @@
                     </ul>
                 </div>
                 <div class="detail-block">
-                    <h4>📌 코칭 내용</h4>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">💪</div>
+                        <span class="detail-block-title">코칭 내용</span>
+                    </div>
                     <ul>
                         <li>주 1회 1시간 전화 코칭</li>
                         <li>콘텐츠 기획 & 대본 피드백</li>
@@ -2435,13 +2926,28 @@
                     </ul>
                 </div>
                 <div class="detail-block">
-                    <h4>📌 진행 방식</h4>
-                    <ul>
-                        <li>Week 1: 계정 셋업 & 방향 설정</li>
-                        <li>Week 2: 콘텐츠 기획 & 첫 제작</li>
-                        <li>Week 3: 피드백 & 개선</li>
-                        <li>Week 4: 루틴화 & 자립 준비</li>
-                    </ul>
+                    <div class="detail-block-head">
+                        <div class="detail-block-icon">🚀</div>
+                        <span class="detail-block-title">4주 로드맵</span>
+                    </div>
+                    <div class="detail-flow">
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">1</div>
+                            <div class="detail-flow-text"><strong>Week 1</strong> — 계정 셋업 & 방향 설정</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">2</div>
+                            <div class="detail-flow-text"><strong>Week 2</strong> — 콘텐츠 기획 & 첫 제작</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">3</div>
+                            <div class="detail-flow-text"><strong>Week 3</strong> — 피드백 & 개선</div>
+                        </div>
+                        <div class="detail-flow-step">
+                            <div class="detail-flow-num">4</div>
+                            <div class="detail-flow-text"><strong>Week 4</strong> — 루틴화 & 자립 준비</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2454,8 +2960,9 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 결제 후 어떻게 진행되나요?</span>
-                    <span class="arrow">▼</span>
+                    <div class="faq-q-badge">Q</div>
+                    <span class="faq-q-text">결제 후 어떻게 진행되나요?</span>
+                    <div class="faq-toggle">+</div>
                 </div>
                 <div class="faq-a">
                     <p class="faq-a-text">결제 완료 후 카카오톡으로 연락드려요. 상담 일정 확정하고, 사전에 계정 분석을 진행한 뒤 약속된 시간에 상담/코칭이 시작됩니다.</p>
@@ -2464,8 +2971,9 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 환불 가능한가요?</span>
-                    <span class="arrow">▼</span>
+                    <div class="faq-q-badge">Q</div>
+                    <span class="faq-q-text">환불 가능한가요?</span>
+                    <div class="faq-toggle">+</div>
                 </div>
                 <div class="faq-a">
                     <p class="faq-a-text">서비스 시작 전이라면 100% 환불 가능해요. 상담/코칭이 시작된 후에는 진행된 만큼을 제외하고 환불해 드립니다.</p>
@@ -2474,8 +2982,9 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 어떤 업종이든 상관없나요?</span>
-                    <span class="arrow">▼</span>
+                    <div class="faq-q-badge">Q</div>
+                    <span class="faq-q-text">어떤 업종이든 상관없나요?</span>
+                    <div class="faq-toggle">+</div>
                 </div>
                 <div class="faq-a">
                     <p class="faq-a-text">업종은 전혀 상관없어요. 흔하지 않은 분야거나 저도 낯선 업종이라도 피하지 않습니다. 어떤 업종이든 인스타그램 안에서 통하는 방향이 있고, 그 답을 같이 진지하게 찾아드리겠습니다.</p>
@@ -2484,8 +2993,9 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 계정 상담과 4주 코칭의 차이가 뭔가요?</span>
-                    <span class="arrow">▼</span>
+                    <div class="faq-q-badge">Q</div>
+                    <span class="faq-q-text">계정 상담과 4주 코칭의 차이가 뭔가요?</span>
+                    <div class="faq-toggle">+</div>
                 </div>
                 <div class="faq-a">
                     <p class="faq-a-text">계정 상담은 "뭘 해야 하는지" 방향을 잡아드리는 거예요. 4주 코칭은 그 방향대로 "같이 만들어가는" 과정입니다. 혼자 실행할 수 있으면 상담만, 옆에서 봐줬으면 하면 코칭까지.</p>
@@ -2494,8 +3004,9 @@
 
             <div class="faq-item">
                 <div class="faq-q" onclick="toggleFaq(this)">
-                    <span> → 초보자도 가능한가요?</span>
-                    <span class="arrow">▼</span>
+                    <div class="faq-q-badge">Q</div>
+                    <span class="faq-q-text">초보자도 가능한가요?</span>
+                    <div class="faq-toggle">+</div>
                 </div>
                 <div class="faq-a">
                     <p class="faq-a-text">오히려 초보일수록 효과가 커요. 잘못된 방향으로 삽질하기 전에 처음부터 제대로 시작할 수 있으니까요.</p>
@@ -2957,11 +3468,12 @@
 
                 let valid = true;
                 [name, phone, instagram].forEach(input => {
+                    const grp = input.closest('.float-group, .form-group');
                     if (!input.value.trim()) {
-                        input.closest('.form-group').classList.add('error');
+                        if (grp) grp.classList.add('error');
                         valid = false;
                     } else {
-                        input.closest('.form-group').classList.remove('error');
+                        if (grp) grp.classList.remove('error');
                     }
                 });
                 if (!valid) {
@@ -2978,7 +3490,7 @@
                         const all = await fetchBookedSlots();
                         if ((all[dateEl.value] || []).includes(timeEl.value)) {
                             await updateTimeSlots(dateEl.value);
-                            const timeGroup = timeEl.closest('.form-group');
+                            const timeGroup = timeEl.closest('.float-group, .form-group');
                             if (timeGroup) timeGroup.classList.add('error');
                             submitBtn.disabled = false;
                             submitBtn.textContent = '결제하기';
@@ -3090,10 +3602,21 @@
             }
         });
 
+        // always-float 필드 값 유무에 따라 has-value 클래스 토글
+        document.querySelectorAll('.float-group.always-float .form-input').forEach(input => {
+            function syncHasValue() {
+                const fg = input.closest('.float-group');
+                if (fg) fg.classList.toggle('has-value', !!input.value);
+            }
+            input.addEventListener('change', syncHasValue);
+            input.addEventListener('input', syncHasValue);
+            syncHasValue();
+        });
+
         // 입력 시 에러 해제
         document.querySelectorAll('.form-input').forEach(f => {
             f.addEventListener('input', function() {
-                const g = this.closest('.form-group');
+                const g = this.closest('.float-group, .form-group');
                 if (g) g.classList.remove('error');
             });
         });
