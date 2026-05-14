@@ -395,55 +395,36 @@
         .products-container .section-desc {
             padding: 0 20px;
         }
-        /* 상품 슬라이더 — transform 방식 (scroll-snap 미사용) */
-        .product-cards {
+        /* ===== 상품 캐러셀 ===== */
+        .product-carousel {
             overflow: hidden;
+            padding: 36px 0 52px;
             touch-action: pan-y;
-            padding: 36px 0 20px;
-            position: relative;
         }
         .product-track {
             display: flex;
             gap: 16px;
             padding: 0 40px;
             will-change: transform;
-            /* transition은 JS가 직접 제어 */
+        }
+        .product-slide {
+            min-width: calc(100vw - 80px);
+            flex-shrink: 0;
+            display: flex;
         }
         .product-card {
-            min-width: calc(100% - 80px); /* 양쪽 40px padding → peek ≈ 24px */
-            flex-shrink: 0;
+            flex: 1;
             background: var(--bg-card);
             border: 2px solid var(--border-subtle);
             border-radius: 20px;
             padding: 24px 24px 28px;
-            overflow: visible;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             cursor: pointer;
-            position: relative;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .product-dots {
-            display: flex;
-            gap: 7px;
-            justify-content: center;
-            padding: 18px 0 0;
-        }
-        .product-dot {
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.25);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .product-dot.active {
-            background: var(--accent);
-            width: 22px;
-            border-radius: 4px;
         }
         .product-card:hover {
             border-color: var(--accent);
@@ -454,7 +435,29 @@
             border-color: var(--accent);
             background: linear-gradient(to bottom, #fff9f5, #fff);
         }
-        
+
+        /* 페이지네이션 도트 */
+        .product-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding-bottom: 16px;
+        }
+        .product-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: width 0.3s, background 0.3s, border-radius 0.3s;
+            cursor: pointer;
+        }
+        .product-dot.active {
+            background: var(--accent);
+            width: 22px;
+            border-radius: 4px;
+        }
+
         .product-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -469,14 +472,12 @@
             background: var(--accent);
             color: white;
         }
-        
         .product-title {
             font-size: 20px;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
-        
         .product-price {
             font-size: 32px;
             font-weight: 800;
@@ -487,7 +488,6 @@
             font-size: 16px;
             font-weight: 600;
         }
-        
         .product-desc {
             font-size: 14px;
             color: var(--text-secondary);
@@ -495,7 +495,6 @@
             margin-bottom: 20px;
             word-break: keep-all;
         }
-        
         .product-btn {
             width: 100%;
             padding: 14px 20px;
@@ -508,31 +507,29 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .product-btn:hover {
-            background: #000;
-        }
-        .product-card.featured .product-btn {
-            background: var(--accent);
-        }
-        .product-card.featured .product-btn:hover {
-            background: var(--accent-dark);
-        }
+        .product-btn:hover { background: #000; }
+        .product-card.featured .product-btn { background: var(--accent); }
+        .product-card.featured .product-btn:hover { background: var(--accent-dark); }
 
         @media (min-width: 768px) {
             .products { padding: 100px 40px; }
-            .product-cards {
-                display: flex;
+            .product-carousel {
                 overflow: visible;
-                touch-action: auto;
                 padding: 60px 0 30px;
             }
             .product-track {
-                display: contents; /* 데스크탑은 트랙 무시, 카드 직접 flex */
+                justify-content: center;
+                gap: 24px;
+                padding: 0;
+                transform: none !important;
+                transition: none !important;
             }
-            .product-card {
+            .product-slide {
+                min-width: unset;
+                width: 300px;
                 flex: 0 0 300px;
-                min-width: auto;
             }
+            .product-slide[aria-hidden="true"] { display: none; }
             .product-dots { display: none; }
         }
 
@@ -2527,57 +2524,111 @@
             <h2 class="section-title">나에게 맞는 <span>서비스</span> 선택하기</h2>
             <p class="section-desc">단계별로, 필요한 만큼만 선택하세요.</p>
 
-            <div class="product-cards" id="productCards">
-                <div class="product-card card-coaching" onclick="openProductModal('coaching')">
-                    <div class="card-quokka-wrap">
-                        <div class="card-quokka"><img src="quokka_coach.png" alt="코치 쿼카" onerror="this.style.display='none'"></div>
-                    </div>
-                    <div class="product-badge">4주</div>
-                    <div class="product-title">밀착 코칭</div>
-                    <div class="product-price">340,000<span>원</span></div>
-                    <p class="product-desc">
-                        혼자는 막막하다면.<br>
-                        주 1회, 4주 동안<br>
-                        옆에서 같이 만들어가요.
-                    </p>
-                    <button class="product-btn">자세히 보기 →</button>
-                </div>
+            <div class="product-carousel" id="productCarousel">
+                <div class="product-track" id="productTrack">
 
-                <div class="product-card card-reels" onclick="openProductModal('reels')">
-                    <div class="card-quokka-wrap">
-                        <div class="card-quokka"><img src="quokka_glasses.png" alt="분석가 쿼카" onerror="this.style.display='none'"></div>
+                    <!-- 왼쪽 클론 3개 (orig0, orig1, orig2 복사) -->
+                    <div class="product-slide" aria-hidden="true">
+                        <div class="product-card card-coaching" onclick="openProductModal('coaching')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_coach.png" alt="코치 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge">4주</div>
+                            <div class="product-title">밀착 코칭</div>
+                            <div class="product-price">340,000<span>원</span></div>
+                            <p class="product-desc">혼자는 막막하다면.<br>주 1회, 4주 동안<br>옆에서 같이 만들어가요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
                     </div>
-                    <div class="product-badge">1회</div>
-                    <div class="product-title">릴스 피드백</div>
-                    <div class="product-price">20,000<span>원</span></div>
-                    <p class="product-desc">
-                        내 릴스, 뭐가 문제일까?<br>
-                        영상 하나를 깊이 분석해서<br>
-                        개선 포인트를 짚어드려요.
-                    </p>
-                    <button class="product-btn">자세히 보기 →</button>
-                </div>
-
-                <div class="product-card featured card-consult" onclick="openProductModal('consult')">
-                    <div class="card-quokka-wrap">
-                        <div class="card-quokka"><img src="quokka_doctor.png" alt="진단가 쿼카" onerror="this.style.display='none'"></div>
+                    <div class="product-slide" aria-hidden="true">
+                        <div class="product-card card-reels" onclick="openProductModal('reels')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_glasses.png" alt="분석가 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge">1회</div>
+                            <div class="product-title">릴스 피드백</div>
+                            <div class="product-price">20,000<span>원</span></div>
+                            <p class="product-desc">내 릴스, 뭐가 문제일까?<br>영상 하나를 깊이 분석해서<br>개선 포인트를 짚어드려요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
                     </div>
-                    <div class="product-badge popular">인기</div>
-                    <div class="product-title">계정 상담</div>
-                    <div class="product-price">70,000<span>원</span></div>
-                    <p class="product-desc">
-                        방향을 못 잡겠다면 여기서부터.<br>
-                        계정 전체를 진단하고<br>
-                        앞으로의 방향을 설계해요.
-                    </p>
-                    <button class="product-btn">자세히 보기 →</button>
-                </div>
-            </div>
+                    <div class="product-slide" aria-hidden="true">
+                        <div class="product-card featured card-consult" onclick="openProductModal('consult')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_doctor.png" alt="진단가 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge popular">인기</div>
+                            <div class="product-title">계정 상담</div>
+                            <div class="product-price">70,000<span>원</span></div>
+                            <p class="product-desc">방향을 못 잡겠다면 여기서부터.<br>계정 전체를 진단하고<br>앞으로의 방향을 설계해요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
 
-            <div class="product-dots" id="productDots">
-                <div class="product-dot active"></div>
-                <div class="product-dot"></div>
-                <div class="product-dot"></div>
+                    <!-- 오리지널 3개 -->
+                    <div class="product-slide">
+                        <div class="product-card card-coaching" onclick="openProductModal('coaching')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_coach.png" alt="코치 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge">4주</div>
+                            <div class="product-title">밀착 코칭</div>
+                            <div class="product-price">340,000<span>원</span></div>
+                            <p class="product-desc">혼자는 막막하다면.<br>주 1회, 4주 동안<br>옆에서 같이 만들어가요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
+                    <div class="product-slide">
+                        <div class="product-card card-reels" onclick="openProductModal('reels')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_glasses.png" alt="분석가 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge">1회</div>
+                            <div class="product-title">릴스 피드백</div>
+                            <div class="product-price">20,000<span>원</span></div>
+                            <p class="product-desc">내 릴스, 뭐가 문제일까?<br>영상 하나를 깊이 분석해서<br>개선 포인트를 짚어드려요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
+                    <div class="product-slide">
+                        <div class="product-card featured card-consult" onclick="openProductModal('consult')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_doctor.png" alt="진단가 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge popular">인기</div>
+                            <div class="product-title">계정 상담</div>
+                            <div class="product-price">70,000<span>원</span></div>
+                            <p class="product-desc">방향을 못 잡겠다면 여기서부터.<br>계정 전체를 진단하고<br>앞으로의 방향을 설계해요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽 클론 3개 (orig0, orig1, orig2 복사) -->
+                    <div class="product-slide" aria-hidden="true">
+                        <div class="product-card card-coaching" onclick="openProductModal('coaching')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_coach.png" alt="코치 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge">4주</div>
+                            <div class="product-title">밀착 코칭</div>
+                            <div class="product-price">340,000<span>원</span></div>
+                            <p class="product-desc">혼자는 막막하다면.<br>주 1회, 4주 동안<br>옆에서 같이 만들어가요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
+                    <div class="product-slide" aria-hidden="true">
+                        <div class="product-card card-reels" onclick="openProductModal('reels')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_glasses.png" alt="분석가 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge">1회</div>
+                            <div class="product-title">릴스 피드백</div>
+                            <div class="product-price">20,000<span>원</span></div>
+                            <p class="product-desc">내 릴스, 뭐가 문제일까?<br>영상 하나를 깊이 분석해서<br>개선 포인트를 짚어드려요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
+                    <div class="product-slide" aria-hidden="true">
+                        <div class="product-card featured card-consult" onclick="openProductModal('consult')">
+                            <div class="card-quokka-wrap"><div class="card-quokka"><img src="quokka_doctor.png" alt="진단가 쿼카" onerror="this.style.display='none'"></div></div>
+                            <div class="product-badge popular">인기</div>
+                            <div class="product-title">계정 상담</div>
+                            <div class="product-price">70,000<span>원</span></div>
+                            <p class="product-desc">방향을 못 잡겠다면 여기서부터.<br>계정 전체를 진단하고<br>앞으로의 방향을 설계해요.</p>
+                            <button class="product-btn">자세히 보기 →</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-dots">
+                    <span class="product-dot"></span>
+                    <span class="product-dot"></span>
+                    <span class="product-dot"></span>
+                </div>
             </div>
         </div>
     </section>
@@ -3903,127 +3954,113 @@
             handleScroll();
         }
 
-        // 상품 카드 무한 슬라이더 (transform 방식 — scroll-snap 없음)
-        (function() {
-            if (window.innerWidth >= 768) return;
+        // 상품 캐러셀 — 커스텀 구현 (Swiper 없음)
+        (function () {
+            const carousel = document.getElementById('productCarousel');
+            const track    = document.getElementById('productTrack');
+            const dots     = Array.from(document.querySelectorAll('.product-dot'));
+            const N = 3; // 오리지널 슬라이드 수
 
-            const container = document.getElementById('productCards');
-            const dots = document.querySelectorAll('#productDots .product-dot');
-            if (!container) return;
+            // 슬라이드 배치: [L0 L1 L2][O0 O1 O2][R0 R1 R2]
+            // 초기 인덱스: N+1 = 4 → O1 = 릴스피드백 (중앙)
+            let curIdx = N + 1;
+            let isBusy = false;
+            let autoTimer = null;
+            let resizeTimer = null;
 
-            // ── 트랙 생성 ──────────────────────────────────────────
-            const track = document.createElement('div');
-            track.className = 'product-track';
-
-            const originals = Array.from(container.querySelectorAll('.product-card'));
-            const n = originals.length;
-            originals.forEach(c => track.appendChild(c));
-            container.appendChild(track);
-
-            // [복제본 n개] [원본 n개] [복제본 n개]
-            originals.forEach(c => track.appendChild(c.cloneNode(true)));
-            [...originals].reverse().forEach(c => track.prepend(c.cloneNode(true)));
-
-            // ── 상태 ──────────────────────────────────────────────
-            let idx = n;      // 원본 첫 번째 카드부터 시작
-            let tx = 0;       // 현재 translateX 값
-            let timer = null;
-            let touching = false;
-            let dragX0 = 0, dragTx0 = 0, dragDx = 0;
-
-            // ── 크기 계산 ──────────────────────────────────────────
-            function cardStep() {
-                const c = track.querySelector('.product-card');
-                return c ? c.offsetWidth + 16 : 0;
-            }
-            function txForIdx(i) { return -i * cardStep(); }
-
-            // ── transform 적용 ─────────────────────────────────────
-            function moveTo(x, dur) {
-                track.style.transition = dur > 0
-                    ? `transform ${dur}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
-                    : 'none';
-                track.style.transform = `translateX(${x}px)`;
-                tx = x;
+            function slideStep() {
+                // 슬라이드 1칸 이동 거리 = 슬라이드 너비(vw-80) + gap(16) = vw-64
+                return window.innerWidth - 64;
             }
 
-            // ── 복제 구간 → 원본으로 순간이동 ──────────────────────
-            function normalize() {
-                if (idx < n) { idx += n; moveTo(txForIdx(idx), 0); }
-                else if (idx >= n * 2) { idx -= n; moveTo(txForIdx(idx), 0); }
+            function txFor(i) {
+                return -i * slideStep();
             }
 
-            // ── dot 동기화 ─────────────────────────────────────────
-            function syncDots() {
-                const di = ((idx - n) % n + n) % n;
-                dots.forEach((d, i) => d.classList.toggle('active', i === di));
+            function updateDots(idx) {
+                const origIdx = ((idx - N) % N + N) % N;
+                dots.forEach((d, i) => d.classList.toggle('active', i === origIdx));
             }
 
-            // ── 카드 이동 ──────────────────────────────────────────
-            function goTo(i, dur) {
-                idx = i;
-                moveTo(txForIdx(i), dur);
-                syncDots();
-            }
-
-            // ── 초기 위치 ──────────────────────────────────────────
-            requestAnimationFrame(() => goTo(n, 0));
-
-            // ── 터치 드래그 ────────────────────────────────────────
-            track.addEventListener('touchstart', e => {
-                touching = true;
-                stopAuto();
-                dragX0 = e.touches[0].clientX;
-                dragTx0 = tx;
-                dragDx = 0;
-                moveTo(tx, 0); // 진행 중 애니메이션 즉시 정지
-            }, { passive: true });
-
-            track.addEventListener('touchmove', e => {
-                if (!touching) return;
-                dragDx = e.touches[0].clientX - dragX0;
-                moveTo(dragTx0 + dragDx, 0);
-            }, { passive: true });
-
-            track.addEventListener('touchend', () => {
-                touching = false;
-                const step = cardStep();
-                // 20% 이상 드래그 시 카드 전환
-                if (Math.abs(dragDx) > step * 0.2) {
-                    idx += dragDx < 0 ? 1 : -1;
+            function moveTo(idx, animate) {
+                if (animate === false) {
+                    track.style.transition = 'none';
+                    void track.offsetWidth; // 강제 레이아웃 플러시
+                } else {
+                    track.style.transition = 'transform 0.5s ease';
                 }
-                goTo(idx, 380);
-                setTimeout(normalize, 420);
-                setTimeout(startAuto, 1500);
+                track.style.transform = 'translateX(' + txFor(idx) + 'px)';
+                updateDots(idx);
+            }
+
+            function normalize() {
+                if (curIdx < N) {
+                    curIdx = curIdx + N;
+                    moveTo(curIdx, false);
+                } else if (curIdx >= 2 * N) {
+                    curIdx = curIdx - N;
+                    moveTo(curIdx, false);
+                }
+            }
+
+            // transitionend 후 정규화 (quokka hover 등 자식 이벤트 무시)
+            track.addEventListener('transitionend', function (e) {
+                if (e.target !== track || e.propertyName !== 'transform') return;
+                isBusy = false;
+                normalize();
+            });
+
+            function advance() {
+                if (isBusy) return;
+                isBusy = true;
+                curIdx++;
+                moveTo(curIdx, true);
+            }
+
+            function retreat() {
+                if (isBusy) return;
+                isBusy = true;
+                curIdx--;
+                moveTo(curIdx, true);
+            }
+
+            // 자동 슬라이드
+            function startAuto() {
+                stopAuto();
+                autoTimer = setInterval(advance, 2500);
+            }
+            function stopAuto() {
+                clearInterval(autoTimer);
+                autoTimer = null;
+            }
+
+            // 터치 스와이프
+            var touchStartX = 0, touchStartY = 0;
+            carousel.addEventListener('touchstart', function (e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                stopAuto();
+            }, { passive: true });
+            carousel.addEventListener('touchend', function (e) {
+                var dx = e.changedTouches[0].clientX - touchStartX;
+                var dy = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30) {
+                    if (dx < 0) advance(); else retreat();
+                }
+                setTimeout(startAuto, 2000);
             }, { passive: true });
 
-            // ── dot 클릭 ───────────────────────────────────────────
-            dots.forEach((d, i) => d.addEventListener('click', () => {
-                stopAuto();
-                goTo(n + i, 380);
-                setTimeout(startAuto, 2500);
-            }));
+            // 리사이즈 대응
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    moveTo(curIdx, false);
+                }, 200);
+            });
 
-            // ── 자동 재생 ──────────────────────────────────────────
-            function advance() {
-                idx += 1;
-                moveTo(txForIdx(idx), 420);
-                syncDots();
-                setTimeout(normalize, 460);
-            }
-            function startAuto() {
-                clearInterval(timer);
-                timer = setInterval(() => { if (!touching) advance(); }, 2000);
-            }
-            function stopAuto() { clearInterval(timer); }
-
-            // 섹션 진입/이탈 시 자동재생 제어
-            const sec = document.getElementById('products');
-            if (sec) {
-                new IntersectionObserver(([e]) => {
-                    e.isIntersecting ? startAuto() : stopAuto();
-                }, { threshold: 0.3 }).observe(sec);
-            }
+            // 초기화
+            moveTo(curIdx, false);
+            startAuto();
         })();
 
         // 슬라이더 드래그
@@ -4148,7 +4185,7 @@
             });
         }, { threshold: 0.12 });
 
-        document.querySelectorAll('.section-label, .section-title, .section-desc, .pain-item, .product-card, .faq-item, .proof-card').forEach(el => {
+        document.querySelectorAll('.section-label, .section-title, .section-desc, .pain-item, .faq-item, .proof-card').forEach(el => {
             el.classList.add('reveal-item');
             observer.observe(el);
         });
