@@ -3192,7 +3192,7 @@
                     <hr class="modal-receipt-sep">
                     <div class="modal-receipt-benefits">
                         <span class="modal-receipt-benefit">⚡ 4주 집중 케어</span>
-                        <span class="modal-receipt-benefit">주 2회 미팅</span>
+                        <span class="modal-receipt-benefit">주 1회 미팅</span>
                         <span class="modal-receipt-benefit">피드 직접 세팅</span>
                     </div>
                 </div>
@@ -3465,7 +3465,7 @@
             <div class="modal-icon">✓</div>
             <p id="successProductName" style="font-size:13px; color:var(--text-muted); margin-bottom:6px;"></p>
             <h4 class="modal-title">결제가 완료되었습니다!</h4>
-            <p class="modal-text">
+            <p class="modal-text" id="successMessage">
                 <strong>24시간 내</strong>로 먼저 연락드릴게요.<br>
                 추가 요청사항이나 전달할 내용이 있으시면<br>아래로 편하게 연락 주세요.
             </p>
@@ -3927,25 +3927,33 @@
                     const productNameEl = document.getElementById('successProductName');
                     if (productNameEl && saved.productName) productNameEl.textContent = saved.productName;
 
-                    try {
-                        await fetch(GAS_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: new URLSearchParams({
-                                orderId: orderId,
-                                productName: saved.productName || '',
-                                amount: amount || saved.amount || '',
-                                name: saved.name || '',
-                                phone: saved.phone || '',
-                                instagram: saved.instagram || '',
-                                extraInfo: saved.extraInfo || '',
-                                timestamp: new Date().toLocaleString('ko-KR'),
-                                status: '결제완료'
-                            }).toString()
-                        });
-                    } catch (e) {
-                        console.error('스프레드시트 저장 실패:', e);
+                    // 상품별 메시지
+                    const successMsgEl = document.getElementById('successMessage');
+                    if (successMsgEl) {
+                        const msgs = {
+                            '릴스 피드백': '<strong>24시간 내</strong> 피드백을 보내드려요.',
+                            '계정 상담': '<strong>일정 확정</strong> 연락을 드릴게요.',
+                            '4주 밀착 코칭': '<strong>OT 일정</strong>을 잡아드릴게요.'
+                        };
+                        const line1 = msgs[saved.productName] || '<strong>곧</strong> 연락드릴게요.';
+                        successMsgEl.innerHTML = line1 + '<br>추가 요청사항이나 전달할 내용이 있으시면<br>아래로 편하게 연락 주세요.';
                     }
+
+                    fetch(GAS_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams({
+                            orderId: orderId,
+                            productName: saved.productName || '',
+                            amount: amount || saved.amount || '',
+                            name: saved.name || '',
+                            phone: saved.phone || '',
+                            instagram: saved.instagram || '',
+                            extraInfo: saved.extraInfo || '',
+                            timestamp: new Date().toLocaleString('ko-KR'),
+                            status: '결제완료'
+                        }).toString()
+                    }).catch(e => console.error('스프레드시트 저장 실패:', e));
                     // 계정 상담이면 예약현황 시트 자동 체크
                     if (saved.productName === '계정 상담' && saved.extraInfo) {
                         const dateMatch = saved.extraInfo.match(/날짜: (\d{4}-\d{2}-\d{2})/);
