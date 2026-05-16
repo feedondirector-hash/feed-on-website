@@ -1,7 +1,1 @@
-{
-  "functions": {
-    "api/confirm.js": {
-      "runtime": "nodejs20.x"
-    }
-  }
-}
+{}
