@@ -1541,7 +1541,8 @@
             position: relative;
             padding: 80px 20px;
             text-align: center;
-            background: linear-gradient(0deg, rgba(245, 133, 41, 0.08) 0%, transparent 100%);
+            background-color: var(--bg-primary);
+            background-image: linear-gradient(0deg, rgba(245, 133, 41, 0.08) 0%, transparent 70%);
             overflow: hidden;
         }
         .footer::before {
@@ -2010,16 +2011,9 @@
 
         /* 슬라이더 증거 섹션 */
         .proof-slider-section {
-            padding: 80px 0 0;
-            background: var(--bg-secondary);
+            padding: 80px 0 60px;
+            background: linear-gradient(to bottom, var(--bg-secondary) 0%, var(--bg-secondary) calc(100% - 100px), var(--bg-primary) 100%);
             overflow: hidden;
-        }
-        /* proof-slider → footer 이음 */
-        .proof-slider-section::after {
-            content: '';
-            display: block;
-            height: 100px;
-            background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary));
         }
         .proof-header {
             max-width: 700px;
@@ -2070,7 +2064,7 @@
             pointer-events: none;
         }
         @media (min-width: 768px) {
-            .proof-slider-section { padding: 120px 0 40px; }
+            .proof-slider-section { padding: 120px 0 100px; }
             .proof-header { margin: 0 auto 70px; max-width: 900px; }
             .proof-slide-item { max-width: 350px; border-radius: 24px; }
         }
@@ -3351,7 +3345,7 @@
                     <div class="faq-toggle">+</div>
                 </div>
                 <div class="faq-a">
-                    <p class="faq-a-text">오히려 초보일수록 효과가 커요. 잘못된 방향으로 삽질하기 전에 처음부터 제대로 시작할 수 있으니까요.</p>
+                    <p class="faq-a-text">오히려 초보일수록 방향 잡기가 더 쉬워요. 오래 운영한 계정은 잘못된 습관이 이미 굳어있어서 바꾸는 데 더 오래 걸리거든요. 처음 시작하는 분은 처음부터 제대로 된 방향으로 쌓을 수 있어요.</p>
                 </div>
             </div>
         </div>
