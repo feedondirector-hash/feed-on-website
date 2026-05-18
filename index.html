@@ -551,16 +551,18 @@
             }
             .product-slide[aria-hidden="true"] { display: none; }
             .product-dots { display: none; }
-            .product-view-toggle { display: none; }
         }
 
-        /* 뷰 전환 토글 */
+        /* 뷰 전환 토글 — 모바일 전용 */
         .product-view-toggle {
-            display: flex;
+            display: none;
             justify-content: center;
             gap: 8px;
             margin-bottom: 24px;
             padding: 0 20px;
+        }
+        @media (max-width: 767px) {
+            .product-view-toggle { display: flex; }
         }
         .view-btn {
             display: flex;
